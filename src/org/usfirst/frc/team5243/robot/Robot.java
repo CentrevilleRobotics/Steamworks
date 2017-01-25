@@ -22,7 +22,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -33,9 +32,6 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		oi.init();
 		driveSubsystem = new DriveSubsystem(oi.getLeftStick(),oi.getRightStick());
-		chooser.addDefault("Default Auto", null /*placeholder*/);
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -66,7 +62,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
