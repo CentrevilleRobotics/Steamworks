@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot;
 
 
+import org.usfirst.frc.team5243.robot.commands.Shoot;
 import org.usfirst.frc.team5243.robot.commands.Turn;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,6 +27,10 @@ public class OI {
 	Button turnRight;
 	Button QuickSandIncrease;
 	Button QuickSandDecrease;
+	Button shooter;
+	Button ShootingQuickSandDecrease;
+	Button ShootingQuickSandIncrease;
+	
 
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
@@ -52,12 +57,20 @@ public class OI {
 		rightStick = new Joystick(RobotMap.rightStick);
 		turnLeft = new JoystickButton(leftStick, 4);
 		turnRight = new JoystickButton(leftStick, 5);
+		
+		
 		QuickSandDecrease = new JoystickButton(leftStick,8);
 		QuickSandIncrease = new JoystickButton(leftStick,9);
 		
+		shooter = new JoystickButton(rightStick,3);
+		ShootingQuickSandDecrease = new JoystickButton(rightStick,4);
+		ShootingQuickSandIncrease = new JoystickButton(rightStick,5);		
+		
 		turnLeft.whileHeld(new Turn(1));
 		turnRight.whileHeld(new Turn(-1));
-
+		
+		shooter.whileHeld(new Shoot(0.5));
+		shooter.whenReleased(new Shoot(0));
 	}
 	public Joystick getLeftStick(){
 		return leftStick;

@@ -22,4 +22,5 @@ public class RobotMap {
 	public static int backRight = 4;
 	public static int leftStick = 0;
 	public static int rightStick = 1;
+	public static int shooter = 5;
 }

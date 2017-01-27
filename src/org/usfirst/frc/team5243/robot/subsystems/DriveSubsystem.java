@@ -29,6 +29,7 @@ public class DriveSubsystem extends Subsystem {
     	robotdrive = new RobotDrive(backLeft, frontLeft, backRight, frontRight);
     	left = leftStick;
     	right = rightStick;
+    	
     }
     public void tankDrive(){
     	robotdrive.tankDrive(left, right);

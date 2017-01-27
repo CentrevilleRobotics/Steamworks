@@ -2,13 +2,13 @@
 package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,8 +20,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
+	public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static DriveSubsystem driveSubsystem;
+	public static ShootingSubsystem shootingSubsystem;
 	Command autonomousCommand;
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -32,6 +35,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		oi.init();
 		driveSubsystem = new DriveSubsystem(oi.getLeftStick(),oi.getRightStick());
+		shootingSubsystem = new ShootingSubsystem();
 	}
 
 	/**
