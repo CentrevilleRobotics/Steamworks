@@ -1,12 +1,14 @@
 
 package org.usfirst.frc.team5243.robot;
 
+import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team5243.robot.commands.ExampleCommand;
-import org.usfirst.frc.team5243.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,8 +21,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
+	public static DriveSubsystem drivetrain;
+	public static ShootingSubsystem shooter;
+	public static GearHandlingSubsystem gearHandler;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -31,9 +35,11 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		drivetrain = new DriveSubsystem();
+		shooter = new ShootingSubsystem();
+		gearHandler = new GearHandlingSubsystem();
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
-//        chooser.addObject("My Auto", new MyAutoCommand());
+        //chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         //This comment is here for no apparent reason other than to both test pushing on intellij and test master branch
     }
