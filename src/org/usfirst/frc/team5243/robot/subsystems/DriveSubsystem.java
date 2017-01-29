@@ -34,6 +34,9 @@ public class DriveSubsystem extends Subsystem {
     public void tankDrive(){
     	robotdrive.tankDrive(left, right);
     }
+    public void mecanumDrive(){
+        robotdrive.mecanumDrive_Cartesian(left.getX(),left.getY(),right.getX(),0);
+    }
     
     public void turn(double y){
     	frontLeft.set(-y);
@@ -48,9 +51,6 @@ public class DriveSubsystem extends Subsystem {
     }
     public void stop(){
     	robotdrive.drive(0, 0);
-    }
-    public Victor getFrontLeft(){
-    	return frontLeft;
     }
 }
 

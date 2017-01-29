@@ -23,8 +23,6 @@ public class ShootingSubsystem extends Subsystem {
 	
 	public void shooting(double speed){
 		shooter.set(speed);
-		
-		
 	}
 	
     public void initDefaultCommand() {
