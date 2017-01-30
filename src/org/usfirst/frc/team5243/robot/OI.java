@@ -2,8 +2,8 @@ package org.usfirst.frc.team5243.robot;
 
 
 import org.usfirst.frc.team5243.robot.commands.Shoot;
-import org.usfirst.frc.team5243.robot.commands.Turn;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -23,8 +23,6 @@ public class OI {
 	   Button button = new JoystickButton(stick, buttonNumber); */
 	Joystick leftStick;
 	Joystick rightStick;
-	Button turnLeft;
-	Button turnRight;
 	Button QuickSandIncrease;
 	Button QuickSandDecrease;
 	Button shooter;
@@ -55,9 +53,6 @@ public class OI {
 	public void init(){
 		leftStick = new Joystick(RobotMap.leftStick);
 		rightStick = new Joystick(RobotMap.rightStick);
-		turnLeft = new JoystickButton(leftStick, 4);
-		turnRight = new JoystickButton(leftStick, 5);
-		
 		
 		QuickSandDecrease = new JoystickButton(leftStick,8);
 		QuickSandIncrease = new JoystickButton(leftStick,9);
@@ -66,11 +61,7 @@ public class OI {
 		ShootingQuickSandDecrease = new JoystickButton(rightStick,4);
 		ShootingQuickSandIncrease = new JoystickButton(rightStick,5);		
 		
-		turnLeft.whileHeld(new Turn(1));
-		turnRight.whileHeld(new Turn(-1));
-		
-		shooter.whileHeld(new Shoot(0.5));
-		shooter.whenReleased(new Shoot(0));
+		shooter.whileHeld(new Shoot(1.0));
 	}
 	public Joystick getLeftStick(){
 		return leftStick;

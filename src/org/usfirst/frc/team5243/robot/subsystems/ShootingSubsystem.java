@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 
 import org.usfirst.frc.team5243.robot.RobotMap;
+import org.usfirst.frc.team5243.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -10,7 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ShootingSubsystem extends Subsystem {
     
-	Victor shooter;
+	Victor shooterLeft;
+	Victor shooterRight;
 	
 	
     // Put methods for controlling this subsystem
@@ -18,11 +20,13 @@ public class ShootingSubsystem extends Subsystem {
 	
 	
 	public ShootingSubsystem(){
-		shooter = new Victor(RobotMap.shooter);
+		shooterLeft = new Victor(RobotMap.shooterLeft);
+		shooterRight = new Victor(RobotMap.shooterRight);
 	}
 	
 	public void shooting(double speed){
-		shooter.set(speed);
+		shooterLeft.set(speed);
+		shooterRight.set(speed);
 	}
 	
     public void initDefaultCommand() {

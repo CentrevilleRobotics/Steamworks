@@ -1,32 +1,35 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+import org.usfirst.frc.team5243.robot.RobotMap;
+import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
+
 /**
  *
  */
-public class Shoot extends Command {
-	
-	double speed;
-	
-	ShootingSubsystem shooting;
-    public Shoot(double shootingSpeed) {
+public class SwitchDrive extends Command {
+	DriveSubsystem drive;
+    public SwitchDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	shooting = Robot.shootingSubsystem; 
-    	requires (shooting);
-    	speed = shootingSpeed;
+    	drive = Robot.driveSubsystem;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shooting.shooting(speed * (0.5 * Robot.oi.getLeftStick().getZ()+0.5));
+    	RobotMap.switchDrive = !RobotMap.switchDrive;
+    	if (RobotMap.switchDrive == false)
+    		drive.changeDefaultCommand(new MecanumDrive());
+    	else
+    		drive.changeDefaultCommand(new TankDrive());
     }
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -40,6 +43,5 @@ public class Shoot extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	shooting.shooting(0);
     }
 }

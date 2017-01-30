@@ -22,5 +22,8 @@ public class RobotMap {
 	public static int backRight = 4;
 	public static int leftStick = 0;
 	public static int rightStick = 1;
-	public static int shooter = 5;
+	public static int shooterLeft = 5;
+	public static int shooterRight = 6;
+	
+	public static boolean switchDrive = false;
 }
