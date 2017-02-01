@@ -4,6 +4,7 @@ import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -15,17 +16,20 @@ public class SwitchDrive extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	drive = Robot.driveSubsystem;
+    	requires(drive);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.switchDrive = !RobotMap.switchDrive;
-    	if (RobotMap.switchDrive == false)
+    	RobotMap.MecanumDrive = !RobotMap.MecanumDrive;
+    	if (RobotMap.MecanumDrive == true)
     		drive.changeDefaultCommand(new MecanumDrive());
+    		
     	else
     		drive.changeDefaultCommand(new TankDrive());
     }
@@ -33,7 +37,7 @@ public class SwitchDrive extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

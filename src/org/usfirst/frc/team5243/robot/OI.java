@@ -2,6 +2,7 @@ package org.usfirst.frc.team5243.robot;
 
 
 import org.usfirst.frc.team5243.robot.commands.Shoot;
+import org.usfirst.frc.team5243.robot.commands.SwitchDrive;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
@@ -28,6 +29,7 @@ public class OI {
 	Button shooter;
 	Button ShootingQuickSandDecrease;
 	Button ShootingQuickSandIncrease;
+	Button SwitchDrive;
 	
 
 	 /*There are a few additional built in buttons you can use. Additionally,
@@ -61,7 +63,11 @@ public class OI {
 		ShootingQuickSandDecrease = new JoystickButton(rightStick,4);
 		ShootingQuickSandIncrease = new JoystickButton(rightStick,5);		
 		
+		SwitchDrive = new JoystickButton(rightStick, 8);
+		
 		shooter.whileHeld(new Shoot(1.0));
+		
+		SwitchDrive.whenPressed(new SwitchDrive());
 	}
 	public Joystick getLeftStick(){
 		return leftStick;

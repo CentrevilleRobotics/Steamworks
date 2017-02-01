@@ -26,7 +26,9 @@ public class ShootingSubsystem extends Subsystem {
 	
 	public void shooting(double speed){
 		shooterLeft.set(speed);
+		System.out.println("Left shooter: " + shooterLeft.getSpeed());
 		shooterRight.set(speed);
+		System.out.println("Right shooter: " + shooterRight.getSpeed());
 	}
 	
     public void initDefaultCommand() {
