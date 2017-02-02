@@ -65,9 +65,9 @@ public class OI {
 		
 		SwitchDrive = new JoystickButton(rightStick, 8);
 		
-		shooter.whileHeld(new Shoot(1.0));
+		//Shoooter Subsystem not handling requires properly: shooter.whileHeld(new Shoot(1.0));
 		
-		SwitchDrive.whenPressed(new SwitchDrive());
+		//Same with SwitchDrive: SwitchDrive.whenPressed(new SwitchDrive());
 	}
 	public Joystick getLeftStick(){
 		return leftStick;
