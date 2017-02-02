@@ -4,7 +4,6 @@ import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -27,11 +26,7 @@ public class SwitchDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	RobotMap.MecanumDrive = !RobotMap.MecanumDrive;
-    	if (RobotMap.MecanumDrive == true)
-    		drive.changeDefaultCommand(new MecanumDrive());
-    		
-    	else
-    		drive.changeDefaultCommand(new TankDrive());
+    	
     }
     
 
