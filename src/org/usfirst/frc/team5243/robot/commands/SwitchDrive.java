@@ -26,7 +26,7 @@ public class SwitchDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	RobotMap.MecanumDrive = !RobotMap.MecanumDrive;
-    	
+    	drive.changeDefaultCommand();
     }
     
 
