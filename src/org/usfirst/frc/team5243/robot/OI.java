@@ -55,7 +55,6 @@ public class OI {
 	public void init(){
 		leftStick = new Joystick(RobotMap.leftStick);
 		rightStick = new Joystick(RobotMap.rightStick);
-		
 		QuickSandDecrease = new JoystickButton(leftStick,8);
 		QuickSandIncrease = new JoystickButton(leftStick,9);
 		

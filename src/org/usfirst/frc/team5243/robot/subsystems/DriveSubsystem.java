@@ -5,9 +5,9 @@ import org.usfirst.frc.team5243.robot.commands.MecanumDrive;
 import org.usfirst.frc.team5243.robot.commands.TankDrive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
@@ -31,24 +31,28 @@ public class DriveSubsystem extends Subsystem {
     	frontRight = new CANTalon(RobotMap.frontRight);
     	backLeft = new CANTalon(RobotMap.backLeft);
     	backRight = new CANTalon(RobotMap.backRight);
-    	robotDrive = new RobotDrive(backLeft, frontLeft, backRight, frontRight);
+    	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+    	robotDrive.setSafetyEnabled(false);
     	left = leftStick;
     	right = rightStick;
 		gyro = new ADXRS450_Gyro();
-		
+
+    }
+    public void commandInitializer(){
 		mecanumDrive = new MecanumDrive();
 		tankDrive = new TankDrive();
-		
     }
     public void calibrateGyro() {
     	gyro.calibrate();
     }
     
     public void tankDrive(){ // tank drive
-    	robotDrive.tankDrive(left, right);
+    	robotDrive.tankDrive(left,right);
     }
 
     public void mecanumDrive(){ // mecanum drive
+    	frontRight.setInverted(true);
+    	backRight.setInverted(true);
         robotDrive.mecanumDrive_Cartesian(left.getX(),left.getY(),right.getX(),gyro.getAngle());
     }
     
@@ -60,7 +64,7 @@ public class DriveSubsystem extends Subsystem {
     }
     public void initDefaultCommand() {
        setDefaultCommand(new MecanumDrive());
-       setDefaultCommand(new TankDrive());
+//       setDefaultCommand(new TankDrive());
     }
     public void changeDefaultCommand() {
     	if(RobotMap.MecanumDrive){

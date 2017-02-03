@@ -33,6 +33,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		oi.init();
 		driveSubsystem = new DriveSubsystem(oi.getLeftStick(),oi.getRightStick());
+		driveSubsystem.commandInitializer();
+		System.out.println("DS Init");
 		shootingSubsystem = new ShootingSubsystem();
 		driveSubsystem.calibrateGyro();
 	}
