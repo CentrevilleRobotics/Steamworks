@@ -63,7 +63,7 @@ public class OI {
 		ShootingQuickSandIncrease = new JoystickButton(rightStick,5);		
 		
 		SwitchDrive = new JoystickButton(rightStick, 8);
-		
+		SwitchDrive.whenPressed(new SwitchDrive());
 		//Shoooter Subsystem not handling requires properly: shooter.whileHeld(new Shoot(1.0));
 		
 		//Same with SwitchDrive: SwitchDrive.whenPressed(new SwitchDrive());

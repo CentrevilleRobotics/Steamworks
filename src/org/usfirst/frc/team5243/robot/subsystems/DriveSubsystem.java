@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 
+import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.commands.MecanumDrive;
 import org.usfirst.frc.team5243.robot.commands.TankDrive;
@@ -19,24 +20,24 @@ public class DriveSubsystem extends Subsystem {
     CANTalon frontRight;
     CANTalon backRight;
     RobotDrive robotDrive;
-    Joystick left;
-    Joystick right;
     ADXRS450_Gyro gyro;
     
     MecanumDrive mecanumDrive;
     TankDrive tankDrive;
     
-    public DriveSubsystem(Joystick leftStick, Joystick rightStick){
+    public DriveSubsystem(){
     	frontLeft = new CANTalon(RobotMap.frontLeft);
     	frontRight = new CANTalon(RobotMap.frontRight);
     	backLeft = new CANTalon(RobotMap.backLeft);
     	backRight = new CANTalon(RobotMap.backRight);
     	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
     	robotDrive.setSafetyEnabled(false);
-    	left = leftStick;
-    	right = rightStick;
 		gyro = new ADXRS450_Gyro();
-
+		
+		frontRight.setInverted(true);
+    	backRight.setInverted(true);
+    	frontLeft.setInverted(false);
+    	backLeft.setInverted(false);
     }
     public void commandInitializer(){
 		mecanumDrive = new MecanumDrive();
@@ -47,13 +48,13 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void tankDrive(){ // tank drive
-    	robotDrive.tankDrive(left,right);
+    	robotDrive.tankDrive(-Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getY());
     }
 
     public void mecanumDrive(){ // mecanum drive
-    	frontRight.setInverted(true);
-    	backRight.setInverted(true);
-        robotDrive.mecanumDrive_Cartesian(left.getX(),left.getY(),right.getX(),gyro.getAngle());
+    	/*frontRight.setInverted(true);
+    	backRight.setInverted(true);*/
+        robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
     
     public void turn(double y){
@@ -63,8 +64,7 @@ public class DriveSubsystem extends Subsystem {
     	backRight.set(y);
     }
     public void initDefaultCommand() {
-       setDefaultCommand(new MecanumDrive());
-//       setDefaultCommand(new TankDrive());
+       setDefaultCommand(mecanumDrive);
     }
     public void changeDefaultCommand() {
     	if(RobotMap.MecanumDrive){

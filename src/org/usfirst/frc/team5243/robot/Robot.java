@@ -31,8 +31,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		driveSubsystem = new DriveSubsystem();
 		oi.init();
-		driveSubsystem = new DriveSubsystem(oi.getLeftStick(),oi.getRightStick());
 		driveSubsystem.commandInitializer();
 		System.out.println("DS Init");
 		shootingSubsystem = new ShootingSubsystem();
