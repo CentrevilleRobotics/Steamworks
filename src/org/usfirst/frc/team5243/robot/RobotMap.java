@@ -24,6 +24,6 @@ public class RobotMap {
 	public static int rightStick = 1;
 	public static int shooterLeft = 5;
 	public static int shooterRight = 6;
-	
+	public static int liftPort = 8;
 	public static boolean MecanumDrive = true;
 }

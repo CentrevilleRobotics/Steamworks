@@ -1,33 +1,35 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LiftSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 /**
  *
  */
-public class Shoot extends Command {
+public class Lift extends Command {
+
+	private double speed;
+	private LiftSubsystem liftingSubsystem;
 	
-	double speed;
-	
-	ShootingSubsystem shooting;
-	
-    public Shoot(double shootingSpeed) {
+    public Lift(double liftingSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	shooting = Robot.shootingSubsystem; 
-    	requires (shooting);
-    	speed = shootingSpeed;
+    	liftingSubsystem = Robot.liftingSubsystem;
+    	requires(liftingSubsystem);
+    	speed = liftingSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shooting.shooting(speed * (0.5 * Robot.oi.getLeftStick().getZ()+0.5));
+    	liftingSubsystem.getLiftMotor().set(speed);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,6 +44,6 @@ public class Shoot extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	shooting.shooting(0.0);
+    	liftingSubsystem.getLiftMotor().set(0);
     }
 }

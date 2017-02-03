@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import com.ctre.CANTalon;
 /**
  *
  */
 public class DriveSubsystem extends Subsystem {
+
 
 	CANTalon frontLeft;
     CANTalon backLeft;
@@ -33,6 +35,7 @@ public class DriveSubsystem extends Subsystem {
     	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
     	robotDrive.setSafetyEnabled(false);
 		gyro = new ADXRS450_Gyro();
+		
 		
 		frontRight.setInverted(true);
     	backRight.setInverted(true);
@@ -70,7 +73,8 @@ public class DriveSubsystem extends Subsystem {
     	if(RobotMap.MecanumDrive){
     		setDefaultCommand(mecanumDrive);
     		System.out.println("Changed to Mecanum Drive");
-    	}else{
+    	}
+    	else {
     		setDefaultCommand(tankDrive);
     		System.out.println("Changed to tank drive");
     	}
@@ -78,21 +82,16 @@ public class DriveSubsystem extends Subsystem {
     public void stop(){
     	robotDrive.drive(0, 0);
     }
+    public CANTalon getFrontLeft(){
+    	return frontLeft;
+    }
+    public CANTalon getBackLeft(){
+    	return backLeft;    	
+    }
+    public CANTalon getFrontRight(){
+    	return frontRight;    	
+    }
+    public CANTalon getBackRight(){
+    	return backRight;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
