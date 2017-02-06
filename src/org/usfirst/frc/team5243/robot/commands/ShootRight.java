@@ -15,7 +15,7 @@ public class ShootRight extends Command {
 	ShootingSubsystem shooting;
 	
     public ShootRight(double shootingSpeed) {
-    	shooting = Robot.shootingRightSubsystem; 
+    	shooting = Robot.rightShooter; 
     	requires (shooting);
     	speed = shootingSpeed;
     }

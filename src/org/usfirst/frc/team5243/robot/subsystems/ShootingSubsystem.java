@@ -23,6 +23,9 @@ public class ShootingSubsystem extends Subsystem {
 		System.out.println("shooter: " + shooter.getSpeed());
 
 	}
+	public double getSpeed(){
+		return shooter.getSpeed();
+	}
 	
     public void initDefaultCommand() {
     	

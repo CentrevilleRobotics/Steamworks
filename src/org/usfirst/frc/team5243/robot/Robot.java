@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,8 +23,8 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
-	public static ShootingSubsystem shootingRightSubsystem;
-	public static ShootingSubsystem shootingLeftSubsystem;
+	public static ShootingSubsystem rightShooter;
+	public static ShootingSubsystem leftShooter;
 	public static LiftSubsystem liftingSubsystem;
 	public static ClimbSubsystem climbingSubsystem;
 	public static LoadingSubsystem loadingSubsystem;
@@ -41,8 +42,8 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		driveSubsystem.commandInitializer();
 		System.out.println("DS Init");
-		shootingRightSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
-		shootingLeftSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
+		rightShooter = new ShootingSubsystem(RobotMap.shooterRight);
+		leftShooter = new ShootingSubsystem(RobotMap.shooterLeft);
 		driveSubsystem.calibrateGyro();
 		liftingSubsystem = new LiftSubsystem();
 		climbingSubsystem = new ClimbSubsystem();
@@ -115,6 +116,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Shoot Speed", leftShooter.getSpeed());
 	}
 
 	/**

@@ -7,7 +7,7 @@ import org.usfirst.frc.team5243.robot.commands.TankDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.CANTalon;
+import com.ctre.*;
 /**
  *
  */
