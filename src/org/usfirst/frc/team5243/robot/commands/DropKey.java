@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveStraight extends Command {
+public class DropKey extends Command {
 
-    public DriveStraight(double distance) {
+    public DropKey() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
