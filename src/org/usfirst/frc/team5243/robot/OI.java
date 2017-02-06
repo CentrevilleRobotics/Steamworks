@@ -2,14 +2,15 @@ package org.usfirst.frc.team5243.robot;
 
 
 import org.usfirst.frc.team5243.robot.commands.Lift;
-import org.usfirst.frc.team5243.robot.commands.Shoot;
+import org.usfirst.frc.team5243.robot.commands.LoadFuel;
+import org.usfirst.frc.team5243.robot.commands.ShootLeft;
+import org.usfirst.frc.team5243.robot.commands.ShootRight;
 import org.usfirst.frc.team5243.robot.commands.SwitchDrive;
 import org.usfirst.frc.team5243.robot.commands.TestWheels;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,25 +24,37 @@ public class OI {
 	 number it is.
 	 Joystick stick = new Joystick(port);
 	   Button button = new JoystickButton(stick, buttonNumber); */
+	
+	//Joysticks
 	Joystick leftStick;
 	Joystick rightStick;
+	
+	//QuickSand
 	Button QuickSandIncrease;
 	Button QuickSandDecrease;
-	Button shooter;
+	
+	//Shooter
+	Button shooterLeft;
+	Button shooterRight;
 	Button ShootingQuickSandDecrease;
 	Button ShootingQuickSandIncrease;
+	
+	//SwitchDrive
 	Button SwitchDrive;
 	
-	
+	//Lift
 	Button liftUp;
 	Button liftDown;
 	
+	//TestWheels
 	Button testFrontLeft;
 	Button testBackLeft;
 	Button testFrontRight;
 	Button testBackRight;
 	
-
+	//LoadFuel
+	Button load;
+	
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
 	 commands the same as any other Button.
@@ -71,14 +84,16 @@ public class OI {
 		QuickSandIncrease = new JoystickButton(leftStick,9);
 		
 		//initializes shooting variables
-		shooter = new JoystickButton(rightStick,3);
+		shooterRight = new JoystickButton(rightStick,1);
 		ShootingQuickSandDecrease = new JoystickButton(rightStick,4);
 		ShootingQuickSandIncrease = new JoystickButton(rightStick,5);		
+		shooterRight.whileHeld(new ShootRight(.79));
+		
+		shooterLeft = new JoystickButton(leftStick, 1);
+		shooterLeft.whileHeld(new ShootLeft(.79));
 		
 		//intializes SwitchDrive
 		SwitchDrive = new JoystickButton(rightStick, 8);
-		shooter.whileHeld(new Shoot(1.0));
-
 		SwitchDrive.whenPressed(new SwitchDrive());
 		
 		//Initializes lifting variables
@@ -88,6 +103,7 @@ public class OI {
 		liftUp.whileHeld(new Lift(0.5));
 		liftDown.whileHeld(new Lift(-0.5));
 		
+		//Initializes testing variables
 		testFrontLeft = new JoystickButton(leftStick, 6);
 		testBackLeft = new JoystickButton(leftStick, 7);
 		testFrontRight = new JoystickButton(leftStick, 11);
@@ -98,8 +114,13 @@ public class OI {
 		testFrontRight.whileHeld(new TestWheels("frontRight", 0.5));
 		testBackRight.whileHeld(new TestWheels("backRight", 0.5));
 		
-	
+		//Initializes load variable
+		load = new JoystickButton(rightStick, 7);
+		
+		load.whileHeld(new LoadFuel(1));
 	}	
+	
+	//Getters for Joysticks
 	public Joystick getLeftStick(){
 		return leftStick;
 	}

@@ -16,6 +16,8 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+	
+	//These ports are placeholders :)
 	public static int frontLeft = 1;
 	public static int backLeft = 2;
 	public static int backRight = 3;
@@ -25,5 +27,7 @@ public class RobotMap {
 	public static int shooterLeft = 5;
 	public static int shooterRight = 6;
 	public static int liftPort = 8;
+	public static int minicim = 9;
+	public static int loading = 10;
 	public static boolean MecanumDrive = true;
 }

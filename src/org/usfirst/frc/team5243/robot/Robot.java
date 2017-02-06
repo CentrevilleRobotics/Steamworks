@@ -1,8 +1,9 @@
-
 package org.usfirst.frc.team5243.robot;
 
+import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.LiftSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,8 +22,11 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
-	public static ShootingSubsystem shootingSubsystem;
+	public static ShootingSubsystem shootingRightSubsystem;
+	public static ShootingSubsystem shootingLeftSubsystem;
 	public static LiftSubsystem liftingSubsystem;
+	public static ClimbSubsystem climbingSubsystem;
+	public static LoadingSubsystem loadingSubsystem;
 	Command autonomousCommand;
 	
 
@@ -37,8 +41,13 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		driveSubsystem.commandInitializer();
 		System.out.println("DS Init");
-		shootingSubsystem = new ShootingSubsystem();
+		shootingRightSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
+		shootingLeftSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
 		driveSubsystem.calibrateGyro();
+		liftingSubsystem = new LiftSubsystem();
+		climbingSubsystem = new ClimbSubsystem();
+		loadingSubsystem = new LoadingSubsystem();
+		
 	}
 
 	/**
