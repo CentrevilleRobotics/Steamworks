@@ -1,31 +1,33 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Turn extends Command {
-	DriveSubsystem drive;
-	double power;
-    public Turn(double power) {
+public class LoadFuel extends Command {
+
+	private LoadingSubsystem loadingSubsystem;
+	private double speed; 
+	
+    public LoadFuel(double loadSpeed) {
+    	loadingSubsystem = Robot.loadingSubsystem;
+    	requires(loadingSubsystem);
+    	speed = loadSpeed;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	this.power = power;
-    	requires(drive);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drive.turn(power);
+    	loadingSubsystem.setLoadSpeed(speed*Robot.oi.getRightStick().getZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,5 +42,6 @@ public class Turn extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	loadingSubsystem.setLoadSpeed(0.0);
     }
 }

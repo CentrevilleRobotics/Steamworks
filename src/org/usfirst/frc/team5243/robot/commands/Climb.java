@@ -1,31 +1,31 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Turn extends Command {
-	DriveSubsystem drive;
-	double power;
-    public Turn(double power) {
+public class Climb extends Command {
+	private ClimbSubsystem climbSubsystem;
+	private double speed;
+    public Climb(double climbingSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	this.power = power;
-    	requires(drive);
+    	climbSubsystem = Robot.climbSubsystem;
+    	requires(climbSubsystem);
+    	speed = climbingSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drive.turn(power);
+    	climbSubsystem.setSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,5 +40,6 @@ public class Turn extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	climbSubsystem.setSpeed(0.0);
     }
 }

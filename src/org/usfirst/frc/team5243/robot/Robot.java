@@ -2,13 +2,13 @@
 package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LiftSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,8 +21,10 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
+	public static ShootingSubsystem shootingSubsystem;
+	public static LiftSubsystem liftingSubsystem;
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -31,11 +33,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		driveSubsystem = new DriveSubsystem();
 		oi.init();
-		driveSubsystem = new DriveSubsystem(oi.getLeftStick(),oi.getRightStick());
-		chooser.addDefault("Default Auto", null /*placeholder*/);
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		driveSubsystem.commandInitializer();
+		System.out.println("DS Init");
+		shootingSubsystem = new ShootingSubsystem();
+		driveSubsystem.calibrateGyro();
 	}
 
 	/**
@@ -66,7 +69,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

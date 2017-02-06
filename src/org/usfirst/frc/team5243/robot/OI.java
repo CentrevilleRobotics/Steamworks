@@ -1,7 +1,10 @@
 package org.usfirst.frc.team5243.robot;
 
 
-import org.usfirst.frc.team5243.robot.commands.Turn;
+import org.usfirst.frc.team5243.robot.commands.Lift;
+import org.usfirst.frc.team5243.robot.commands.Shoot;
+import org.usfirst.frc.team5243.robot.commands.SwitchDrive;
+import org.usfirst.frc.team5243.robot.commands.TestWheels;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -22,10 +25,22 @@ public class OI {
 	   Button button = new JoystickButton(stick, buttonNumber); */
 	Joystick leftStick;
 	Joystick rightStick;
-	Button turnLeft;
-	Button turnRight;
 	Button QuickSandIncrease;
 	Button QuickSandDecrease;
+	Button shooter;
+	Button ShootingQuickSandDecrease;
+	Button ShootingQuickSandIncrease;
+	Button SwitchDrive;
+	
+	
+	Button liftUp;
+	Button liftDown;
+	
+	Button testFrontLeft;
+	Button testBackLeft;
+	Button testFrontRight;
+	Button testBackRight;
+	
 
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
@@ -48,17 +63,43 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	*/
 	public void init(){
+		//initializes joysticks
 		leftStick = new Joystick(RobotMap.leftStick);
 		rightStick = new Joystick(RobotMap.rightStick);
-		turnLeft = new JoystickButton(leftStick, 4);
-		turnRight = new JoystickButton(leftStick, 5);
+
 		QuickSandDecrease = new JoystickButton(leftStick,8);
 		QuickSandIncrease = new JoystickButton(leftStick,9);
 		
-		turnLeft.whileHeld(new Turn(1));
-		turnRight.whileHeld(new Turn(-1));
+		//initializes shooting variables
+		shooter = new JoystickButton(rightStick,3);
+		ShootingQuickSandDecrease = new JoystickButton(rightStick,4);
+		ShootingQuickSandIncrease = new JoystickButton(rightStick,5);		
+		
+		//intializes SwitchDrive
+		SwitchDrive = new JoystickButton(rightStick, 8);
+		shooter.whileHeld(new Shoot(1.0));
 
-	}
+		SwitchDrive.whenPressed(new SwitchDrive());
+		
+		//Initializes lifting variables
+		liftUp = new JoystickButton(rightStick, 3);
+		liftDown = new JoystickButton(rightStick, 2);
+		
+		liftUp.whileHeld(new Lift(0.5));
+		liftDown.whileHeld(new Lift(-0.5));
+		
+		testFrontLeft = new JoystickButton(leftStick, 6);
+		testBackLeft = new JoystickButton(leftStick, 7);
+		testFrontRight = new JoystickButton(leftStick, 11);
+		testBackRight = new JoystickButton(leftStick, 10);
+		
+		testFrontLeft.whileHeld(new TestWheels("frontLeft", 0.5));
+		testBackLeft.whileHeld(new TestWheels("backLeft", 0.5));
+		testFrontRight.whileHeld(new TestWheels("frontRight", 0.5));
+		testBackRight.whileHeld(new TestWheels("backRight", 0.5));
+		
+	
+	}	
 	public Joystick getLeftStick(){
 		return leftStick;
 	}

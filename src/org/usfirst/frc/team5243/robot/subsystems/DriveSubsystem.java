@@ -1,37 +1,60 @@
 package org.usfirst.frc.team5243.robot.subsystems;
-
+import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.RobotMap;
+import org.usfirst.frc.team5243.robot.commands.MecanumDrive;
 import org.usfirst.frc.team5243.robot.commands.TankDrive;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import com.ctre.CANTalon;
 /**
  *
  */
 public class DriveSubsystem extends Subsystem {
 
-    Victor frontLeft;
-    Victor backLeft;
-    Victor frontRight;
-    Victor backRight;
-    RobotDrive robotdrive;
-    Joystick left;
-    Joystick right;
+
+	CANTalon frontLeft;
+    CANTalon backLeft;
+    CANTalon frontRight;
+    CANTalon backRight;
+    RobotDrive robotDrive;
+    ADXRS450_Gyro gyro;
     
-    public DriveSubsystem(Joystick leftStick, Joystick rightStick){
-    	frontLeft = new Victor(RobotMap.frontLeft);
-    	frontRight = new Victor(RobotMap.frontRight);
-    	backLeft = new Victor(RobotMap.backLeft);
-    	backRight = new Victor(RobotMap.backRight);
-    	robotdrive = new RobotDrive(backLeft, frontLeft, backRight, frontRight);
-    	left = leftStick;
-    	right = rightStick;
+    MecanumDrive mecanumDrive;
+    TankDrive tankDrive;
+    
+    public DriveSubsystem(){
+    	frontLeft = new CANTalon(RobotMap.frontLeft);
+    	frontRight = new CANTalon(RobotMap.frontRight);
+    	backLeft = new CANTalon(RobotMap.backLeft);
+    	backRight = new CANTalon(RobotMap.backRight);
+    	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+    	robotDrive.setSafetyEnabled(false);
+		gyro = new ADXRS450_Gyro();
+		
+		
+		frontRight.setInverted(true);
+    	backRight.setInverted(true);
+    	frontLeft.setInverted(false);
+    	backLeft.setInverted(false);
     }
-    public void tankDrive(){
-    	robotdrive.tankDrive(left, right);
+    public void commandInitializer(){
+		mecanumDrive = new MecanumDrive();
+		tankDrive = new TankDrive();
+    }
+    public void calibrateGyro() {
+    	gyro.calibrate();
+    }
+    
+    public void tankDrive(){ // tank drive
+    	robotDrive.tankDrive(-Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getY());
+    }
+
+    public void mecanumDrive(){ // mecanum drive
+    	/*frontRight.setInverted(true);
+    	backRight.setInverted(true);*/
+        robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
     
     public void turn(double y){
@@ -41,15 +64,31 @@ public class DriveSubsystem extends Subsystem {
     	backRight.set(y);
     }
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new TankDrive());
+       setDefaultCommand(mecanumDrive);
+    }
+    public void changeDefaultCommand() {
+    	if(RobotMap.MecanumDrive){
+    		setDefaultCommand(mecanumDrive);
+    		System.out.println("Changed to Mecanum Drive");
+    	}
+    	else {
+    		setDefaultCommand(tankDrive);
+    		System.out.println("Changed to tank drive");
+    	}
     }
     public void stop(){
-    	robotdrive.drive(0, 0);
+    	robotDrive.drive(0, 0);
     }
-    public Victor getFrontLeft(){
+    public CANTalon getFrontLeft(){
     	return frontLeft;
     }
+    public CANTalon getBackLeft(){
+    	return backLeft;    	
+    }
+    public CANTalon getFrontRight(){
+    	return frontRight;    	
+    }
+    public CANTalon getBackRight(){
+    	return backRight;
+    }
 }
-

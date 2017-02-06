@@ -17,9 +17,13 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	public static int frontLeft = 1;
-	public static int frontRight = 2;
-	public static int backLeft = 3;
-	public static int backRight = 4;
+	public static int backLeft = 2;
+	public static int backRight = 3;
+	public static int frontRight = 4;
 	public static int leftStick = 0;
 	public static int rightStick = 1;
+	public static int shooterLeft = 5;
+	public static int shooterRight = 6;
+	public static int liftPort = 8;
+	public static boolean MecanumDrive = true;
 }

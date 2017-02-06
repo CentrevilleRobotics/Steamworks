@@ -1,21 +1,24 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LiftSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Turn extends Command {
-	DriveSubsystem drive;
-	double power;
-    public Turn(double power) {
+public class Lift extends Command {
+
+	private double speed;
+	private LiftSubsystem liftingSubsystem;
+	
+    public Lift(double liftingSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	this.power = power;
-    	requires(drive);
+    	liftingSubsystem = Robot.liftingSubsystem;
+    	requires(liftingSubsystem);
+    	speed = liftingSpeed;
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +28,8 @@ public class Turn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drive.turn(power);
+    	liftingSubsystem.getLiftMotor().set(speed);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,5 +44,6 @@ public class Turn extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	liftingSubsystem.getLiftMotor().set(0);
     }
 }
