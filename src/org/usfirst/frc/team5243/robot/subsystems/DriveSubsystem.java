@@ -4,10 +4,12 @@ import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.commands.MecanumDrive;
 import org.usfirst.frc.team5243.robot.commands.TankDrive;
 
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.*;
+
+
 /**
  *
  */

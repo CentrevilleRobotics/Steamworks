@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 
 import org.usfirst.frc.team5243.robot.RobotMap;
+import org.usfirst.frc.team5243.robot.commands.Lift;
 
 import com.ctre.CANTalon;
 
@@ -15,6 +16,7 @@ public class LiftSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	private CANTalon liftMotor;
+	Lift liftCommand;
 	public LiftSubsystem(){
 		liftMotor = new CANTalon(RobotMap.liftPort);
 	}
@@ -30,5 +32,10 @@ public class LiftSubsystem extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+
+	public void commandInitializer() {
+		// TODO Auto-generated method stub
+		liftCommand = new Lift(0.0);
+	}
 }
 

@@ -12,11 +12,11 @@ public class ShootRight extends Command {
 	
 
 	double speed;
-	ShootingSubsystem shooting;
+	ShootingSubsystem shootingSubsystem;
 	
     public ShootRight(double shootingSpeed) {
-    	shooting = Robot.rightShooter; 
-    	requires (shooting);
+    	shootingSubsystem = Robot.rightShooter; 
+    	requires(shootingSubsystem);
     	speed = shootingSpeed;
     }
 
@@ -26,7 +26,7 @@ public class ShootRight extends Command {
     }
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shooting.shooting(speed * (0.5 * Robot.oi.getLeftStick().getZ()+0.5));
+    	shootingSubsystem.shoot(speed * (0.5 * Robot.oi.getLeftStick().getZ()+0.5));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,6 +41,6 @@ public class ShootRight extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	shooting.shooting(0.0);
+    	shootingSubsystem.shoot(0.0);
     }
 }

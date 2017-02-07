@@ -39,13 +39,14 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
-		oi.init();
-		driveSubsystem.commandInitializer();
-		System.out.println("DS Init");
+		liftingSubsystem = new LiftSubsystem();
 		rightShooter = new ShootingSubsystem(RobotMap.shooterRight);
 		leftShooter = new ShootingSubsystem(RobotMap.shooterLeft);
+		oi.init();
+		driveSubsystem.commandInitializer();
+		shootingSubsystem.commandInitializer();
+		liftingSubsystem.commandInitializer();
 		driveSubsystem.calibrateGyro();
-		liftingSubsystem = new LiftSubsystem();
 		climbingSubsystem = new ClimbSubsystem();
 		loadingSubsystem = new LoadingSubsystem();
 		
