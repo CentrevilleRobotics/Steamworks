@@ -1,35 +1,29 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.subsystems.LiftSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class Lift extends Command {
-
-	private double speed;
-	private LiftSubsystem liftingSubsystem;
-	
-    public Lift(double liftingSpeed) {
+public class MecanumDriveCommand extends Command {
+	DriveSubsystem drive;
+    public MecanumDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	liftingSubsystem = Robot.liftingSubsystem;
-    	requires(liftingSubsystem);
-    	speed = liftingSpeed;
+    	drive = Robot.driveSubsystem;
+    	requires(drive);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	liftingSubsystem.getLiftMotor().set(speed);
-    	
+    	drive.mecanumDrive();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +38,5 @@ public class Lift extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	liftingSubsystem.getLiftMotor().set(0);
     }
 }

@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShootRight extends Command {
+public class ShootRightCommand extends Command {
 	
 
 	double speed;
 	ShootingSubsystem shootingSubsystem;
 	
-    public ShootRight(double shootingSpeed) {
-    	shootingSubsystem = Robot.rightShooter; 
+    public ShootRightCommand(double shootingSpeed) {
+    	shootingSubsystem = Robot.rightShooterSubsystem; 
     	requires(shootingSubsystem);
     	speed = shootingSpeed;
     }

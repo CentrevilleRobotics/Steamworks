@@ -1,8 +1,8 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.RobotMap;
-import org.usfirst.frc.team5243.robot.commands.MecanumDrive;
-import org.usfirst.frc.team5243.robot.commands.TankDrive;
+import org.usfirst.frc.team5243.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team5243.robot.commands.TankDriveCommand;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSubsystem extends Subsystem {
 
-
+	//declares motors (CANTalons), gyro, 
 	CANTalon frontLeft;
     CANTalon backLeft;
     CANTalon frontRight;
@@ -23,9 +23,10 @@ public class DriveSubsystem extends Subsystem {
     RobotDrive robotDrive;
     ADXRS450_Gyro gyro;
     
-    MecanumDrive mecanumDrive;
-    TankDrive tankDrive;
+    MecanumDriveCommand mecanumDrive;
+    TankDriveCommand tankDrive;
     
+    //initializes motors(CANTalon), gyro,
     public DriveSubsystem(){
     	frontLeft = new CANTalon(RobotMap.frontLeft);
     	frontRight = new CANTalon(RobotMap.frontRight);
@@ -41,9 +42,11 @@ public class DriveSubsystem extends Subsystem {
     	frontLeft.setInverted(false);
     	backLeft.setInverted(false);
     }
+    
+    //initializes command for mecanum drive & tank drive
     public void commandInitializer(){
-		mecanumDrive = new MecanumDrive();
-		tankDrive = new TankDrive();
+		mecanumDrive = new MecanumDriveCommand();
+		tankDrive = new TankDriveCommand();
     }
     public void calibrateGyro() {
     	gyro.calibrate();
@@ -69,14 +72,8 @@ public class DriveSubsystem extends Subsystem {
        setDefaultCommand(mecanumDrive);
     }
     public void changeDefaultCommand() {
-    	if(RobotMap.MecanumDrive){
-    		setDefaultCommand(mecanumDrive);
-    		System.out.println("Changed to Mecanum Drive");
-    	}
-    	else {
-    		setDefaultCommand(tankDrive);
-    		System.out.println("Changed to tank drive");
-    	}
+    	if(getDefaultCommand().equals(mecanumDrive)) setDefaultCommand(tankDrive);
+    	else setDefaultCommand(mecanumDrive);
     }
     public void stop(){
     	robotDrive.drive(0, 0);

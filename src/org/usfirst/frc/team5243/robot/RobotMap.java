@@ -22,12 +22,17 @@ public class RobotMap {
 	public static int backLeft = 2;
 	public static int backRight = 3;
 	public static int frontRight = 4;
+	
 	public static int leftStick = 0;
 	public static int rightStick = 1;
+	
 	public static int shooterLeft = 5;
 	public static int shooterRight = 6;
-	public static int liftPort = 8;
+
+	public static int liftMotor = 8;
+	public static int loadMotor = 10;
+	
 	public static int minicim = 9;
-	public static int loading = 10;
-	public static boolean MecanumDrive = true;
+	
+	public final static double ShootingSpeed = .79;
 }

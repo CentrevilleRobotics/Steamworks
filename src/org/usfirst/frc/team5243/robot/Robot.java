@@ -1,8 +1,8 @@
 package org.usfirst.frc.team5243.robot;
 
+import org.usfirst.frc.team5243.robot.commands.PlaceHolderTurn;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -23,13 +24,12 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
-	public static ShootingSubsystem rightShooter;
-	public static ShootingSubsystem leftShooter;
-	public static LiftSubsystem liftingSubsystem;
+	public static ShootingSubsystem rightShooterSubsystem;
+	public static ShootingSubsystem leftShooterSubsystem;
 	public static ClimbSubsystem climbingSubsystem;
 	public static LoadingSubsystem loadingSubsystem;
 	Command autonomousCommand;
-	
+	private SendableChooser autonomousCommandChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,17 +39,15 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
-		liftingSubsystem = new LiftSubsystem();
-		rightShooter = new ShootingSubsystem(RobotMap.shooterRight);
-		leftShooter = new ShootingSubsystem(RobotMap.shooterLeft);
-		oi.init();
-		driveSubsystem.commandInitializer();
-		shootingSubsystem.commandInitializer();
-		liftingSubsystem.commandInitializer();
+		rightShooterSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
+		leftShooterSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
 		driveSubsystem.calibrateGyro();
 		climbingSubsystem = new ClimbSubsystem();
 		loadingSubsystem = new LoadingSubsystem();
+		oi.init();
 		
+		autonomousCommandChooser = new SendableChooser();
+		autonomousCommandChooser.addDefault("Default Program", new PlaceHolderTurn());
 	}
 
 	/**
@@ -57,7 +55,7 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	@Override
+	      @Override
 	public void disabledInit() {
 
 	}
@@ -117,7 +115,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Shoot Speed", leftShooter.getSpeed());
+		SmartDashboard.putNumber("Shoot Speed", leftShooterSubsystem.getSpeed());
+		
 	}
 
 	/**
