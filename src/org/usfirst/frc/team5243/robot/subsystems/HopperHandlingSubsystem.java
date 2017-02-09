@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class GearHandlingSubsystem extends Subsystem {
-    
+public class HopperHandlingSubsystem extends Subsystem {
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -15,8 +15,8 @@ public class GearHandlingSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void dropGear() {
-    	//TODO: add code for dropping the gear into the lift
+    public void pushHopper() {
+    	//TODO: make it press the button
     }
 }
 

@@ -13,7 +13,7 @@ public class MecanumDrive extends Command {
     public MecanumDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
+    	drive = Robot.drivetrain;
     	requires(drive);
     }
 

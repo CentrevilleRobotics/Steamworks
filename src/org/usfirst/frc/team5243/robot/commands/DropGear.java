@@ -1,4 +1,7 @@
- 	package org.usfirst.frc.team5243.robot.commands;
+package org.usfirst.frc.team5243.robot.commands;
+
+import org.usfirst.frc.team5243.robot.Robot;
+import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -6,10 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DropGear extends Command {
+	
+	private GearHandlingSubsystem gearHandler;
 
     public DropGear() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	gearHandler = Robot.gearHandler;
     }
 
     // Called just before this Command runs the first time
@@ -18,6 +24,7 @@ public class DropGear extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	gearHandler.dropGear();
     }
 
     // Make this return true when this Command no longer needs to run execute()

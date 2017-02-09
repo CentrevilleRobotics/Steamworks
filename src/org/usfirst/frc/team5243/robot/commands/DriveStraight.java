@@ -1,5 +1,8 @@
 package org.usfirst.frc.team5243.robot.commands;
 
+import org.usfirst.frc.team5243.robot.Robot;
+import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -7,8 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveStraight extends Command {
 
-    public DriveStraight(int distance) {
-        
+	private DriveSubsystem drivetrain;
+	private double distance;
+	
+    public DriveStraight(double distance) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	drivetrain = Robot.drivetrain;
+    	this.distance = distance;
     }
 
     // Called just before this Command runs the first time
@@ -17,6 +26,7 @@ public class DriveStraight extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	drivetrain.driveStraight(distance);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -14,7 +14,7 @@ public class SwitchDrive extends Command {
     public SwitchDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
+    	drive = Robot.drivetrain;
     	requires(drive);
     }
 

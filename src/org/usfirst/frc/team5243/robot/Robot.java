@@ -5,15 +5,23 @@ import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
+import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.HopperHandlingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import edu.wpi.first.wpilibj.networktables.ConnectionInfo;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,24 +34,28 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem drivetrain;
-	public static ShootingSubsystem shooter;
+
+	public static ShootingSubsystem rightShooter;
+	public static ShootingSubsystem leftShooter;
 	public static GearHandlingSubsystem gearHandler;
+	public static HopperHandlingSubsystem hopperHandler;
+	Command autonomousCommand;
+	SendableChooser	autoChooser;
+	NetworkTable table;
 
-    Command autonomousCommand;
-    SendableChooser chooser;
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    public void robotInit() {
+	/**
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
+	 */
+	
+	@Override
+	public void robotInit() {
 		oi = new OI();
-		oi.init();
 		drivetrain = new DriveSubsystem();
 		drivetrain.setSafetyEnabled();
-		shooter = new ShootingSubsystem();
+		drivetrain.calibrateGyro();
+		
 		gearHandler = new GearHandlingSubsystem();
-        chooser = new SendableChooser();
         
         NetworkTable.shutdown();
         NetworkTable.setClientMode();
@@ -52,13 +64,15 @@ public class Robot extends IterativeRobot {
         System.out.println("IP Address set");
         NetworkTable.initialize();
         System.out.println("NT init");
-        	
-            //table = NetworkTable.getTable("Smart");
-    }
-	
+		table = NetworkTable.getTable("Smart");
+		
+		rightShooter = new ShootingSubsystem(RobotMap.shooterRight);
+		leftShooter = new ShootingSubsystem(RobotMap.shooterLeft);
+		oi.init();
+	}
 	/**
-     * This function is called once each time the robot enters Disabled mode.
-     * You can use it to reset any subsystem information you want to clear when
+	 * This function is called once each time the robot enters Disabled mode.
+	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
     public void disabledInit(){
@@ -110,6 +124,16 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
+
+	/**
+	 * This function is called periodically during operator control
+	 */
+	@Override
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+		double num = table.getNumber("number", -1d);
+		System.out.println(num);
+	}
 
     /**
      * This function is called periodically during operator control

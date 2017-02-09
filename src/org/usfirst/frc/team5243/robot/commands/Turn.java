@@ -1,23 +1,34 @@
 package org.usfirst.frc.team5243.robot.commands;
 
+import org.usfirst.frc.team5243.robot.Robot;
+import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class Turn extends Command {
-
+	private DriveSubsystem drivetrain;
+	private int startDegrees;
+	private int degrees;
+	
     public Turn(int degrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	drivetrain = Robot.drivetrain;
+    	requires(drivetrain);
+    	this.degrees = degrees;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	startDegrees = (int) drivetrain.getAngle();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	drivetrain.turn(degrees);
     }
 
     // Make this return true when this Command no longer needs to run execute()
