@@ -1,8 +1,4 @@
 package org.usfirst.frc.team5243.robot;
-
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Victor;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -19,10 +15,8 @@ public class RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
-	
-	public static Victor driveFrontLeft = new Victor(0);
-	public static Victor driveBackLeft = new Victor(1);
-	public static Victor driveFrontRight = new Victor(2);
-	public static Victor driveBackRight = new Victor(3);
-	public static AnalogGyro gyro = new AnalogGyro(0);
+	public static int FrontRight = 0;
+	public static int FrontLeft = 1;
+	public static int BackRight = 2;
+	public static int BackLeft = 3;
 }

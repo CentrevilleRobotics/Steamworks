@@ -5,10 +5,17 @@ import org.usfirst.frc.team5243.robot.Robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * The {@link CommandGroup} class that runs the {@link Robot}
+ * to drop off a gear at the gear station and setup for shooting
+ * fuel at the boiler.
+ * 
+ * @see CommandGroup
+ * @see Robot
  */
 public class AutonBoilerSide extends CommandGroup {
-    
+    /**
+     * 
+     */
     public  AutonBoilerSide() {
         // Add Commands here:
         // e.g. addSequential(new Command1());

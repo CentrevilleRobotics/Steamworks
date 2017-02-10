@@ -2,11 +2,16 @@
 package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.ConnectionInfo;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,8 +25,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
 	public static DriveSubsystem drivetrain;
+	public static ShootingSubsystem shooter;
+	public static GearHandlingSubsystem gearHandler;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -32,9 +38,22 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		oi.init();
+		drivetrain = new DriveSubsystem();
+		drivetrain.setSafetyEnabled();
+		shooter = new ShootingSubsystem();
+		gearHandler = new GearHandlingSubsystem();
         chooser = new SendableChooser();
-//        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+        
+        NetworkTable.shutdown();
+        NetworkTable.setClientMode();
+        System.out.println("Client Mode set");
+        NetworkTable.setIPAddress("10.52.43.30");
+        System.out.println("IP Address set");
+        NetworkTable.initialize();
+        System.out.println("NT init");
+        	
+            //table = NetworkTable.getTable("Smart");
     }
 	
 	/**
@@ -97,6 +116,16 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+    	System.out.print("not in while loop");
+        while(isEnabled()){
+        	try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+        	
+        	System.out.println("" + NetworkTable.getTable("Smart").getNumber("x", -1) + " " + NetworkTable.getTable("Smart").getNumber("y", -1));
+        }
     }
     
     /**

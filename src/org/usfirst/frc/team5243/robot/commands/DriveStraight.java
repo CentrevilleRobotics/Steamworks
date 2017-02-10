@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveStraight extends Command {
 
-    public DriveStraight(double distance) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public DriveStraight(int distance) {
+        
     }
 
     // Called just before this Command runs the first time

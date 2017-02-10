@@ -2,19 +2,19 @@ package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class TankDrive extends Command {
-	DriveSubsystem driving;
+	DriveSubsystem driveSubsystem;
     public TankDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	driving = Robot.driveSubsystem;
-    	requires(driving);
-    	//requires(OI.getDriveSubsystem());
+    	driveSubsystem = Robot.drivetrain;
+    	requires(driveSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +23,7 @@ public class TankDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	driving.tankDrive();
+    	driveSubsystem.tankDrive();
     }
 
     // Make this return true when this Command no longer needs to run execute()
