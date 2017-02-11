@@ -35,4 +35,7 @@ public class RobotMap {
 	public static int minicim = 9;
 	
 	public final static double ShootingSpeed = .79;
+	
+	public final static int ultrasonicFront = 1;
+	public final static int ultrasonicBack = 2;
 }

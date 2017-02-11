@@ -4,6 +4,7 @@ import org.usfirst.frc.team5243.robot.commands.PlaceHolderTurn;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static ShootingSubsystem leftShooterSubsystem;
 	public static ClimbSubsystem climbingSubsystem;
 	public static LoadingSubsystem loadingSubsystem;
+	public static SensorSubsystem sensorSubsystem;
 	Command autonomousCommand;
 	private SendableChooser autonomousCommandChooser;
 
@@ -44,6 +46,7 @@ public class Robot extends IterativeRobot {
 		driveSubsystem.calibrateGyro();
 		climbingSubsystem = new ClimbSubsystem();
 		loadingSubsystem = new LoadingSubsystem();
+		sensorSubsystem = new SensorSubsystem();
 		oi.init();
 		
 		autonomousCommandChooser = new SendableChooser();
@@ -55,7 +58,7 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	      @Override
+	@Override
 	public void disabledInit() {
 
 	}

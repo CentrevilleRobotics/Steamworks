@@ -1,4 +1,5 @@
 package org.usfirst.frc.team5243.robot.subsystems;
+
 import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.commands.MecanumDriveCommand;
@@ -8,7 +9,6 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 
 /**
  *
@@ -51,7 +51,9 @@ public class DriveSubsystem extends Subsystem {
     public void calibrateGyro() {
     	gyro.calibrate();
     }
-    
+    public void printGyroAngle(){
+    	System.out.println("Gyro Angle: " + gyro.getAngle());
+    }    
     public void tankDrive(){ // tank drive
     	robotDrive.tankDrive(-Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getY());
     }
