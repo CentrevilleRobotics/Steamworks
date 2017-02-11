@@ -1,12 +1,18 @@
-
 package org.usfirst.frc.team5243.robot;
 
+import org.usfirst.frc.team5243.robot.commands.PlaceHolderTurn;
+import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+<<<<<<< HEAD
 import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.HopperHandlingSubsystem;
+=======
+import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
+>>>>>>> Subsystems-Commands
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -33,14 +39,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-	public static DriveSubsystem drivetrain;
-
-	public static ShootingSubsystem rightShooter;
-	public static ShootingSubsystem leftShooter;
-	public static GearHandlingSubsystem gearHandler;
-	public static HopperHandlingSubsystem hopperHandler;
 	Command autonomousCommand;
 	SendableChooser	autoChooser;
+	public static DriveSubsystem driveSubsystem;
+	public static ShootingSubsystem rightShooterSubsystem;
+	public static ShootingSubsystem leftShooterSubsystem;
+	public static GearHandlingSubsystem gearHandler;
+	public static HopperHandlingSubsystem hopperHandler;
+	public static ClimbSubsystem climbingSubsystem;
+	public static LoadingSubsystem loadingSubsystem;
+	public static SensorSubsystem sensorSubsystem;
+	Command autonomousCommand;
+	private SendableChooser autonomousCommandChooser;
 	NetworkTable table;
 
 	/**
@@ -69,6 +79,9 @@ public class Robot extends IterativeRobot {
 		rightShooter = new ShootingSubsystem(RobotMap.shooterRight);
 		leftShooter = new ShootingSubsystem(RobotMap.shooterLeft);
 		oi.init();
+
+		autonomousCommandChooser = new SendableChooser();
+		autonomousCommandChooser.addDefault("Default Program", new PlaceHolderTurn());
 	}
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -83,30 +96,13 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+	
 	/**
-	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
-	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
-	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
-	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the switch structure below with additional strings & commands.
+	 * This function is called periodically during autonomous
 	 */
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
         
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-    	
-    	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -131,8 +127,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		double num = table.getNumber("number", -1d);
-		System.out.println(num);
+		SmartDashboard.putNumber("Shoot Speed", leftShooterSubsystem.getSpeed());
+		
+		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.gyroGetAngle());
+		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.gyroGetRate());
+		
 	}
 
     /**
@@ -140,16 +139,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-    	System.out.print("not in while loop");
-        while(isEnabled()){
-        	try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-        	
-        	System.out.println("" + NetworkTable.getTable("Smart").getNumber("x", -1) + " " + NetworkTable.getTable("Smart").getNumber("y", -1));
-        }
+    	
     }
     
     /**
