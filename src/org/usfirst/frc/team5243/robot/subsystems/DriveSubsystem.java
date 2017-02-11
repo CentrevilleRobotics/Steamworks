@@ -51,9 +51,12 @@ public class DriveSubsystem extends Subsystem {
     public void calibrateGyro() {
     	gyro.calibrate();
     }
-    public void printGyroAngle(){
-    	System.out.println("Gyro Angle: " + gyro.getAngle());
-    }    
+    public double gyroGetAngle(){
+    	return gyro.getAngle();
+    }
+    public double gyroGetRate(){
+    	return gyro.getRate();
+    }
     public void tankDrive(){ // tank drive
     	robotDrive.tankDrive(-Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getY());
     }

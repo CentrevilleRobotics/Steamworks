@@ -120,6 +120,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Shoot Speed", leftShooterSubsystem.getSpeed());
 		
+		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.gyroGetAngle());
+		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.gyroGetRate());
+		
+		
 	}
 
 	/**
