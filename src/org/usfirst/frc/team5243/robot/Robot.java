@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot;
 
-import org.usfirst.frc.team5243.robot.commands.PlaceHolderTurn;
+import org.usfirst.frc.team5243.robot.commands.DriveFromDistance;
+import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
@@ -48,7 +49,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
-		driveSubsystem.setSafetyEnabled();
 		driveSubsystem.calibrateGyro();
 		        
         NetworkTable.shutdown();
@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
 		oi.init();
 
 		autonomousCommandChooser = new SendableChooser<Command>();
-		autonomousCommandChooser.addDefault("Default Program", new PlaceHolderTurn());
+		autonomousCommandChooser.addDefault("Default Program", new DriveFromDistance(36));
 	}
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
