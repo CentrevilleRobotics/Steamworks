@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Strafe extends Command {
+public class StrafeCommand extends Command {
 	DriveSubsystem driveSubsystem;
 	double speed;
 	double starttime;
 	double runtime;
-    public Strafe(double rightSpeed, double time) {
+    public StrafeCommand(double rightSpeed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	runtime = time;

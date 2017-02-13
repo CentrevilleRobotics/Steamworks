@@ -3,20 +3,10 @@ package org.usfirst.frc.team5243.robot;
 import org.usfirst.frc.team5243.robot.commands.PlaceHolderTurn;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
-<<<<<<< HEAD
-import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
-
-import org.usfirst.frc.team5243.robot.subsystems.GearHandlingSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.HopperHandlingSubsystem;
-=======
 import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
->>>>>>> Subsystems-Commands
-import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -39,18 +29,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-	Command autonomousCommand;
-	SendableChooser	autoChooser;
 	public static DriveSubsystem driveSubsystem;
 	public static ShootingSubsystem rightShooterSubsystem;
 	public static ShootingSubsystem leftShooterSubsystem;
-	public static GearHandlingSubsystem gearHandler;
-	public static HopperHandlingSubsystem hopperHandler;
 	public static ClimbSubsystem climbingSubsystem;
 	public static LoadingSubsystem loadingSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	Command autonomousCommand;
-	private SendableChooser autonomousCommandChooser;
+	private SendableChooser<Command> autonomousCommandChooser;
 	NetworkTable table;
 
 	/**
@@ -61,12 +47,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		drivetrain = new DriveSubsystem();
-		drivetrain.setSafetyEnabled();
-		drivetrain.calibrateGyro();
-		
-		gearHandler = new GearHandlingSubsystem();
-        
+		driveSubsystem = new DriveSubsystem();
+		driveSubsystem.setSafetyEnabled();
+		driveSubsystem.calibrateGyro();
+		        
         NetworkTable.shutdown();
         NetworkTable.setClientMode();
         System.out.println("Client Mode set");
@@ -76,11 +60,11 @@ public class Robot extends IterativeRobot {
         System.out.println("NT init");
 		table = NetworkTable.getTable("Smart");
 		
-		rightShooter = new ShootingSubsystem(RobotMap.shooterRight);
-		leftShooter = new ShootingSubsystem(RobotMap.shooterLeft);
+		rightShooterSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
+		leftShooterSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
 		oi.init();
 
-		autonomousCommandChooser = new SendableChooser();
+		autonomousCommandChooser = new SendableChooser<Command>();
 		autonomousCommandChooser.addDefault("Default Program", new PlaceHolderTurn());
 	}
 	/**
@@ -101,7 +85,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+        autonomousCommand = autonomousCommandChooser.getSelected();
         
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -129,19 +113,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Shoot Speed", leftShooterSubsystem.getSpeed());
 		
-		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.gyroGetAngle());
-		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.gyroGetRate());
+		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.getGyroRate());
 		
 	}
-
-    /**
-     * This function is called periodically during operator control
-     */
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-    	
-    }
-    
     /**
      * This function is called periodically during test mode
      */

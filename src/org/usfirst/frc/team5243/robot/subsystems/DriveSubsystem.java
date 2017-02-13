@@ -29,10 +29,10 @@ public class DriveSubsystem extends Subsystem {
     
     //initializes motors(CANTalon), gyro,
     public DriveSubsystem(){
-    	frontLeft = new CANTalon(RobotMap.frontLeft);
-    	frontRight = new CANTalon(RobotMap.frontRight);
-    	backLeft = new CANTalon(RobotMap.backLeft);
-    	backRight = new CANTalon(RobotMap.backRight);
+    	frontLeft = new CANTalon(RobotMap.FrontLeft);
+    	frontRight = new CANTalon(RobotMap.FrontRight);
+    	backLeft = new CANTalon(RobotMap.BackLeft);
+    	backRight = new CANTalon(RobotMap.BackRight);
     	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
     	robotDrive.setSafetyEnabled(false);
 		gyro = new ADXRS450_Gyro();
@@ -52,10 +52,10 @@ public class DriveSubsystem extends Subsystem {
     public void calibrateGyro() {
     	gyro.calibrate();
     }
-    public double gyroGetAngle(){
+    public double getGyroAngle(){
     	return gyro.getAngle();
     }
-    public double gyroGetRate(){
+    public double getGyroRate(){
     	return gyro.getRate();
     }
     public void tankDrive(){ // tank drive
@@ -79,19 +79,18 @@ public class DriveSubsystem extends Subsystem {
     	backLeft.set(-y);
     	backRight.set(y);
     }
-
+    public void setAllMotors(double speed){
+    	frontLeft.set(speed);
+    	frontRight.set(speed);
+    	backLeft.set(speed);
+    	backRight.set(speed);
+    }
     public void initDefaultCommand() {
        setDefaultCommand(mecanumDrive);
     }
     public void changeDefaultCommand() {
     	if(getDefaultCommand().equals(mecanumDrive)) setDefaultCommand(tankDrive);
     	else setDefaultCommand(mecanumDrive);
-    }
-    public void tankDrive() {
-    	drivetrain.tankDrive(Robot.oi.getLeftStick().getY(), Robot.oi.getRightStick().getY());
-    }
-    public void setSafetyEnabled() {
-    	drivetrain.setSafetyEnabled(false);
     }
     public void driveBackwards(){
     	frontRight.set(-1);
@@ -101,9 +100,6 @@ public class DriveSubsystem extends Subsystem {
     }
     public RobotDrive getDrive() {
     	return robotDrive;
-    }
-    public double getAngle() {
-    	return gyro.getAngle();
     }
     public void stop(){
     	robotDrive.drive(0, 0);
