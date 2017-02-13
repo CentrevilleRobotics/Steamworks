@@ -49,6 +49,14 @@ public class DriveSubsystem extends Subsystem {
 		mecanumDrive = new MecanumDriveCommand();
 		tankDrive = new TankDriveCommand();
     }
+    
+    public void strafeRight(double speed) {
+    	frontRight.set(-speed);
+    	frontLeft.set(speed);
+    	backLeft.set(-speed);
+    	backRight.set(speed);
+    }
+    
     public void calibrateGyro() {
     	gyro.calibrate();
     }
