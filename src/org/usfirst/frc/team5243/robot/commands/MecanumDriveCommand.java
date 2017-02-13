@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MecanumDrive extends Command {
+public class MecanumDriveCommand extends Command {
 	DriveSubsystem drive;
-    public MecanumDrive() {
+    public MecanumDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	drive = Robot.driveSubsystem;
