@@ -1,30 +1,34 @@
-
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class MecanumDriveCommand extends Command {
-	DriveSubsystem drive;
-    public MecanumDriveCommand() {
+public class DriveStraight extends Command {
+	DriveSubsystem driveSubsystem;
+	SensorSubsystem sensorSubsystem;
+    public DriveStraight() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	requires(drive);
+    	driveSubsystem = Robot.driveSubsystem;
+    	sensorSubsystem = Robot.sensorSubsystem;
+    	requires(driveSubsystem);
+    	requires(sensorSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
-    // TODO change back to mecanum
+    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drive.mecanumDrive();
+    	driveSubsystem.RobotDrive(.5, driveSubsystem.getGyroAngle());
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

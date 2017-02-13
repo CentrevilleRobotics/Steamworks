@@ -43,20 +43,20 @@ public class AutonBoilerSide extends CommandGroup {
     	//go straight until in range to shoot
     	//shoot into top until time runs out
     	
-    	requires(Robot.drivetrain);
-    	requires(Robot.rightShooter);
-    	requires(Robot.leftShooter);
-    	requires(Robot.gearHandler);
+    	requires(Robot.driveSubsystem);
+    	requires(Robot.rightShooterSubsystem);
+    	requires(Robot.leftShooterSubsystem);
     	
-    	addSequential(new DriveStraight(156));
+ /*   	addSequential(new DriveStraight(156));
     	addSequential(new Turn(135));
     	addSequential(new DriveStraight(22));
     	addSequential(new DropGear());
     	addSequential(new DriveStraight(-22));
     	addSequential(new Turn(45));
     	addSequential(new DriveStraight(156));
-    	addSequential(new ShootLeft(1.0));
-    	addParallel(new ShootRight(1.0));
-    	
+
+    	addSequential(new ShootLeftCommand(1.0));
+    	addParallel(new ShootRightCommand(1.0));
+ */   	
     }
 }

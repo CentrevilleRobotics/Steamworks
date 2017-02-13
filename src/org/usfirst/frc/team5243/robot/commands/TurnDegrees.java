@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
@@ -9,31 +8,43 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MecanumDriveCommand extends Command {
-	DriveSubsystem drive;
-    public MecanumDriveCommand() {
+public class TurnDegrees extends Command {
+
+	DriveSubsystem driveSubsystem;
+	double startDegree;
+	double turnDegrees;
+	
+    public TurnDegrees(double degrees) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	requires(drive);
+    	driveSubsystem = Robot.driveSubsystem;
+    	requires(driveSubsystem);
+    	turnDegrees = degrees;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	startDegree = driveSubsystem.getGyroAngle();
     }
 
-    // TODO change back to mecanum
+    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drive.mecanumDrive();
+    	if (turnDegrees < 0) {
+    		driveSubsystem.turn(1);
+    	}
+    	else if (turnDegrees > 0) {
+    		driveSubsystem.turn(-1);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Math.abs(driveSubsystem.getGyroAngle() - startDegree) >= Math.abs(turnDegrees);
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	driveSubsystem.turn(0);
     }
 
     // Called when another command which requires one or more of the same
