@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 	public static LoadingSubsystem loadingSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	Command autonomousCommand;
-	private SendableChooser<Command> autonomousCommandChooser;
+	private SendableChooser autonomousCommandChooser;
 	NetworkTable table;
 
 	/**
@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 		leftShooterSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
 		oi.init();
 
-		autonomousCommandChooser = new SendableChooser<Command>();
+		autonomousCommandChooser = new SendableChooser();
 		autonomousCommandChooser.addDefault("Default Program", new DriveFromDistance(36));
 	}
 	/**
@@ -85,7 +85,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
     public void autonomousInit() {
-        autonomousCommand = autonomousCommandChooser.getSelected();
+        autonomousCommand = (Command) autonomousCommandChooser.getSelected();
         
         if (autonomousCommand != null) autonomousCommand.start();
     }
