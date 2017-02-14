@@ -6,32 +6,37 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
+
 public class SensorSubsystem extends Subsystem {
-    
+
+	//Declares two ultrasonic variables called ultrasonicFront and ultrasonicBack
 	private Ultrasonic ultrasonicFront;
 	private Ultrasonic ultrasonicBack;
-
-	public SensorSubsystem(){
-		ultrasonicFront = new Ultrasonic(1,1);
-		ultrasonicBack = new Ultrasonic(1,1);
+	
+	//Sets ping channel to 0 and echo channel to 1 for both ultrasonics
+	public SensorSubsystem() {
+		ultrasonicFront = new Ultrasonic(0, 1);
+		ultrasonicBack = new Ultrasonic(0, 1);
 	}
-	public void robotInit(){
+
+	//Initializes ultrasonics by setting automatic mode 
+	//Automatic mode allows all sensors to go one at a time
+	public void robotInit() {
 		ultrasonicFront.setAutomaticMode(true);
 		ultrasonicBack.setAutomaticMode(true);
 	}
-	public double ultrasonicSampleFront(){
+
+	//Returns the range in inches from the front ultrasonic sensors
+	public double getUltrasonicFrontValue() {
 		return ultrasonicFront.getRangeInches();
 	}
 
-	public double ultrasonicSampleBack(){
+	//Returns the range in inches from the back ultrasonic sensors
+	public double getUltrasonicBackValue() {
 		return ultrasonicBack.getRangeInches();
 	}
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	
-    public void initDefaultCommand() {
-    	
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+
+	public void initDefaultCommand() {
+
+	}
 }

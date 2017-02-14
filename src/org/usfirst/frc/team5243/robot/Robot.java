@@ -65,13 +65,23 @@ public class Robot extends IterativeRobot {
 		oi.init();
 
 		autonomousCommandChooser = new SendableChooser();
-		autonomousCommandChooser.addDefault("Default Program", new DriveFromDistance(36));
+		
+		autonomousCommandChooser.addDefault("Boiler Red Side", new DriveFromDistance(36));
+		autonomousCommandChooser.addObject("Hopper Red Side", new DriveFromDistance(36));
+		autonomousCommandChooser.addObject("Center Red Side", new DriveFromDistance(36));
+		autonomousCommandChooser.addObject("Boiler Blue Side", new DriveFromDistance(36));
+		autonomousCommandChooser.addObject("Hopper Blue Side", new DriveFromDistance(36));
+		autonomousCommandChooser.addObject("Center Blue Side", new DriveFromDistance(36));
+
+
 	}
+	
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
+	
     public void disabledInit(){
 
     }
@@ -84,6 +94,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+	
     public void autonomousInit() {
         autonomousCommand = (Command) autonomousCommandChooser.getSelected();
         
@@ -93,6 +104,7 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during autonomous
      */
+    
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
@@ -108,8 +120,10 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+    
 	@Override
 	public void teleopPeriodic() {
+
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Shoot Speed", leftShooterSubsystem.getSpeed());
 		
@@ -117,9 +131,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.getGyroRate());
 		
 	}
+	
     /**
      * This function is called periodically during test mode
      */
+	
     public void testPeriodic() {
         LiveWindow.run();
     }

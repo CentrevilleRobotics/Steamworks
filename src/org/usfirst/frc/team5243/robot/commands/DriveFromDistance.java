@@ -35,7 +35,7 @@ public class DriveFromDistance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return sensorSubsystem.ultrasonicSampleBack() > distance;
+        return sensorSubsystem.getUltrasonicBackValue() > distance;
     }
 
     // Called once after isFinished returns true

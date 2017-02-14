@@ -12,11 +12,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveStraight extends Command {
 	DriveSubsystem driveSubsystem;
 	SensorSubsystem sensorSubsystem;
-    public DriveStraight() {
+	int distance;
+    public DriveStraight(int distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	driveSubsystem = Robot.driveSubsystem;
     	sensorSubsystem = Robot.sensorSubsystem;
+    	this.distance = distance;
     	requires(driveSubsystem);
     	requires(sensorSubsystem);
     }
