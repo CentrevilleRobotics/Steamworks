@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 	public static LoadingSubsystem loadingSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	Command autonomousCommand;
-	private SendableChooser autonomousCommandChooser;
+	private SendableChooser<Command> autonomousCommandChooser;
 	NetworkTable table;
 
 	/**
@@ -50,8 +50,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
 		driveSubsystem.calibrateGyro();
-		        
-        NetworkTable.shutdown();
+		loadingSubsystem = new LoadingSubsystem();
+        sensorSubsystem = new SensorSubsystem();
+		NetworkTable.shutdown();
         NetworkTable.setClientMode();
         System.out.println("Client Mode set");
         NetworkTable.setIPAddress("10.52.43.30");
@@ -64,7 +65,7 @@ public class Robot extends IterativeRobot {
 		leftShooterSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
 		oi.init();
 
-		autonomousCommandChooser = new SendableChooser();
+		autonomousCommandChooser = new SendableChooser<Command>();
 		
 		autonomousCommandChooser.addDefault("Boiler Red Side", new DriveFromDistance(36));
 		autonomousCommandChooser.addObject("Hopper Red Side", new DriveFromDistance(36));
@@ -129,7 +130,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.getGyroRate());
-		
+		SmartDashboard.putNumber("Ultrasonic Front: ", sensorSubsystem.getUltrasonicFrontValue());
 	}
 	
     /**

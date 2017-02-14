@@ -16,7 +16,7 @@ public class SensorSubsystem extends Subsystem {
 	//Sets ping channel to 0 and echo channel to 1 for both ultrasonics
 	public SensorSubsystem() {
 		ultrasonicFront = new Ultrasonic(0, 1);
-		ultrasonicBack = new Ultrasonic(0, 1);
+		ultrasonicBack = new Ultrasonic(2, 3);
 	}
 
 	//Initializes ultrasonics by setting automatic mode 
