@@ -12,7 +12,9 @@ public class GearSubsystem extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+	
 	Servo gearDoor;
+	public boolean open = false;
 	public GearSubsystem(){
 		gearDoor = new Servo(RobotMap.gearDoorServo);
 	}
@@ -28,5 +30,18 @@ public class GearSubsystem extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public Servo getServo() {
+    	return this.gearDoor;
+    }
+    
+    public void toggleDoor() {
+    	open = !open;
+    	if(open){
+    		openDoor();
+    	}else{
+    		closeDoor();
+    	}
     }
 }

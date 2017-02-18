@@ -1,11 +1,11 @@
 package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.commands.ClimbCommand;
-import org.usfirst.frc.team5243.robot.commands.GearDoorCommand;
 import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
+import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -41,7 +41,7 @@ public class OI {
 	Button loadFuel;
 	
 	//GearSubsystem
-	Button openGearDoor;
+	Button toggleGearDoor;
 	
 	
 	 /*There are a few additional built in buttons you can use. Additionally,
@@ -92,8 +92,8 @@ public class OI {
 		System.out.println("Climbing button initialized");
 		climbButton.whileHeld(new ClimbCommand());
 		
-		openGearDoor = new JoystickButton(rightStick, 3);
-		openGearDoor.whileHeld(new GearDoorCommand());
+		toggleGearDoor = new JoystickButton(rightStick, 3);
+		toggleGearDoor.whenPressed(new ToggleGearDoor());
 		System.out.println("Gear button initialized");
 	}	
 	
