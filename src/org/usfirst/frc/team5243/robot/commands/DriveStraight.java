@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveStraight extends Command {
 	DriveSubsystem driveSubsystem;
-<<<<<<< Updated upstream
 	Ultrasonic ultrasonic;
 	boolean frontUltrasonic;
 	boolean insideTheDistance;

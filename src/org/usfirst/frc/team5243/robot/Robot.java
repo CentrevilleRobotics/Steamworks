@@ -1,28 +1,19 @@
 package org.usfirst.frc.team5243.robot;
 
-<<<<<<< Updated upstream
-import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
-=======
-import org.usfirst.frc.team5243.robot.commands.DriveFromDistance;
 import org.usfirst.frc.team5243.robot.commands.DriveUntil;
->>>>>>> Stashed changes
-import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
+import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LoadingClimbingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.SolenoidSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-<<<<<<< Updated upstream
-=======
-
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
->>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -40,12 +31,11 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	public static GearSubsystem gearSubsystem;
-	
+	public static SolenoidSubsystem solenoidSubsystem;
 	public static ShootingSubsystem rightShootingSubsystem;
 	public static ShootingSubsystem leftShootingSubsystem;
-	public static ClimbSubsystem climbSubsystem;
 	public static VisionSubsystem visionSubsystem;
-	public static LoadingSubsystem loadingSubsystem;
+	public static LoadingClimbingSubsystem loadingSubsystem;
 	
 	Command autonomousCommand;
 	SendableChooser<Command> autonomousCommandChooser;
@@ -62,14 +52,17 @@ public class Robot extends IterativeRobot {
 		driveSubsystem = new DriveSubsystem();
 		driveSubsystem.calibrateGyro();
 		driveSubsystem.commandInitializer();
+		
 		sensorSubsystem = new SensorSubsystem();
 		gearSubsystem = new GearSubsystem();
 		
+		solenoidSubsystem = new SolenoidSubsystem();
+		
 		leftShootingSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
 		rightShootingSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
-		climbSubsystem = new ClimbSubsystem();
+		
 		visionSubsystem = new VisionSubsystem();
-		loadingSubsystem = new LoadingSubsystem();
+		loadingSubsystem = new LoadingClimbingSubsystem();
 		System.out.println("Subsystems initialized");
 		
 		

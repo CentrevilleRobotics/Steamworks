@@ -14,7 +14,7 @@ public class SolenoidSubsystem extends Subsystem {
     // here. Call these from Commands.
 	Solenoid greenLight;
 	public SolenoidSubsystem(){
-		greenLight = new Solenoid(RobotMap.Solenoid);
+		greenLight = new Solenoid(RobotMap.solenoid);
 	}
 	public void turnOn(){
 		greenLight.set(true);

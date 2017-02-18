@@ -24,6 +24,9 @@ public class VisionSubsystem extends Subsystem {
 	}
     public void initDefaultCommand() {
     }
+    public NetworkTable getTable(){
+    	return table;
+    }
     /**
      * If the offset is positive, need to turn right
      * @return number of pixels from the center of the image the average reflective tape piece is

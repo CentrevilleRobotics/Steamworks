@@ -36,6 +36,8 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	
 	public final static int gearDoorServo = 1;
 	
+	public static int solenoid = 0;
+	
 	
 	public static boolean MecanumDrive = true;
 

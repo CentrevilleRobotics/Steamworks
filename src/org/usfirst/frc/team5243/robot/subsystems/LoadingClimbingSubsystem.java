@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class LoadingSubsystem extends Subsystem {
+public class LoadingClimbingSubsystem extends Subsystem {
     
 	private CANTalon loadMotor;
 	private CANTalon liftMotor;
@@ -17,7 +17,7 @@ public class LoadingSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public LoadingSubsystem(){
+	public LoadingClimbingSubsystem(){
 		loadMotor = new CANTalon(RobotMap.loadMotor);
 		liftMotor = new CANTalon(RobotMap.liftMotor);
 	}

@@ -26,7 +26,7 @@ public class DriveUntil extends Command {
     	this.front = front;
     	sensorSubsystem = Robot.sensorSubsystem;
     	driveSubsystem = Robot.driveSubsystem;
-    	this.table = Robot.table;
+    	this.table = Robot.visionSubsystem.getTable();
     	//tempForward = new DriveStraight(true);
     	//tempBackward = new DriveStraight(false);
     	requires(driveSubsystem);
