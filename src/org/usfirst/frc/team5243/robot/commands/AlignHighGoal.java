@@ -24,7 +24,7 @@ public class AlignHighGoal extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (visionSubsystem.offsetIsGood()) {
+    	if (visionSubsystem.offsetIsGood("frontOffsetX")) {
     		if  (visionSubsystem.getFrontOffsetX() > 40) {
         		driveSubsystem.strafeRight(0.5d);
         	}

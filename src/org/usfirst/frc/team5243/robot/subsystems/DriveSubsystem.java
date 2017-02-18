@@ -95,6 +95,18 @@ public class DriveSubsystem extends Subsystem {
     	backLeft.set(-y);
     	backRight.set(y);
     }
+    public void turnLeft(double speed){
+    	frontLeft.set(speed);
+    	backLeft.set(speed);
+    	frontRight.set(speed);
+    	backRight.set(speed);    	
+    }
+    public void turnRight(double speed){
+    	frontLeft.set(-speed);
+    	backLeft.set(-speed);
+    	frontRight.set(speed);
+    	backRight.set(speed);
+    }
     public void setAllMotors(double speed){
     	frontLeft.set(speed);
     	frontRight.set(speed);

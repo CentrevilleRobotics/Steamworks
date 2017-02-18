@@ -43,8 +43,8 @@ public class VisionSubsystem extends Subsystem {
     public double getRearOffsetY(){
     	return table.getNumber("rearOffsetY", -9001);
     }
-    public boolean offsetIsGood(){
-    	return table.getNumber("frontOffsetX", -9001) < -1000;
+    public boolean offsetIsGood(String key){
+    	return table.getNumber(key, -9001) < -1000;
     }
     
 }

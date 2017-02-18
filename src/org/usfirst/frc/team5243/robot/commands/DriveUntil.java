@@ -3,6 +3,7 @@ package org.usfirst.frc.team5243.robot.commands;
 import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -15,6 +16,7 @@ public class DriveUntil extends Command {
 	private double distanceToWall;
 	private SensorSubsystem sensorSubsystem;
 	private DriveSubsystem driveSubsystem;
+	private VisionSubsystem visionSubsystem;
 	private boolean front;
 	private NetworkTable table;
 	private DriveStraight tempForward;
@@ -26,11 +28,13 @@ public class DriveUntil extends Command {
     	this.front = front;
     	sensorSubsystem = Robot.sensorSubsystem;
     	driveSubsystem = Robot.driveSubsystem;
+    	visionSubsystem = Robot.visionSubsystem;
     	this.table = Robot.visionSubsystem.getTable();
     	//tempForward = new DriveStraight(true);
     	//tempBackward = new DriveStraight(false);
     	requires(driveSubsystem);
     	requires(sensorSubsystem);
+    	requires(visionSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -41,19 +45,16 @@ public class DriveUntil extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(front){
-    		if(table.getNumber("frontOffsetX", -999.99) != -999.99){
+    		if(visionSubsystem.offsetIsGood("frontOffsetX")){
     			improvedStraight();
-    		}
-    		else if(table.getNumber("frontOffsetX", -999.99) == -999.99){		
+    		}else{		
 		    	//tempForward.execute();
     			System.out.println("Driving straight, front is " + front);
 	    	}  		
-    	}
-    	else{
-    		if(table.getNumber("rearOffsetX", -999.99) != -999.99){
+    	}else{
+    		if(visionSubsystem.offsetIsGood("rearOffsetX")){
     			improvedStraight();
-    		}
-    		else if(table.getNumber("rearOffsetX", -999.99) == -999.99 ){		
+    		}else{
     			//tempBackward.execute();
     			System.out.println("Driving straight, front is " + front);
     		}
@@ -65,78 +66,53 @@ public class DriveUntil extends Command {
     			// we correct ourselves here
     			if(Math.abs(driveSubsystem.getGyroAngle()) > 3.0){
 	    			if(driveSubsystem.getGyroAngle() > 3.0){
-//	    				driveSubsystem.getBackLeft().set(-.5);
-//	    				driveSubsystem.getFrontLeft().set(-.5);
-//	    				driveSubsystem.getBackRight().set(.5);
-//	    				driveSubsystem.getFrontRight().set(.5);
+//	    				driveSubsystem.turnRight(.5);
 	    				System.out.println("Turning right, front is " + front);	    				
-	    			}
-	    			else{
-//    					driveSubsystem.getBackLeft().set(.5);
-//    					driveSubsystem.getFrontLeft().set(.5);
-//	    				driveSubsystem.getBackRight().set(-.5);
-//	    				driveSubsystem.getFrontRight().set(-.5);
+	    			}else{
+//	    				driveSubsystem.turnLeft(.5);
 	    				System.out.println("Turning left, front is " + front);
     				}
     			}
     			else if(Math.abs(table.getNumber("frontOffsetX", 0.0)) > 20){
 	    			if(table.getNumber("frontOffsetX", 0.0) > 20.0){
-//	    				driveSubsystem.getBackLeft().set(-.5);
-//	    				driveSubsystem.getFrontLeft().set(.5);
-//	    				driveSubsystem.getBackRight().set(.5);
-//	    				driveSubsystem.getFrontRight().set(-.5);
+//	    				driveSubsystem.strafeLeft(.5);
 	    				System.out.println("Strafing left, front is " + front);
-	    			}
-	    			else{
-//	    				driveSubsystem.getBackLeft().set(.5);
-//	    				driveSubsystem.getFrontLeft().set(-.5);
-//	    				driveSubsystem.getBackRight().set(-.5);
-//	    				driveSubsystem.getFrontRight().set(.5);
+	    			}else{
+//	    				driveSubsystem.strafeRight(.5);
 	    				System.out.println("Strafing right, front is " + front);
 	    			}
     			}
-    		}
-    		else driveSubsystem.setAllMotors(1);
+    		}else{
+    			driveSubsystem.setAllMotors(1);
     			//System.out.println("Driving improved straight, front is " + front);
+    		}
     	}
     	else{
     		if(Math.abs(table.getNumber("rearOffsetX", 0.0)) > 20.0 || Math.abs(driveSubsystem.getGyroAngle()) > 3.0){
     			// we correct ourselves here
     			if(Math.abs(driveSubsystem.getGyroAngle()) > 3.0){
 	    			if(driveSubsystem.getGyroAngle() > 3.0){
-//	    				driveSubsystem.getBackLeft().set(-.5);
-//	    				driveSubsystem.getFrontLeft().set(-.5);
-//	    				driveSubsystem.getBackRight().set(.5);
-//	    				driveSubsystem.getFrontRight().set(.5);
+//	    				driveSubsystem.turnRight(.5);
 	    				System.out.println("Turning right, front is " + front);
 	    			}
 	    			else{
-//    					driveSubsystem.getBackLeft().set(.5);
-//    					driveSubsystem.getFrontLeft().set(.5);
-//	    				driveSubsystem.getBackRight().set(-.5);
-//	    				driveSubsystem.getFrontRight().set(-.5);
+//	    				driveSubsystem.turnLeft(.5);
 	    				System.out.println("Turning left, front is " + front);
     				}
     			}
     			else if(Math.abs(table.getNumber("rearOffsetX", 0.0)) > 20){
 	    			if(table.getNumber("rearOffsetX", 0.0) > 20.0){
-//	    				driveSubsystem.getBackLeft().set(.5);
-//	    				driveSubsystem.getFrontLeft().set(-.5);
-//	    				driveSubsystem.getBackRight().set(-.5);
-//	    				driveSubsystem.getFrontRight().set(.5);
+//	    				driveSubsystem.strafeRight(.5);
 	    				System.out.println("Strafing right, front is " + front);
 	    			}
 	    			else{
-//	    				driveSubsystem.getBackLeft().set(-.5);
-//	    				driveSubsystem.getFrontLeft().set(.5);
-//	    				driveSubsystem.getBackRight().set(.5);
-//	    				driveSubsystem.getFrontRight().set(-.5);
+//	    				driveSubsystem.strafeLeft(.5);
 	    				System.out.println("Strafing left, front is " + front);
 	    			}
     			}
     		}
     		else { 
-    			driveSubsystem.setAllMotors(1);
+//    			driveSubsystem.setAllMotors(1);
     			System.out.println("Driving improved straight, front is " + front);
     		}
     	}
