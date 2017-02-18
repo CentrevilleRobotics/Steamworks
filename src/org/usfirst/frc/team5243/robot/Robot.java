@@ -1,6 +1,11 @@
 package org.usfirst.frc.team5243.robot;
 
+<<<<<<< Updated upstream
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
+=======
+import org.usfirst.frc.team5243.robot.commands.DriveFromDistance;
+import org.usfirst.frc.team5243.robot.commands.DriveUntil;
+>>>>>>> Stashed changes
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
@@ -13,6 +18,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+<<<<<<< Updated upstream
+=======
+
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+>>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -40,6 +50,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> autonomousCommandChooser;
 
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -50,7 +61,6 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
 		driveSubsystem.calibrateGyro();
-
 		driveSubsystem.commandInitializer();
 		sensorSubsystem = new SensorSubsystem();
 		gearSubsystem = new GearSubsystem();
@@ -95,7 +105,9 @@ public class Robot extends IterativeRobot {
 	 */
 	
     public void autonomousInit() {
-        autonomousCommand = (Command) autonomousCommandChooser.getSelected();
+    	new DriveUntil(5,true);
+    	
+        //autonomousCommand = (Command) autonomousCommandChooser.getSelected();
         
         if (autonomousCommand != null) autonomousCommand.start();
     }

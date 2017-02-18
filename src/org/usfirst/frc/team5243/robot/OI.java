@@ -7,7 +7,6 @@ import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
