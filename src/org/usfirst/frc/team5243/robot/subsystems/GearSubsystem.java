@@ -2,30 +2,31 @@ package org.usfirst.frc.team5243.robot.subsystems;
 
 import org.usfirst.frc.team5243.robot.RobotMap;
 
-import com.ctre.CANTalon;
-
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class ClimbSubsystem extends Subsystem {
+public class GearSubsystem extends Subsystem {
     
-	private CANTalon climbMotor;
-	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-
-	public ClimbSubsystem(){
-		climbMotor = new CANTalon(RobotMap.liftMotor);
+	Servo gearDoor;
+	public GearSubsystem(){
+		gearDoor = new Servo(RobotMap.gearDoorServo);
 	}
-	public void setSpeed(double speed){
-		climbMotor.set(speed);
+	public void setAngle(double angle){
+		gearDoor.setAngle(angle);
+	}
+	public void openDoor(){
+		gearDoor.setAngle(180);
+	}
+	public void closeDoor(){
+		gearDoor.setAngle(45);
 	}
     public void initDefaultCommand() {
-    	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
 }
-

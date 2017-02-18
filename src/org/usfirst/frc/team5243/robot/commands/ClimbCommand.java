@@ -2,6 +2,7 @@ package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,13 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ClimbCommand extends Command {
 	private ClimbSubsystem climbSubsystem;
-	private double speed;
-    public ClimbCommand(double climbingSpeed) {
+	private LoadingSubsystem loadSubsystem;
+    public ClimbCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	climbSubsystem = Robot.climbingSubsystem;
+    	climbSubsystem = Robot.climbSubsystem;
+    	loadSubsystem = Robot.loadingSubsystem;
     	requires(climbSubsystem);
-    	speed = climbingSpeed;
+    	requires(loadSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +27,7 @@ public class ClimbCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	climbSubsystem.setSpeed(speed);
+    	climbSubsystem.setSpeed(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,11 +37,12 @@ public class ClimbCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	climbSubsystem.setSpeed(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	climbSubsystem.setSpeed(0.0);
+    	climbSubsystem.setSpeed(0);
     }
 }

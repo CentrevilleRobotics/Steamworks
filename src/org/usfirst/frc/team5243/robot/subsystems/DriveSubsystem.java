@@ -5,7 +5,6 @@ import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.TankDriveCommand;
 
-
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -37,11 +36,16 @@ public class DriveSubsystem extends Subsystem {
     	robotDrive.setSafetyEnabled(false);
 		gyro = new ADXRS450_Gyro();
 		
+		frontRight.setVoltageRampRate(24);
+    	backRight.setVoltageRampRate(24);
+    	frontLeft.setVoltageRampRate(24);
+    	backLeft.setVoltageRampRate(24);
 		
 		frontRight.setInverted(true);
     	backRight.setInverted(true);
     	frontLeft.setInverted(false);
     	backLeft.setInverted(false);
+    	
     }
     
     //initializes command for mecanum drive & tank drive
@@ -55,6 +59,9 @@ public class DriveSubsystem extends Subsystem {
     	frontLeft.set(speed);
     	backLeft.set(-speed);
     	backRight.set(speed);
+    }
+    public void strafeLeft(double speed) {
+    	strafeRight(-speed);
     }
     
     public void calibrateGyro() {
@@ -72,6 +79,7 @@ public class DriveSubsystem extends Subsystem {
     public void mecanumDrive(){ // mecanum drive
     	/*frontRight.setInverted(true);
     	backRight.setInverted(true);*/
+    	System.out.println(mecanumDrive);
         robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
     

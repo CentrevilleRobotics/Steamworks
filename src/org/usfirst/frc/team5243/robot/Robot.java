@@ -1,23 +1,20 @@
 package org.usfirst.frc.team5243.robot;
 
-import org.usfirst.frc.team5243.robot.commands.DriveFromDistance;
-import org.usfirst.frc.team5243.robot.commands.DriveStraight;
+import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.LoadingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.VisionSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-import edu.wpi.first.wpilibj.networktables.ConnectionInfo;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 
 /**
@@ -31,14 +28,17 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
-	public static ShootingSubsystem rightShooterSubsystem;
-	public static ShootingSubsystem leftShooterSubsystem;
-	public static ClimbSubsystem climbingSubsystem;
-	public static LoadingSubsystem loadingSubsystem;
 	public static SensorSubsystem sensorSubsystem;
+	public static GearSubsystem gearSubsystem;
+	
+	public static ShootingSubsystem rightShootingSubsystem;
+	public static ShootingSubsystem leftShootingSubsystem;
+	public static ClimbSubsystem climbSubsystem;
+	public static VisionSubsystem visionSubsystem;
+	public static LoadingSubsystem loadingSubsystem;
+	
 	Command autonomousCommand;
-	private SendableChooser<Command> autonomousCommandChooser;
-	NetworkTable table;
+	SendableChooser<Command> autonomousCommandChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -50,31 +50,29 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
 		driveSubsystem.calibrateGyro();
+
+		driveSubsystem.commandInitializer();
+		sensorSubsystem = new SensorSubsystem();
+		gearSubsystem = new GearSubsystem();
+		
+		leftShootingSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
+		rightShootingSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
+		climbSubsystem = new ClimbSubsystem();
+		visionSubsystem = new VisionSubsystem();
 		loadingSubsystem = new LoadingSubsystem();
-        sensorSubsystem = new SensorSubsystem();
-		NetworkTable.shutdown();
-        NetworkTable.setClientMode();
-        System.out.println("Client Mode set");
-        NetworkTable.setIPAddress("10.52.43.30");
-        System.out.println("IP Address set");
-        NetworkTable.initialize();
-        System.out.println("NT init");
-		table = NetworkTable.getTable("Smart");
+		System.out.println("Subsystems initialized");
 		
-		rightShooterSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
-		leftShooterSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
+		
 		oi.init();
-
+		System.out.println("OI initialized");
 		autonomousCommandChooser = new SendableChooser<Command>();
-		
-		autonomousCommandChooser.addDefault("Boiler Red Side", new DriveFromDistance(36));
-		autonomousCommandChooser.addObject("Hopper Red Side", new DriveFromDistance(36));
-		autonomousCommandChooser.addObject("Center Red Side", new DriveFromDistance(36));
-		autonomousCommandChooser.addObject("Boiler Blue Side", new DriveFromDistance(36));
-		autonomousCommandChooser.addObject("Hopper Blue Side", new DriveFromDistance(36));
-		autonomousCommandChooser.addObject("Center Blue Side", new DriveFromDistance(36));
-
-
+		autonomousCommandChooser.addDefault("Boiler Red Side", null);
+		autonomousCommandChooser.addObject("Hopper Red Side", null);
+		autonomousCommandChooser.addObject("Center Red Side", null);
+		autonomousCommandChooser.addObject("Boiler Blue Side", new BlueBoiler());
+		autonomousCommandChooser.addObject("Hopper Blue Side", null);
+		autonomousCommandChooser.addObject("Center Blue Side", null);
+		System.out.println("Auton command chooser initialized");
 	}
 	
 	/**
@@ -126,7 +124,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Shoot Speed", leftShooterSubsystem.getSpeed());
 		
 		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.getGyroRate());

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc.team5243.robot.commands.ClimbCommand;
+import org.usfirst.frc.team5243.robot.commands.GearDoorCommand;
 import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
@@ -30,20 +31,18 @@ public class OI {
 	//Shooter
 	Button shooterLeft;
 	Button shooterRight;
-	Button ShootingQuickSandDecrease;
-	Button ShootingQuickSandIncrease;
-	
+
 	//SwitchDrive
 	Button SwitchDrive;
-	
-	//TestWheels
-	Button testFrontLeft;
-	Button testBackLeft;
-	Button testFrontRight;
-	Button testBackRight;
+
+	Button climbButton;
 	
 	//LoadFuel
 	Button loadFuel;
+	
+	//GearSubsystem
+	Button openGearDoor;
+	
 	
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
@@ -69,21 +68,33 @@ public class OI {
 		//initializes joysticks
 		leftStick = new Joystick(RobotMap.leftStick);
 		rightStick = new Joystick(RobotMap.rightStick);
-	
+		System.out.println("Joysticks initialized");
 		//initializes shooting variables
+		
+		
 		shooterRight = new JoystickButton(rightStick,1);
-		shooterRight.whileHeld(new ShootRightCommand(.79));
+		shooterRight.whileHeld(new ShootRightCommand());
+		
 		
 		shooterLeft = new JoystickButton(leftStick, 1);
-		shooterLeft.whileHeld(new ShootLeftCommand(.79));
+		shooterLeft.whileHeld(new ShootLeftCommand());
+		System.out.println("Shoot buttons initialized");
 		
 		//intializes SwitchDrive
 		SwitchDrive = new JoystickButton(rightStick, 8);
 		SwitchDrive.whenPressed(new SwitchDriveCommand());
-		
+		System.out.println("Switch Drive initialized");
 		//Initializes load variable
 		loadFuel = new JoystickButton(rightStick, 7);
-		loadFuel.whenPressed(new LoadFuelCommand());
+		loadFuel.whileHeld(new LoadFuelCommand());
+		System.out.println("Load fuel initialized");
+		climbButton = new JoystickButton(leftStick, 3);
+		System.out.println("Climbing button initialized");
+		climbButton.whileHeld(new ClimbCommand());
+		
+		openGearDoor = new JoystickButton(rightStick, 3);
+		openGearDoor.whileHeld(new GearDoorCommand());
+		System.out.println("Gear button initialized");
 	}	
 	
 	//Getters for Joysticks

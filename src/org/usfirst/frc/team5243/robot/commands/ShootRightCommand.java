@@ -9,24 +9,22 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ShootRightCommand extends Command {
-	
-
-	double speed;
-	ShootingSubsystem shootingSubsystem;
-	
-    public ShootRightCommand(double shootingSpeed) {
-    	shootingSubsystem = Robot.rightShooterSubsystem; 
-    	requires(shootingSubsystem);
-    	speed = shootingSpeed;
+	private ShootingSubsystem shootSubsystem;
+    public ShootRightCommand() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	
+    	shootSubsystem = Robot.rightShootingSubsystem;
+    	requires(shootSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shootingSubsystem.shoot(speed * (0.5 * Robot.oi.getLeftStick().getZ()+0.5));
+    	shootSubsystem.shoot(.79);//ideal speed according to previous tests
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,6 +39,6 @@ public class ShootRightCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	shootingSubsystem.shoot(0.0);
+    	shootSubsystem.shoot(0);
     }
 }

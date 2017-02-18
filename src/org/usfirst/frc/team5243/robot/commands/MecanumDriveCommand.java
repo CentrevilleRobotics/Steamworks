@@ -24,6 +24,7 @@ public class MecanumDriveCommand extends Command {
 
     // TODO change back to mecanum
     protected void execute() {
+    	System.out.println("Mecanum driving");
     	drive.mecanumDrive();
     }
 

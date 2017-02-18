@@ -18,7 +18,19 @@ public class SensorSubsystem extends Subsystem {
 		ultrasonicFront = new Ultrasonic(0, 1);
 		ultrasonicBack = new Ultrasonic(2, 3);
 	}
-
+	public Ultrasonic getFrontUltra(){
+		return ultrasonicFront;
+	}
+	public Ultrasonic getBackUltra(){
+		return ultrasonicBack;
+	}
+	public double getUltraSample(Ultrasonic ultra, int sampleCount){
+		double total = 0;
+		for(int i=0;i<sampleCount;i++){
+			total += ultra.getRangeInches();
+		}
+		return total/sampleCount;
+	}
 	//Initializes ultrasonics by setting automatic mode 
 	//Automatic mode allows all sensors to go one at a time
 	public void robotInit() {
@@ -28,12 +40,12 @@ public class SensorSubsystem extends Subsystem {
 
 	//Returns the range in inches from the front ultrasonic sensors
 	public double getUltrasonicFrontValue() {
-		return ultrasonicFront.getRangeInches();
+		return getUltraSample(ultrasonicFront,5);
 	}
 
 	//Returns the range in inches from the back ultrasonic sensors
 	public double getUltrasonicBackValue() {
-		return ultrasonicBack.getRangeInches();
+		return getUltraSample(ultrasonicBack,5);
 	}
 
 	public void initDefaultCommand() {
