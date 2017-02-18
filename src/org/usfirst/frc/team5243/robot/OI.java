@@ -2,8 +2,7 @@ package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.commands.ClimbCommand;
 import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
-import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
-import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
+import org.usfirst.frc.team5243.robot.commands.ShootCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 
@@ -73,11 +72,11 @@ public class OI {
 		
 		
 		shooterRight = new JoystickButton(rightStick,1);
-		shooterRight.whileHeld(new ShootRightCommand());
+		shooterRight.whileHeld(new ShootCommand(false));
 		
 		
 		shooterLeft = new JoystickButton(leftStick, 1);
-		shooterLeft.whileHeld(new ShootLeftCommand());
+		shooterLeft.whileHeld(new ShootCommand(true));
 		System.out.println("Shoot buttons initialized");
 		
 		//intializes SwitchDrive
