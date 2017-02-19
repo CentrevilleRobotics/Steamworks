@@ -13,12 +13,12 @@ public class VisionSubsystem extends Subsystem {
 	NetworkTable table;
 	
 	public VisionSubsystem(){
-		NetworkTable.shutdown();
-        NetworkTable.setClientMode();
+		//NetworkTable.shutdown();
+        //NetworkTable.setClientMode();
         System.out.println("Client Mode set");
        // NetworkTable.setIPAddress("10.52.43.30");
         //System.out.println("IP Address set");
-        NetworkTable.initialize();
+        //NetworkTable.initialize();
         System.out.println("NT init");
 		table = NetworkTable.getTable("Smart");	
 	}

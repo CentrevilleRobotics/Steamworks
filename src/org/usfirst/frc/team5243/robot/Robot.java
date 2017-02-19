@@ -2,6 +2,11 @@ package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.commands.DriveUntil;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
+import org.usfirst.frc.team5243.robot.commands.autonomous.BlueCenter;
+import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
+import org.usfirst.frc.team5243.robot.commands.autonomous.RedBoiler;
+import org.usfirst.frc.team5243.robot.commands.autonomous.RedCenter;
+import org.usfirst.frc.team5243.robot.commands.autonomous.RedHopper;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.LoadingClimbingSubsystem;
@@ -34,7 +39,7 @@ public class Robot extends IterativeRobot {
 	public static SolenoidSubsystem solenoidSubsystem;
 	public static ShootingSubsystem rightShootingSubsystem;
 	public static ShootingSubsystem leftShootingSubsystem;
-	public static VisionSubsystem visionSubsystem;
+//	public static VisionSubsystem visionSubsystem;
 	public static LoadingClimbingSubsystem loadingSubsystem;
 	
 	Command autonomousCommand;
@@ -58,10 +63,10 @@ public class Robot extends IterativeRobot {
 		
 		solenoidSubsystem = new SolenoidSubsystem();
 		
-		leftShootingSubsystem = new ShootingSubsystem(RobotMap.shooterLeft);
-		rightShootingSubsystem = new ShootingSubsystem(RobotMap.shooterRight);
+		leftShootingSubsystem = new ShootingSubsystem(true);
+		rightShootingSubsystem = new ShootingSubsystem(false);
 		
-		visionSubsystem = new VisionSubsystem();
+		//visionSubsystem = new VisionSubsystem();
 		loadingSubsystem = new LoadingClimbingSubsystem();
 		System.out.println("Subsystems initialized");
 		
@@ -69,13 +74,15 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		System.out.println("OI initialized");
 		autonomousCommandChooser = new SendableChooser<Command>();
-		autonomousCommandChooser.addDefault("Boiler Red Side", null);
-		autonomousCommandChooser.addObject("Hopper Red Side", null);
-		autonomousCommandChooser.addObject("Center Red Side", null);
+		autonomousCommandChooser.addDefault("Boiler Red Side", new RedBoiler());
+		autonomousCommandChooser.addObject("Hopper Red Side", new RedHopper());
+		autonomousCommandChooser.addObject("Center Red Side", new RedCenter());
 		autonomousCommandChooser.addObject("Boiler Blue Side", new BlueBoiler());
-		autonomousCommandChooser.addObject("Hopper Blue Side", null);
-		autonomousCommandChooser.addObject("Center Blue Side", null);
+		autonomousCommandChooser.addObject("Hopper Blue Side", new BlueHopper());
+		autonomousCommandChooser.addObject("Center Blue Side", new BlueCenter());
 		System.out.println("Auton command chooser initialized");
+		
+		SmartDashboard.putData("Auton Chooser ", autonomousCommandChooser);
 	}
 	
 	/**
@@ -98,9 +105,9 @@ public class Robot extends IterativeRobot {
 	 */
 	
     public void autonomousInit() {
-    	new DriveUntil(5,true);
+    	//new DriveUntil(5,true);
     	
-        //autonomousCommand = (Command) autonomousCommandChooser.getSelected();
+        autonomousCommand = autonomousCommandChooser.getSelected();
         
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -132,6 +139,29 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
 		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.getGyroRate());
 		SmartDashboard.putNumber("Ultrasonic Front: ", sensorSubsystem.getUltrasonicFrontValue());
+		
+		SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
+		SmartDashboard.putNumber("Back Ultrasonic ", sensorSubsystem.getUltrasonicBackValue());
+		
+		SmartDashboard.putNumber("Front Left Motor ", driveSubsystem.getFrontLeftSpeed());
+		SmartDashboard.putNumber("Back Left Motor ", driveSubsystem.getBackLeftSpeed());
+		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
+		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
+		
+		SmartDashboard.putNumber("Actuator Position ", gearSubsystem.getAngle());
+		
+		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
+		
+		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
+		SmartDashboard.putNumber("Loading Speed ", loadingSubsystem.getLoadSpeed());
+		
+//		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
+////		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
+//		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
+//		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
+//		
+		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
+		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
 	}
 	
     /**

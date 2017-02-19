@@ -15,7 +15,7 @@ public class AlignHighGoal extends Command {
     public AlignHighGoal() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	visionSubsystem = Robot.visionSubsystem;
+    	//visionSubsystem = Robot.visionSubsystem;
     }
 
     // Called just before this Command runs the first time

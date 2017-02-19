@@ -4,6 +4,7 @@ import org.usfirst.frc.team5243.robot.commands.ClimbCommand;
 import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
+import org.usfirst.frc.team5243.robot.commands.SwitchShooterMode;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,6 +43,7 @@ public class OI {
 	//GearSubsystem
 	Button toggleGearDoor;
 	
+	Button switchShooterMode;
 	
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
@@ -94,6 +96,10 @@ public class OI {
 		toggleGearDoor = new JoystickButton(rightStick, 3);
 		toggleGearDoor.whenPressed(new ToggleGearDoor());
 		System.out.println("Gear button initialized");
+		
+		switchShooterMode = new JoystickButton(leftStick, 9);
+		switchShooterMode.whenPressed(new SwitchShooterMode());
+		System.out.println("Switch shooter mode initialized");
 	}	
 	
 	//Getters for Joysticks

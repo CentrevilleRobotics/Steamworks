@@ -1,6 +1,8 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 
 
+import org.usfirst.frc.team5243.robot.RobotMap;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,14 +20,19 @@ public class ShootingSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	//initializes shooter
-    public ShootingSubsystem(int shootingPort){
-		shooter = new CANTalon(shootingPort);
+    public ShootingSubsystem(boolean leftShooter){
+    	if(leftShooter){
+    		shooter = new CANTalon(RobotMap.shooterLeft);
+    	} else {
+    		shooter = new CANTalon(RobotMap.shooterRight);
+    		shooter.setInverted(true);
+    	}
 	}
 	
     //sets speed for shooter
 	public void shoot(double speed){
 		shooter.set(speed);
-		System.out.println("shooter: " + shooter.getSpeed());
+		//System.out.println("shooter: " + shooter.getSpeed());
 
 	}
 	

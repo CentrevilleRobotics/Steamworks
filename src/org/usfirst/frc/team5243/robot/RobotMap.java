@@ -43,5 +43,6 @@ public class RobotMap {    // For example to map the left and right motors, you 
 
 	public final static double ShootingSpeed = .79;
 	
+	public static boolean ZAxisShooting = false;
 
 }

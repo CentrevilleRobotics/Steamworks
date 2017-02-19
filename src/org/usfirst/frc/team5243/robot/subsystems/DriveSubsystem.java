@@ -144,4 +144,17 @@ public class DriveSubsystem extends Subsystem {
     public CANTalon getBackRight(){
     	return backRight;
     }
+    
+    public double getFrontLeftSpeed() {
+    	return frontLeft.getSpeed();
+    }
+    public double getFrontRightSpeed() {
+    	return frontRight.getSpeed();
+    }
+    public double getBackLeftSpeed() {
+    	return backLeft.getSpeed();
+    }
+    public double getBackRightSpeed() {
+    	return backRight.getSpeed();
+    }
 }
