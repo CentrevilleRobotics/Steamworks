@@ -1,19 +1,17 @@
-package org.usfirst.frc.team5243.robot.commands.autonomous;
+package org.usfirst.frc.team5243.robot.commands.autonomous.vision;
 
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
-//import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
-import org.usfirst.frc.team5243.robot.commands.StrafeCommand;
+import org.usfirst.frc.team5243.robot.commands.DriveUntil;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
-import org.usfirst.frc.team5243.robot.commands.Wait;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class RedCenter extends CommandGroup {
+public class VisionRedHopper extends CommandGroup {
 
-    public RedCenter() {
+    public VisionRedHopper() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -31,19 +29,18 @@ public class RedCenter extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	System.out.println("RedCenter auton running");
-    	addSequential(new DriveStraight(true,true,4));
-    	addSequential(new Wait(3));
-    	addSequential(new DriveStraight(true,false,36));
-    	addSequential(new TurnDegrees(135));
-    	addSequential(new DriveStraight(true, true,12));
-    	addSequential(new StrafeCommand(true, true, 52));
-    	addSequential(new DriveStraight(true,true,5));
+    	System.out.println("RedHopper auton running");
+    	addSequential(new DriveStraight(false,false,120));
+    	addSequential(new TurnDegrees(60));
+    	addSequential(new DriveUntil(4, true));
+    	addSequential(new DriveStraight(true, false, 36));
+    	addSequential(new TurnDegrees(-60));
+    	addSequential(new DriveStraight(false, false, 165));
+    	addSequential(new TurnDegrees(-90));
     	
-    	//addParallel(new ShootLeftCommand());
-    	//TODO add shootcommands
-    }
+    }    	
 }
+
 
 
 

@@ -21,6 +21,9 @@ public class GearSubsystem extends Subsystem {
 	public void setAngle(double angle){
 		gearDoor.setAngle(angle);
 	}
+	public double getAngle() {
+		return gearDoor.getAngle();
+	}
 	public void openDoor(){
 		gearDoor.setAngle(180);
 	}

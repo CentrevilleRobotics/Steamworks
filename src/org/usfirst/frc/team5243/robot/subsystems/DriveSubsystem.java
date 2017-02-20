@@ -28,6 +28,7 @@ public class DriveSubsystem extends Subsystem {
     
     //initializes motors(CANTalon), gyro,
     public DriveSubsystem(){
+    	System.out.println("DriveSubsystem Constructor");
     	frontLeft = new CANTalon(RobotMap.FrontLeft);
     	frontRight = new CANTalon(RobotMap.FrontRight);
     	backLeft = new CANTalon(RobotMap.BackLeft);
@@ -45,16 +46,23 @@ public class DriveSubsystem extends Subsystem {
     	backRight.setInverted(true);
     	frontLeft.setInverted(false);
     	backLeft.setInverted(false);
-    	
+    	System.out.println("DriveSS Constructor ended");
     }
-    
+    public void resetGyro(){
+    	gyro.reset();
+    }
     //initializes command for mecanum drive & tank drive
     public void commandInitializer(){
 		mecanumDrive = new MecanumDriveCommand();
-		tankDrive = new TankDriveCommand();
+		tankDrive = new TankDriveCommand();		
     }
     
     public void strafeRight(double speed) {
+    	if(speed > .1){
+    		speed = .1;
+    	}else if(speed < -.1){
+    		speed = .1;
+    	}
     	frontRight.set(-speed);
     	frontLeft.set(speed);
     	backLeft.set(-speed);
@@ -79,35 +87,47 @@ public class DriveSubsystem extends Subsystem {
     public void mecanumDrive(){ // mecanum drive
     	/*frontRight.setInverted(true);
     	backRight.setInverted(true);*/
-    	System.out.println(mecanumDrive);
         robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
-    
-    public void driveStraight(double distance) {
-    	frontLeft.set(distance);
-    	frontRight.set(distance);
-    	backLeft.set(distance);
-    	backRight.set(distance);
-    }
-    public void turn(double y){
-    	frontLeft.set(-y);
-    	frontRight.set(y);
-    	backLeft.set(-y);
-    	backRight.set(y);
+    public void turn(double speed){
+    	if(speed > .1){
+    		speed = .1;
+    	}else if(speed < -.1){
+    		speed = -.1;
+    	}
+    	frontLeft.set(-speed);
+    	frontRight.set(speed);
+    	backLeft.set(-speed);
+    	backRight.set(speed);
     }
     public void turnLeft(double speed){
-    	frontLeft.set(speed);
-    	backLeft.set(speed);
+    	if(speed > .1){
+    		speed = .1;
+    	}else if(speed < -.1){
+    		speed = -.1;
+    	}
+    	frontLeft.set(-speed);
+    	backLeft.set(-speed);
     	frontRight.set(speed);
     	backRight.set(speed);    	
     }
     public void turnRight(double speed){
-    	frontLeft.set(-speed);
-    	backLeft.set(-speed);
-    	frontRight.set(speed);
-    	backRight.set(speed);
+    	if(speed > .1){
+    		speed = .1;
+    	}else if(speed < -.1){
+    		speed = -.1;
+    	}
+    	frontLeft.set(speed);
+    	backLeft.set(speed);
+    	frontRight.set(-speed);
+    	backRight.set(-speed);
     }
     public void setAllMotors(double speed){
+    	if(speed > .1){
+    		speed = .1;
+    	}else if(speed < -.1){
+    		speed = -.1;
+    	}
     	frontLeft.set(speed);
     	frontRight.set(speed);
     	backLeft.set(speed);
@@ -120,29 +140,23 @@ public class DriveSubsystem extends Subsystem {
     	if(getDefaultCommand().equals(mecanumDrive)) setDefaultCommand(tankDrive);
     	else setDefaultCommand(mecanumDrive);
     }
-    public void driveBackwards(){
-    	frontRight.set(-1);
-    	frontLeft.set(-1);
-    	backRight.set(-1);
-    	backLeft.set(-1);
-    }
     public RobotDrive getDrive() {
     	return robotDrive;
     }
     public void stop(){
     	robotDrive.drive(0, 0);
     }
-    public CANTalon getFrontLeft(){
-    	return frontLeft;
+    public double getFrontLeftSpeed() {
+    	return frontLeft.getSpeed();
     }
-    public CANTalon getBackLeft(){
-    	return backLeft;    	
+    public double getBackLeftSpeed() {
+    	return backLeft.getSpeed();
     }
-    public CANTalon getFrontRight(){
-    	return frontRight;    	
+    public double getFrontRightSpeed() {
+    	return frontRight.getSpeed();
     }
-    public CANTalon getBackRight(){
-    	return backRight;
+    public double getBackRightSpeed() {
+    	return backRight.getSpeed();
     }
     
     public double getFrontLeftSpeed() {

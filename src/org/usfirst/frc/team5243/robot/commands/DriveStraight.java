@@ -39,15 +39,15 @@ public class DriveStraight extends Command {
 	protected void execute() {
 		if (frontUltrasonic) {
 			if (insideTheDistance) {
-				driveSubsystem.setAllMotors(.75);
-			} else {
 				driveSubsystem.setAllMotors(-.75);
+			} else {
+				driveSubsystem.setAllMotors(.75);
 			}
 		} else {
 			if (insideTheDistance) {
-				driveSubsystem.setAllMotors(-.75);
-			} else {
 				driveSubsystem.setAllMotors(.75);
+			} else {
+				driveSubsystem.setAllMotors(-.75);
 			}
 		}
 	}

@@ -28,6 +28,7 @@ public class SolenoidSubsystem extends Subsystem {
 	public void setSolenoid(boolean solenoid){
 		greenLight.set(solenoid);
 	}
+	
 	public boolean getSolenoidStatus(){
 		return greenLight.get();
 	}

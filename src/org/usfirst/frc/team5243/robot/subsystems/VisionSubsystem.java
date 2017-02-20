@@ -30,7 +30,7 @@ public class VisionSubsystem extends Subsystem {
     /**
      * If the offset is positive, need to turn right
      * @return number of pixels from the center of the image the average reflective tape piece is
-     */
+     */ 
     public double getFrontOffsetX(){ // positive then turn right
     	return table.getNumber("frontOffsetX", -9001);
     }
@@ -43,9 +43,8 @@ public class VisionSubsystem extends Subsystem {
     public double getRearOffsetY(){
     	return table.getNumber("rearOffsetY", -9001);
     }
-    public boolean offsetIsGood(String key){
-    	return table.getNumber(key, -9001) < -1000;
+    public boolean offsetIsValid(String key){
+    	return Math.abs(table.getNumber(key,-9001))>360;
     }
-    
 }
 

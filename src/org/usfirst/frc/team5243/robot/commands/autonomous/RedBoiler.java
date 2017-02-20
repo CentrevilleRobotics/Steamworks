@@ -4,6 +4,7 @@ import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 //import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 //import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
+import org.usfirst.frc.team5243.robot.commands.Wait;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -30,10 +31,11 @@ public class RedBoiler extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	
+    	System.out.println("RedBoiler auton running");
     	addSequential(new DriveStraight(true,false,120));
     	addSequential(new TurnDegrees(-60));
     	addSequential(new DriveStraight(true,true,4));
+    	addSequential(new Wait(3));
     	addSequential(new DriveStraight(true,false,36));
     	addSequential(new TurnDegrees(-15));
     	addSequential(new TurnDegrees(-60));

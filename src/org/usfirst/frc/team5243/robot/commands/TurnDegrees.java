@@ -21,7 +21,7 @@ public class TurnDegrees extends Command {
     	requires(driveSubsystem);
     	turnDegrees = degrees;
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     	startDegree = driveSubsystem.getGyroAngle();
@@ -30,10 +30,10 @@ public class TurnDegrees extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (turnDegrees < 0) {
-    		driveSubsystem.turn(1);
+    		driveSubsystem.turn(.4);
     	}
     	else if (turnDegrees > 0) {
-    		driveSubsystem.turn(-1);
+    		driveSubsystem.turn(-.4);
     	}
     }
 

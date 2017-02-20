@@ -31,6 +31,9 @@ public class LoadingClimbingSubsystem extends Subsystem {
 	public void setLiftMotor(double speed) {
 		liftMotor.set(speed);
 	}
+	public double getLiftSpeed() {
+		return liftMotor.getSpeed();
+	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

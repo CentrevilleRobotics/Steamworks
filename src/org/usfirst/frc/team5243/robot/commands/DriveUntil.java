@@ -39,20 +39,20 @@ public class DriveUntil extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	driveSubsystem.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(front){
-    		if(visionSubsystem.offsetIsGood("frontOffsetX")){
+    		if(visionSubsystem.offsetIsValid("frontOffsetX")){
     			improvedStraight();
     		}else{		
 		    	//tempForward.execute();
     			System.out.println("Driving straight, front is " + front);
 	    	}  		
     	}else{
-    		if(visionSubsystem.offsetIsGood("rearOffsetX")){
+    		if(visionSubsystem.offsetIsValid("rearOffsetX")){
     			improvedStraight();
     		}else{
     			//tempBackward.execute();
@@ -66,53 +66,49 @@ public class DriveUntil extends Command {
     			// we correct ourselves here
     			if(Math.abs(driveSubsystem.getGyroAngle()) > 3.0){
 	    			if(driveSubsystem.getGyroAngle() > 3.0){
-//	    				driveSubsystem.turnRight(.5);
+	    				driveSubsystem.turnRight(.5);
 	    				System.out.println("Turning right, front is " + front);	    				
 	    			}else{
-//	    				driveSubsystem.turnLeft(.5);
+	    				driveSubsystem.turnLeft(.5);
 	    				System.out.println("Turning left, front is " + front);
     				}
-    			}
-    			else if(Math.abs(table.getNumber("frontOffsetX", 0.0)) > 20){
-	    			if(table.getNumber("frontOffsetX", 0.0) > 20.0){
-//	    				driveSubsystem.strafeLeft(.5);
+    			}else if(Math.abs(table.getNumber("frontOffsetX", 0.0)) > 20){
+    				if(table.getNumber("frontOffsetX", 0.0) > 20.0){
+	    				driveSubsystem.strafeLeft(.5);
 	    				System.out.println("Strafing left, front is " + front);
 	    			}else{
-//	    				driveSubsystem.strafeRight(.5);
+	    				driveSubsystem.strafeRight(.5);
 	    				System.out.println("Strafing right, front is " + front);
 	    			}
     			}
     		}else{
-    			driveSubsystem.setAllMotors(1);
+    			driveSubsystem.setAllMotors(.75);
     			//System.out.println("Driving improved straight, front is " + front);
     		}
-    	}
-    	else{
+    	}else{
     		if(Math.abs(table.getNumber("rearOffsetX", 0.0)) > 20.0 || Math.abs(driveSubsystem.getGyroAngle()) > 3.0){
     			// we correct ourselves here
     			if(Math.abs(driveSubsystem.getGyroAngle()) > 3.0){
 	    			if(driveSubsystem.getGyroAngle() > 3.0){
-//	    				driveSubsystem.turnRight(.5);
+	    				driveSubsystem.turnRight(.5);
 	    				System.out.println("Turning right, front is " + front);
 	    			}
 	    			else{
-//	    				driveSubsystem.turnLeft(.5);
+	    				driveSubsystem.turnLeft(.5);
 	    				System.out.println("Turning left, front is " + front);
     				}
-    			}
-    			else if(Math.abs(table.getNumber("rearOffsetX", 0.0)) > 20){
-	    			if(table.getNumber("rearOffsetX", 0.0) > 20.0){
-//	    				driveSubsystem.strafeRight(.5);
+    			}else if(Math.abs(table.getNumber("rearOffsetX", 0.0)) > 20){
+    				if(table.getNumber("rearOffsetX", 0.0) > 20.0){
+	    				driveSubsystem.strafeRight(.5);
 	    				System.out.println("Strafing right, front is " + front);
 	    			}
 	    			else{
-//	    				driveSubsystem.strafeLeft(.5);
+	    				driveSubsystem.strafeLeft(.5);
 	    				System.out.println("Strafing left, front is " + front);
 	    			}
     			}
-    		}
-    		else { 
-//    			driveSubsystem.setAllMotors(1);
+    		}else{ 
+    			driveSubsystem.setAllMotors(1);
     			System.out.println("Driving improved straight, front is " + front);
     		}
     	}
@@ -134,7 +130,7 @@ public class DriveUntil extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	//driveSubsystem.setAllMotors(0);
+    	driveSubsystem.setAllMotors(0);
     	System.out.println("Ended, stopping motors, front is " + front);
     }
 
