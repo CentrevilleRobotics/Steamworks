@@ -47,8 +47,4 @@ public class GearSubsystem extends Subsystem {
     		closeDoor();
     	}
     }
-    
-    public double getAngle() {
-    	return gearDoor.getAngle();
-    }
 }

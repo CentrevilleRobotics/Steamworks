@@ -5,15 +5,12 @@ import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
 import org.usfirst.frc.team5243.robot.commands.autonomous.RedBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.RedCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.RedHopper;
-<<<<<<< Updated upstream
-=======
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueHopper;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionRedBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionRedCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionRedHopper;
->>>>>>> Stashed changes
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.LoadingClimbingSubsystem;
@@ -114,10 +111,10 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
 		
-		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
-		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
-		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
+//		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
+//		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
+//		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
+//		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
 		
 		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
 		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
@@ -171,10 +168,10 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
 		
-		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
-		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
-		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
+//		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
+//		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
+//		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
+//		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
 		
 		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
 		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
