@@ -33,25 +33,33 @@ public class DriveStraight extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		driveSubsystem.resetGyro();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (frontUltrasonic) {
-			if (insideTheDistance) {
-				driveSubsystem.setAllMotors(-.75);
+		if (Math.abs(driveSubsystem.getGyroAngle()) < 3){
+			if (frontUltrasonic) {
+				if (insideTheDistance) {
+					driveSubsystem.setAllMotors(-.75);
+				} else {
+					driveSubsystem.setAllMotors(.75);
+				}
 			} else {
-				driveSubsystem.setAllMotors(.75);
+				if (insideTheDistance) {
+					driveSubsystem.setAllMotors(.75);
+				} else {
+					driveSubsystem.setAllMotors(-.75);
+				}
 			}
-		} else {
-			if (insideTheDistance) {
-				driveSubsystem.setAllMotors(.75);
-			} else {
-				driveSubsystem.setAllMotors(-.75);
+		} else{
+			if (driveSubsystem.getGyroAngle() > 0){
+				driveSubsystem.turnLeft(.25);
+			} else{
+				driveSubsystem.turnRight(.25);
 			}
-		}
+		} 
 	}
-
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (insideTheDistance) {
