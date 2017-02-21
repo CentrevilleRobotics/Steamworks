@@ -45,14 +45,11 @@ public class DriveStraight extends Command {
 				driveSubsystem.turnRight(.25);
 		}else{
 			if (frontUltrasonic) {
-				if (drivingFrom) {
+				if (drivingFrom) 
 					driveSubsystem.setAllMotors(-.75);
-				} else {
-					if (insideTheDistance)
-						driveSubsystem.setAllMotors(.75);
-					else
-						driveSubsystem.setAllMotors(-.75);
-				} else {
+				else
+					driveSubsystem.setAllMotors(-.75);
+			} else {
 					if (drivingFrom) {
 						driveSubsystem.setAllMotors(.75);
 					} else {
