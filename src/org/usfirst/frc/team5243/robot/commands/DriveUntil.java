@@ -19,8 +19,8 @@ public class DriveUntil extends Command {
 	private VisionSubsystem visionSubsystem;
 	private boolean front;
 	private NetworkTable table;
-//	private DriveStraight tempForward;
-//	private DriveStraight tempBackward;
+	private DriveStraight tempForward;
+	private DriveStraight tempBackward;
     public DriveUntil(double inches,boolean front) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,10 +28,10 @@ public class DriveUntil extends Command {
     	this.front = front;
     	sensorSubsystem = Robot.sensorSubsystem;
     	driveSubsystem = Robot.driveSubsystem;
-    	visionSubsystem = Robot.visionSubsystem;
-    	this.table = Robot.visionSubsystem.getTable();
-  //  	tempForward = new DriveStraight(true, true, inches);
-  //  	tempBackward = new DriveStraight(true, false, inches);
+    	//visionSubsystem = Robot.visionSubsystem;
+    	//this.table = Robot.visionSubsystem.getTable();
+    	//tempForward = new DriveStraight(true);
+    	//tempBackward = new DriveStraight(false);
     	requires(driveSubsystem);
     	requires(sensorSubsystem);
     	requires(visionSubsystem);
@@ -117,15 +117,15 @@ public class DriveUntil extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(front && sensorSubsystem.getUltrasonicFrontValue() < distanceToWall){
-    		System.out.println("Finished, front is " + front);
-    		return true;
+    	if(front){
+    		//System.out.println("Finished, front is " + front);
+    		return sensorSubsystem.getUltrasonicFrontValue() < distanceToWall;
     	}
-    	if(!front && sensorSubsystem.getUltrasonicBackValue() < distanceToWall){
-    		System.out.println("Finished, front is " + front);
-    		return true;
+    	else{
+    		//System.out.println("Finished, front is " + front);
+    		return sensorSubsystem.getUltrasonicBackValue() < distanceToWall;
     	}
-    	return false;
+    	
     }
 
     // Called once after isFinished returns true

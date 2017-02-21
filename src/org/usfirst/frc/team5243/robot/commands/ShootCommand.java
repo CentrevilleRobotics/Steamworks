@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
+import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,8 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ShootCommand extends Command {
 	private ShootingSubsystem shootSubsystem;
     public ShootCommand(boolean useLeftShooter) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        //checks which shooter to use
     	if(useLeftShooter){
     		shootSubsystem = Robot.leftShootingSubsystem;
     	}else{
@@ -43,6 +43,7 @@ public class ShootCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	//makes it turn the shooter off
     	shootSubsystem.shoot(0);
     }
 }

@@ -69,21 +69,23 @@ public class OI {
 		leftStick = new Joystick(RobotMap.leftStick);
 		rightStick = new Joystick(RobotMap.rightStick);
 		System.out.println("Joysticks initialized");
+		
+		
 		//initializes shooting variables
-		
-		
 		shooterRight = new JoystickButton(rightStick,1);
 		shooterRight.whileHeld(new ShootCommand(false));
-		
-		
+				
 		shooterLeft = new JoystickButton(leftStick, 1);
 		shooterLeft.whileHeld(new ShootCommand(true));
+		
 		System.out.println("Shoot buttons initialized");
 		
 		//intializes SwitchDrive
 		SwitchDrive = new JoystickButton(leftStick, 4);
 		SwitchDrive.whenPressed(new SwitchDriveCommand());
+		
 		System.out.println("Switch Drive initialized");
+		
 		//Initializes load variable
 		loadFuel = new JoystickButton(rightStick, 2);
 		loadFuel.whileHeld(new LoadFuelCommand());

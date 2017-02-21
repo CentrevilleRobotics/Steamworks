@@ -20,8 +20,6 @@ public class LoadingClimbingSubsystem extends Subsystem {
 	public LoadingClimbingSubsystem(){
 		loadMotor = new CANTalon(RobotMap.loadMotor);
 		liftMotor = new CANTalon(RobotMap.liftMotor);
-		loadMotor.setInverted(true);
-		liftMotor.setInverted(true);
 	}
 	public void setLoadMotors(double speed){
 		loadMotor.set(speed);

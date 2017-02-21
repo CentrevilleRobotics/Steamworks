@@ -44,7 +44,7 @@ public class VisionSubsystem extends Subsystem {
     	return table.getNumber("rearOffsetY", -9001);
     }
     public boolean offsetIsValid(String key){
-    	return Math.abs(table.getNumber(key,-9001)) <= 360;
+    	return Math.abs(table.getNumber(key,-9001))>360;
     }
 }
 

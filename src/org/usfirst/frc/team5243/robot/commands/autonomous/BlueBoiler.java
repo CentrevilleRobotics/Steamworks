@@ -16,33 +16,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class BlueBoiler extends CommandGroup {
 
     public BlueBoiler() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-      // arm.
+        
     	System.out.println("BlueBoiler auton running");
-    	addSequential(new DriveStraight(false, false,120));
-    	addSequential(new TurnDegrees(60));
-    	addSequential(new DriveStraight(true,true, 3)); //TODO
-    	addSequential(new ToggleGearDoor());
-    	addSequential(new Wait(3));
-    	addSequential(new ToggleGearDoor());
-    	addSequential(new DriveStraight(true,false, 36));
-    	addSequential(new TurnDegrees(-15));
+    	//Lists Sequence of commands
+    	addSequential(new DriveStraight(false, false,120)); //Moves 120 inches forward from start pos
+    	addSequential(new TurnDegrees(60)); //Turns to face the gear lift on the left side of the airship
+    	addSequential(new DriveStraight(true,true, 3)); //Drives to the lift
+    	addSequential(new ToggleGearDoor()); //Drops the gear
+    	addSequential(new Wait(3)); //waits for 3 seconds to give the pilot time to lift the gear
+    	addSequential(new ToggleGearDoor()); //Retracts the gear door
+    	addSequential(new DriveStraight(true,false, 36)); //Moves back 36 to clear the barriers
+    	addSequential(new TurnDegrees(-15)); //Turns left to face the boiler head on
+    	addSequential(new DriveStraight(true, true, 3)); //Moves to shooting location
     	
-    	addParallel(new ShootCommand(true));
+    	//Turns on both shooters at the same time
+    	addParallel(new ShootCommand(true)); 
     	addSequential(new ShootCommand(false));
     	
     }

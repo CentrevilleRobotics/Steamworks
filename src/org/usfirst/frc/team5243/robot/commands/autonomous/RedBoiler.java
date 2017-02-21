@@ -1,6 +1,8 @@
 package org.usfirst.frc.team5243.robot.commands.autonomous;
 
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
+import org.usfirst.frc.team5243.robot.commands.ShootCommand;
+import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 //import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 //import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
@@ -14,34 +16,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RedBoiler extends CommandGroup {
 
     public RedBoiler() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+      
     	
     	System.out.println("RedBoiler auton running");
-    	addSequential(new DriveStraight(true,false,120));
-    	addSequential(new TurnDegrees(-60));
-    	addSequential(new DriveStraight(true,true,4));
-    	addSequential(new Wait(3));
-    	addSequential(new DriveStraight(true,false,36));
-    	addSequential(new TurnDegrees(-15));
-    	addSequential(new TurnDegrees(-60));
+    	// Sequence of commands
+    	addSequential(new DriveStraight(true,false,120)); //Drives forward for 120 inches
+    	addSequential(new TurnDegrees(-60)); // Turn to face the gear lift
+    	addSequential(new DriveStraight(true,true,4)); // Drive up to the gear lift
+    	addSequential(new ToggleGearDoor()); //Drops the gear
+    	addSequential(new Wait(3)); //Waits for 3 seconds to give the pilot time to lift the gear
+    	addSequential(new ToggleGearDoor()); //Retracts the door 
+    	addSequential(new DriveStraight(true,false,36)); // Move back 36 inches to clear the barriers
+    	addSequential(new TurnDegrees(-15)); //Turns to face the boiler
+    	addSequential(new DriveStraight(true, true, 3)); //Moves to shooting location
     	
-//TODO    	addParallel(new ShootLeftCommand());
-//TODO    	addSequential(new ShootRightCommand());
+    	// Turns on the shooters at the same time
+    	addParallel(new ShootCommand(true));
+    	addSequential(new ShootCommand(false));
     }
 }
 

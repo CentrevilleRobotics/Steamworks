@@ -20,6 +20,7 @@ public class SwitchShooterMode extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//switches from using the z-slider to default value
     	RobotMap.ZAxisShooting = !RobotMap.ZAxisShooting;
     }
 

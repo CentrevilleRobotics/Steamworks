@@ -13,10 +13,10 @@ public class DriveStraight extends Command {
 	DriveSubsystem driveSubsystem;
 	Ultrasonic ultrasonic;
 	boolean frontUltrasonic;
-	boolean drivingFrom;
+	boolean insideTheDistance;
 	double distance;
-
-	public DriveStraight(boolean frontUltra, boolean drivingFrom, double distance) {
+	
+	public DriveStraight(boolean frontUltra, boolean insideTheDistance, double distance) {
 		driveSubsystem = Robot.driveSubsystem;
 		frontUltrasonic = frontUltra;
 		if (frontUltra) {
@@ -24,7 +24,7 @@ public class DriveStraight extends Command {
 		} else {
 			ultrasonic = Robot.sensorSubsystem.getBackUltra();
 		}
-		this.drivingFrom = drivingFrom;
+		this.insideTheDistance = insideTheDistance;
 		this.distance = distance;
 
 		requires(driveSubsystem);
@@ -50,11 +50,10 @@ public class DriveStraight extends Command {
 				} else {
 					driveSubsystem.setAllMotors(.75);
 			} else {
-					if (drivingFrom) {
-						driveSubsystem.setAllMotors(.75);
-					} else {
-						driveSubsystem.setAllMotors(-.75);
-					}
+				if (insideTheDistance) {
+					driveSubsystem.setAllMotors(.75);
+				} else {
+					driveSubsystem.setAllMotors(-.75);
 				}
 			} 
 		}
@@ -63,7 +62,7 @@ public class DriveStraight extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (drivingFrom) {
+		if (insideTheDistance) {
 			return ultrasonic.getRangeInches() < distance;
 		} else {
 			return ultrasonic.getRangeInches() > distance;

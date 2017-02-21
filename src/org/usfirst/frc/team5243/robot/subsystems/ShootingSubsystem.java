@@ -16,7 +16,6 @@ public class ShootingSubsystem extends Subsystem {
 	CANTalon shooter;
 	Victor agitator;
 	
-
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
@@ -52,9 +51,6 @@ public class ShootingSubsystem extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
 }
 
