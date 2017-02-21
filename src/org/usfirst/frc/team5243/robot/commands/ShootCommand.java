@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,11 +27,11 @@ public class ShootCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (RobotMap.ZAxisShooting) {
+    	/*if (RobotMap.ZAxisShooting) {
     		shootSubsystem.shoot(0.5 * Robot.oi.getLeftStick().getZ() + 0.5);
-    	} else {
+    	} else {*/
         	shootSubsystem.shoot(.79);//ideal speed according to previous tests
-    	}
+    	//}
     }
 
     // Make this return true when this Command no longer needs to run execute()

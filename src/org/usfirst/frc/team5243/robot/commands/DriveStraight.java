@@ -13,10 +13,10 @@ public class DriveStraight extends Command {
 	DriveSubsystem driveSubsystem;
 	Ultrasonic ultrasonic;
 	boolean frontUltrasonic;
-	boolean insideTheDistance;
+	boolean drivingFrom;
 	double distance;
-	
-	public DriveStraight(boolean frontUltra, boolean insideTheDistance, double distance) {
+
+	public DriveStraight(boolean frontUltra, boolean drivingFrom, double distance) {
 		driveSubsystem = Robot.driveSubsystem;
 		frontUltrasonic = frontUltra;
 		if (frontUltra) {
@@ -24,7 +24,7 @@ public class DriveStraight extends Command {
 		} else {
 			ultrasonic = Robot.sensorSubsystem.getBackUltra();
 		}
-		this.insideTheDistance = insideTheDistance;
+		this.drivingFrom = drivingFrom;
 		this.distance = distance;
 
 		requires(driveSubsystem);
@@ -38,31 +38,33 @@ public class DriveStraight extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Math.abs(driveSubsystem.getGyroAngle()) < 3){
-			if (frontUltrasonic) {
-				if (insideTheDistance) {
-					driveSubsystem.setAllMotors(-.75);
-				} else {
-					driveSubsystem.setAllMotors(.75);
-				}
-			} else {
-				if (insideTheDistance) {
-					driveSubsystem.setAllMotors(.75);
-				} else {
-					driveSubsystem.setAllMotors(-.75);
-				}
-			}
-		} else{
-			if (driveSubsystem.getGyroAngle() > 0){
+		if(Math.abs(driveSubsystem.getGyroAngle())>3){
+			if(driveSubsystem.getGyroAngle()>3)
 				driveSubsystem.turnLeft(.25);
-			} else{
+			else
 				driveSubsystem.turnRight(.25);
-			}
-		} 
-	}
+		}else{
+			if (frontUltrasonic) {
+				if (drivingFrom) {
+					driveSubsystem.setAllMotors(-.75);
+				} else {
+					if (insideTheDistance)
+						driveSubsystem.setAllMotors(.75);
+					else
+						driveSubsystem.setAllMotors(-.75);
+				} else {
+					if (drivingFrom) {
+						driveSubsystem.setAllMotors(.75);
+					} else {
+						driveSubsystem.setAllMotors(-.75);
+					}
+				}
+			} 
+		}
+
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (insideTheDistance) {
+		if (drivingFrom) {
 			return ultrasonic.getRangeInches() < distance;
 		} else {
 			return ultrasonic.getRangeInches() > distance;

@@ -82,18 +82,18 @@ public class OI {
 		System.out.println("Shoot buttons initialized");
 		
 		//intializes SwitchDrive
-		SwitchDrive = new JoystickButton(rightStick, 8);
+		SwitchDrive = new JoystickButton(rightStick, 6);
 		SwitchDrive.whenPressed(new SwitchDriveCommand());
 		System.out.println("Switch Drive initialized");
 		//Initializes load variable
-		loadFuel = new JoystickButton(rightStick, 7);
+		loadFuel = new JoystickButton(rightStick, 5);
 		loadFuel.whileHeld(new LoadFuelCommand());
 		System.out.println("Load fuel initialized");
-		climbButton = new JoystickButton(leftStick, 3);
+		climbButton = new JoystickButton(rightStick, 3);
 		System.out.println("Climbing button initialized");
 		climbButton.whileHeld(new ClimbCommand());
 		
-		toggleGearDoor = new JoystickButton(rightStick, 3);
+		toggleGearDoor = new JoystickButton(rightStick, 4);
 		toggleGearDoor.whenPressed(new ToggleGearDoor());
 		System.out.println("Gear button initialized");
 		

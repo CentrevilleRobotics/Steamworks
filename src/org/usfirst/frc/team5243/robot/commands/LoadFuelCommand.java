@@ -26,7 +26,8 @@ public class LoadFuelCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //    	if(elapsedTime() < 7000){
-    		loadingClimbingSubsystem.setLoadMotors(1);
+    		loadingClimbingSubsystem.setLoadMotor(.5);
+    		loadingClimbingSubsystem.setLiftMotor(.6);
 //    	}else{
 //    		loadingSubsystem.setLiftMotor(1);
 //    		loadingSubsystem.setLoadMotor(0);
