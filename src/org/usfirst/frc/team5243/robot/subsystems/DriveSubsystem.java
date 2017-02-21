@@ -37,16 +37,18 @@ public class DriveSubsystem extends Subsystem {
     	robotDrive.setSafetyEnabled(false);
 		gyro = new ADXRS450_Gyro();
 		
-		frontRight.setVoltageRampRate(24);
-    	backRight.setVoltageRampRate(24);
-    	frontLeft.setVoltageRampRate(24);
-    	backLeft.setVoltageRampRate(24);
-		
+		frontRight.setVoltageRampRate(12);
+    	backRight.setVoltageRampRate(12);
+    	frontLeft.setVoltageRampRate(12);
+    	backLeft.setVoltageRampRate(12);
+    	
 		frontRight.setInverted(true);
     	backRight.setInverted(true);
     	frontLeft.setInverted(false);
     	backLeft.setInverted(false);
     	System.out.println("DriveSS Constructor ended");
+    	
+    	
     }
     public void resetGyro(){
     	gyro.reset();
@@ -58,11 +60,6 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void strafeRight(double speed) {
-    	if(speed > .1){
-    		speed = .1;
-    	}else if(speed < -.1){
-    		speed = .1;
-    	}
     	frontRight.set(-speed);
     	frontLeft.set(speed);
     	backLeft.set(-speed);
@@ -87,47 +84,21 @@ public class DriveSubsystem extends Subsystem {
     public void mecanumDrive(){ // mecanum drive
     	/*frontRight.setInverted(true);
     	backRight.setInverted(true);*/
-        robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
-    }
-    public void turn(double speed){
-    	if(speed > .1){
-    		speed = .1;
-    	}else if(speed < -.1){
-    		speed = -.1;
-    	}
-    	frontLeft.set(-speed);
-    	frontRight.set(speed);
-    	backLeft.set(-speed);
-    	backRight.set(speed);
+    	robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getLeftStick().getRawAxis(2) ,gyro.getAngle());
     }
     public void turnLeft(double speed){
-    	if(speed > .1){
-    		speed = .1;
-    	}else if(speed < -.1){
-    		speed = -.1;
-    	}
     	frontLeft.set(-speed);
     	backLeft.set(-speed);
     	frontRight.set(speed);
     	backRight.set(speed);    	
     }
     public void turnRight(double speed){
-    	if(speed > .1){
-    		speed = .1;
-    	}else if(speed < -.1){
-    		speed = -.1;
-    	}
     	frontLeft.set(speed);
     	backLeft.set(speed);
     	frontRight.set(-speed);
     	backRight.set(-speed);
     }
     public void setAllMotors(double speed){
-    	if(speed > .1){
-    		speed = .1;
-    	}else if(speed < -.1){
-    		speed = -.1;
-    	}
     	frontLeft.set(speed);
     	frontRight.set(speed);
     	backLeft.set(speed);

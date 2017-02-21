@@ -27,11 +27,8 @@ public class ShootCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*if (RobotMap.ZAxisShooting) {
-    		shootSubsystem.shoot(0.5 * Robot.oi.getLeftStick().getZ() + 0.5);
-    	} else {*/
-        	shootSubsystem.shoot(.79);//ideal speed according to previous tests
-    	//}
+    	shootSubsystem.shoot(1);
+    	shootSubsystem.setAgitator(0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()

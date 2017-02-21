@@ -48,7 +48,7 @@ public class DriveStraight extends Command {
 				if (drivingFrom) 
 					driveSubsystem.setAllMotors(-.75);
 				else
-					driveSubsystem.setAllMotors(-.75);
+					driveSubsystem.setAllMotors(.75);
 			} else {
 					if (drivingFrom) {
 						driveSubsystem.setAllMotors(.75);
