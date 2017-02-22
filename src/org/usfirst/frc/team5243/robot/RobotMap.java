@@ -14,19 +14,18 @@ public class RobotMap {    // For example to map the left and right motors, you 
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
-	
+
+
 	public final static int FrontLeft = 1;
 	public final static int BackLeft = 2;
 	public static int BackRight  = 3;
 	public static int FrontRight = 4;
 
-	public static int leftStick = 1;
-	public static int rightStick = 0;
+	public static int leftStick = 0;
+	public static int rightStick = 1;
 	
 	public static int shooterLeft = 5;
 	public static int shooterRight = 6;
-	public static int agitatorLeft = 2;
-	public static int agitatorRight = 3;
 	
 	public static int liftMotor = 7;
 	public static int loadMotor = 8;

@@ -115,11 +115,8 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
 //		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
 		
-		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getShooterSpeed());
-		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getShooterSpeed());
-		
-		SmartDashboard.putNumber("Left Agitator Speed ", leftShootingSubsystem.getAgitatorSpeed());
-		SmartDashboard.putNumber("Right Agitator Speed ", rightShootingSubsystem.getAgitatorSpeed());
+		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
+		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
 		
 	}
 	public void initAutonChoosers(){

@@ -43,6 +43,7 @@ public class OI {
 	//GearSubsystem
 	Button toggleGearDoor;
 	
+	Button switchShooterMode;
 	
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
@@ -81,23 +82,26 @@ public class OI {
 		System.out.println("Shoot buttons initialized");
 		
 		//intializes SwitchDrive
-		SwitchDrive = new JoystickButton(leftStick, 4);
+		SwitchDrive = new JoystickButton(rightStick, 6);
 		SwitchDrive.whenPressed(new SwitchDriveCommand());
 		
 		System.out.println("Switch Drive initialized");
 		
 		//Initializes load variable
-		loadFuel = new JoystickButton(rightStick, 2);
+		loadFuel = new JoystickButton(rightStick, 5);
 		loadFuel.whileHeld(new LoadFuelCommand());
 		System.out.println("Load fuel initialized");
-		climbButton = new JoystickButton(rightStick, 4);
+		climbButton = new JoystickButton(rightStick, 3);
 		System.out.println("Climbing button initialized");
 		climbButton.whileHeld(new ClimbCommand());
 		
-		toggleGearDoor = new JoystickButton(rightStick, 5);
+		toggleGearDoor = new JoystickButton(rightStick, 4);
 		toggleGearDoor.whenPressed(new ToggleGearDoor());
 		System.out.println("Gear button initialized");
 		
+		switchShooterMode = new JoystickButton(leftStick, 9);
+		switchShooterMode.whenPressed(new SwitchShooterMode());
+		System.out.println("Switch shooter mode initialized");
 	}	
 	
 	//Getters for Joysticks

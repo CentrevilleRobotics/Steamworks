@@ -5,7 +5,6 @@ import org.usfirst.frc.team5243.robot.RobotMap;
 
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -14,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShootingSubsystem extends Subsystem {
     //declares motor CANTalon as shooter
 	CANTalon shooter;
-	Victor agitator;
+	
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -23,11 +22,9 @@ public class ShootingSubsystem extends Subsystem {
     public ShootingSubsystem(boolean leftShooter){
     	if(leftShooter){
     		shooter = new CANTalon(RobotMap.shooterLeft);
-    		agitator = new Victor(RobotMap.agitatorLeft);
     	} else {
     		shooter = new CANTalon(RobotMap.shooterRight);
     		shooter.setInverted(true);
-    		agitator = new Victor(RobotMap.agitatorRight);
     	}
 	}
 	
@@ -35,19 +32,12 @@ public class ShootingSubsystem extends Subsystem {
 	public void shoot(double speed){
 		shooter.set(speed);
 		//System.out.println("shooter: " + shooter.getSpeed());
-	}
-	
-	public void setAgitator(double speed) {
-		agitator.set(speed);
+
 	}
 	
 	//returns speed of shooter
-	public double getShooterSpeed(){
+	public double getSpeed(){
 		return shooter.getSpeed();
-	}
-	
-	public double getAgitatorSpeed() {
-		return agitator.getSpeed();
 	}
 	
     public void initDefaultCommand() {
