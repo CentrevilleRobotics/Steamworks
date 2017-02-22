@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
-import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,7 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ShootCommand extends Command {
 	private ShootingSubsystem shootSubsystem;
     public ShootCommand(boolean useLeftShooter) {
-        //checks which shooter to use
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	if(useLeftShooter){
     		shootSubsystem = Robot.leftShootingSubsystem;
     	}else{
@@ -27,11 +27,8 @@ public class ShootCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*if (RobotMap.ZAxisShooting) {
-    		shootSubsystem.shoot(0.5 * Robot.oi.getLeftStick().getZ() + 0.5);
-    	} else {*/
-        	shootSubsystem.shoot(.79);//ideal speed according to previous tests
-    	//}
+    	shootSubsystem.shoot(1);
+    	shootSubsystem.setAgitator(0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -46,7 +43,6 @@ public class ShootCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//makes it turn the shooter off
     	shootSubsystem.shoot(0);
     }
 }

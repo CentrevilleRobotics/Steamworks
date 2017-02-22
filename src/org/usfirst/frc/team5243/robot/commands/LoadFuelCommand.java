@@ -25,31 +25,25 @@ public class LoadFuelCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	if(elapsedTime() < 7000){
     		loadingClimbingSubsystem.setLoadMotor(.5);
-    		loadingClimbingSubsystem.setLiftMotor(.6);
-//    	}else{
-//    		loadingSubsystem.setLiftMotor(1);
-//    		loadingSubsystem.setLoadMotor(0);
-//    	}
+    		loadingClimbingSubsystem.setLiftMotor(-.5*Robot.oi.getLeftStick().getRawAxis(3)+.25);
     }
-//    private double elapsedTime(){
-//    	return Math.abs(starttime - System.currentTimeMillis());
-//    }
+    private double elapsedTime(){
+    	return Math.abs(starttime - System.currentTimeMillis());
+    }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        //return elapsedTime() > 10000;
-    	return false;
+        return elapsedTime() > 10000;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	//loadingSubsystem.setLoadMotors(0);
+    	loadingClimbingSubsystem.setLoadMotors(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	loadingClimbingSubsystem.setLoadMotors(0);
+    	end();
     }
 }

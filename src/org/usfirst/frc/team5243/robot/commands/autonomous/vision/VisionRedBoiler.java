@@ -17,18 +17,34 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class VisionRedBoiler extends CommandGroup {
 
     public VisionRedBoiler() {
-    	System.out.println("RedBoiler auton running");
-    	addSequential(new DriveStraight(true,false,120)); //Drives forward for 120 inches
-    	addSequential(new TurnDegrees(-60)); // Turn to face the gear lift
-    	addSequential(new DriveUntil(4, true)); // Drive up to the gear lift
-    	addSequential(new ToggleGearDoor()); //Drops the gear
-    	addSequential(new Wait(3)); //Waits for 3 seconds to give the pilot time to lift the gear
-    	addSequential(new ToggleGearDoor()); //Retracts the door 
-    	addSequential(new DriveStraight(true,false,12)); // Move back 36 inches to clear the barriers
-    	addSequential(new TurnDegrees(-15)); //Turns to face the boiler
-    	addSequential(new DriveUntil(3, false)); //Moves to shooting location
+        // Add Commands here:
+        // e.g. addSequential(new Command1());
+        //      addSequential(new Command2());
+        // these will run in order.
+
+        // To run multiple commands at the same time,
+        // use addParallel()
+        // e.g. addParallel(new Command1());
+        //      addSequential(new Command2());
+        // Command1 and Command2 will run in parallel.
+
+        // A command group will require all of the subsystems that each member
+        // would require.
+        // e.g. if Command1 requires chassis, and Command2 requires arm,
+        // a CommandGroup containing them would require both the chassis and the
+        // arm.
     	
-    	//turn on shooters
+    	System.out.println("RedBoiler auton running");
+    	addSequential(new DriveStraight(true,false,120));
+    	addSequential(new TurnDegrees(-60));
+    	addSequential(new DriveUntil(4, true));
+    	addSequential(new ToggleGearDoor());
+    	addSequential(new Wait(3));
+    	addSequential(new ToggleGearDoor());
+    	addSequential(new DriveStraight(true,false,12));
+    	addSequential(new TurnDegrees(-15));
+    	addSequential(new DriveUntil(3, false));
+    	    	
     	addParallel(new ShootCommand(true));
     	addSequential(new ShootCommand(false));
     	

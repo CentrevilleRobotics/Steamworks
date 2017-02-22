@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5243.robot.commands.autonomous;
 
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
-import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
 import org.usfirst.frc.team5243.robot.commands.Wait;
 
@@ -13,21 +12,40 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RedHopper extends CommandGroup {
 
     public RedHopper() {
-    	// Sequence of commands
+        // Add Commands here:
+        // e.g. addSequential(new Command1());
+        //      addSequential(new Command2());
+        // these will run in order.
+
+        // To run multiple commands at the same time,
+        // use addParallel()
+        // e.g. addParallel(new Command1());
+        //      addSequential(new Command2());
+        // Command1 and Command2 will run in parallel.
+
+        // A command group will require all of the subsystems that each member
+        // would require.
+        // e.g. if Command1 requires chassis, and Command2 requires arm,
+        // a CommandGroup containing them would require both the chassis and the
+        // arm.
+    	
     	System.out.println("RedHopper auton running");
-    	addSequential(new DriveStraight(false,false,120)); //Drive forward 120 inches
-    	addSequential(new TurnDegrees(60)); // Turn to face the gear lift
-    	addSequential(new DriveStraight(true, true, 4)); //Drive towards the gear lift until 4 inches from it
-    	addSequential(new ToggleGearDoor()); //drops the gear
-    	addSequential(new Wait(3)); //waits for 3 seconds to give the pilot time to lift the gear
-    	addSequential(new ToggleGearDoor()); //retract the gear door 
-    	addSequential(new DriveStraight(true, false, 36)); //Moves backward 36 inches 
-    	addSequential(new TurnDegrees(-60)); //Turns toward the hopper
-    	addSequential(new DriveStraight(true,false,165)); //Drives toward the hopper
-    	addSequential(new TurnDegrees(90)); // Turn to face the hopper directly
-    	addSequential(new DriveStraight(true,true,10)); // Drives into the hopper
-    }    	
-}
+    	addSequential(new DriveStraight(false,false,120));
+    	addSequential(new TurnDegrees(60));
+    	addSequential(new DriveStraight(true, true, 4));
+    	addSequential(new Wait(3));
+    	addSequential(new DriveStraight(true, false, 36));
+    	addSequential(new TurnDegrees(-60));
+    	addSequential(new DriveStraight(true,false,165));
+    	addSequential(new TurnDegrees(-90));
+    	addSequential(new DriveStraight(true,true,10));
+    	
+   
+    }
+		   //addSequential(new DriveStraight(117));
+    	
+    	
+    }
 
 
 

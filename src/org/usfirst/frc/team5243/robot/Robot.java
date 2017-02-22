@@ -1,4 +1,5 @@
 package org.usfirst.frc.team5243.robot;
+import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
@@ -17,6 +18,7 @@ import org.usfirst.frc.team5243.robot.subsystems.LoadingClimbingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SolenoidSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -41,11 +43,13 @@ public class Robot extends IterativeRobot {
 	public static SolenoidSubsystem solenoidSubsystem;
 	public static ShootingSubsystem rightShootingSubsystem;
 	public static ShootingSubsystem leftShootingSubsystem;
-//	public static VisionSubsystem visionSubsystem;
+	public static VisionSubsystem visionSubsystem;
 	public static LoadingClimbingSubsystem loadingSubsystem;
 	
 	Command autonomousCommand;
-	SendableChooser<Command> autonomousCommandChooser;
+
+	SendableChooser<Command> autoChooser;
+//	private boolean useVisionAutons = true;
 
 
 	/**
@@ -73,29 +77,39 @@ public class Robot extends IterativeRobot {
 		leftShootingSubsystem = new ShootingSubsystem(true);
 		rightShootingSubsystem = new ShootingSubsystem(false);
 		
-		//visionSubsystem = new VisionSubsystem();
+		try{
+			visionSubsystem = new VisionSubsystem();
+		}catch(Exception ex){
+			ex.printStackTrace(); 
+			//useVisionAutons = false;
+		}
 		loadingSubsystem = new LoadingClimbingSubsystem();
 		System.out.println("Subsystems initialized, starting oi.init()");
 		oi.init();
 		System.out.println("OI initialized");
-		autonomousCommandChooser = new SendableChooser<>();
-		autonomousCommandChooser.addDefault("Boiler Red Side", new RedBoiler());
-		autonomousCommandChooser.addObject("Hopper Red Side", new RedHopper());
-		autonomousCommandChooser.addObject("Center Red Side", new RedCenter());
-		autonomousCommandChooser.addObject("Boiler Blue Side", new BlueBoiler());
-		autonomousCommandChooser.addObject("Hopper Blue Side", new BlueHopper());
-		autonomousCommandChooser.addObject("Center Blue Side", new BlueCenter());
 		
-		autonomousCommandChooser.addObject("Vision Blue Boiler", new VisionBlueBoiler());
-		autonomousCommandChooser.addObject("Vision Blue Center", new VisionBlueCenter());
-		autonomousCommandChooser.addObject("Vision Blue Hopper", new VisionBlueHopper());
-		autonomousCommandChooser.addObject("Vision Red Boiler", new VisionRedBoiler());
-		autonomousCommandChooser.addObject("Vision Red Center", new VisionRedCenter());
-		autonomousCommandChooser.addObject("Vision Red Hopper", new VisionRedHopper());
-		SmartDashboard.putData("Auton Chooser", autonomousCommandChooser);
+		autoChooser = new SendableChooser<>();
+		autoChooser.addDefault("DriveStraight", new DriveStraight(true,true,10));
+		autoChooser.addObject("RedCenter", new RedCenter());
+		autoChooser.addObject("RedCenter", new RedBoiler());
+		autoChooser.addObject("RedCenter", new RedHopper());
+		autoChooser.addObject("RedCenter", new BlueCenter());
+		autoChooser.addObject("RedCenter", new BlueHopper());
+		autoChooser.addObject("RedCenter", new BlueBoiler());
+
+		autoChooser.addObject("VisionRedCenter", new VisionRedCenter());
+		autoChooser.addObject("VisionRedCenter", new VisionRedBoiler());
+		autoChooser.addObject("VisionRedCenter", new VisionRedHopper());
+		autoChooser.addObject("VisionCenter", new VisionBlueCenter());
+		autoChooser.addObject("VisionCenter", new VisionBlueHopper());
+		autoChooser.addObject("VisionCenter", new VisionBlueBoiler());
+	
+		
+		
 		System.out.println("Auton command chooser initialized");
-		
-		System.out.println("smart dashboard placements in robot init");
+		updateSmartDashboard();
+	}
+	public void updateSmartDashboard(){
 		SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
 		SmartDashboard.putNumber("Back Ultrasonic ", sensorSubsystem.getUltrasonicBackValue());
 		
@@ -110,60 +124,77 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
 		
-//		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
-//		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
-//		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-//		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
+		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
+		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
+		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
+		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
 		
-		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
-		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
+		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getShooterSpeed());
+		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getShooterSpeed());
+		
+		SmartDashboard.putNumber("Left Agitator Speed ", leftShootingSubsystem.getAgitatorSpeed());
+		SmartDashboard.putNumber("Right Agitator Speed ", rightShootingSubsystem.getAgitatorSpeed());
 		
 	}
-	public void initAutonChoosers(){
-		useVision = new SendableChooser<>();
-		redBlue = new SendableChooser<>();
-		autonPosition = new SendableChooser<>();
-		
-		useVision.addDefault("No Vision", false);
-		useVision.addObject("Use Vision", true);
-		
-		redBlue.addDefault("Red Alliance", "Red alliance");
-		redBlue.addDefault("Blue Alliance" , "Blue alliance");
-		
-		autonPosition.addDefault("CenterPosition", "Center position");
-		autonPosition.addDefault("BoilerPosition", "Boiler position");
-		autonPosition.addDefault("HopperPosition", "Hopper position");
-		
-		SmartDashboard.putData("Autonomous Chooser", autonPosition);
-		SmartDashboard.putData("Vision Chooser", useVision);
-		SmartDashboard.putData("RedBlueChooser", redBlue);
-	}
-	
+
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
-	
     public void disabledInit(){
 
     }
-	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
-	
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousInit() {
-//    	new DriveUntil(5,true);
-		autonomousCommand = autonomousCommandChooser.getSelected();
-    	if(autonomousCommand == null) autonomousCommand = new RedCenter();
+		/*gearSubsystem.closeDoor();
+		if(useVision.getSelected()){
+			if(redBlue.getSelected().equals("Red alliance")){
+				if(autonPosition.getSelected().equals("Center position")){
+					autonomousCommand = new VisionRedCenter();
+				}else if(autonPosition.getSelected().equals("Boiler position")){
+					autonomousCommand = new VisionRedBoiler();
+				}else{
+					autonomousCommand = new VisionRedHopper();
+				}
+			}else{
+				if(autonPosition.getSelected().equals("Center position")){
+					autonomousCommand = new VisionBlueCenter();
+				}else if(autonPosition.getSelected().equals("Boiler position")){
+					autonomousCommand = new VisionBlueBoiler();
+				}else{
+					autonomousCommand = new VisionBlueHopper();
+				}
+			}
+		}else{
+			if(redBlue.getSelected().equals("Red alliance")){
+				if(autonPosition.getSelected().equals("Center position")){
+					autonomousCommand = new RedCenter();
+				}else if(autonPosition.getSelected().equals("Boiler position")){
+					autonomousCommand = new RedBoiler();
+				}else{
+					autonomousCommand = new RedHopper();
+				}
+			}else{
+				if(autonPosition.getSelected().equals("Center position")){
+					autonomousCommand = new BlueCenter();
+				}else if(autonPosition.getSelected().equals("Boiler position")){
+					autonomousCommand = new BlueBoiler();
+				}else{
+					autonomousCommand = new BlueHopper();
+				}
+			}
+		}*/
+		//System.out.println(autonomousCommand.getName());
+		/*if(autonomousCommand == null)*/ autonomousCommand = new RedCenter();
         autonomousCommand.start();
     }
-
+	
     /**
      * This function is called periodically during autonomous
      */
@@ -171,70 +202,21 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
 		System.out.println(sensorSubsystem.getUltrasonicFrontValue());
-
-        SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
-		SmartDashboard.putNumber("Back Ultrasonic ", sensorSubsystem.getUltrasonicBackValue());
-		
-		SmartDashboard.putNumber("Front Left Motor ", driveSubsystem.getFrontLeftSpeed());
-		SmartDashboard.putNumber("Back Left Motor ", driveSubsystem.getBackLeftSpeed());
-		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
-		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
-		
-		SmartDashboard.putNumber("Actuator Position ", gearSubsystem.getAngle());
-		
-		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
-		
-		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
-		
-//		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
-//		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
-//		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-//		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
-		
-		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
-		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
+		updateSmartDashboard();
+        
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
-        gearSubsystem.closeDoor();
+		
+    	if (autonomousCommand != null) autonomousCommand.cancel();
     }
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
-		SmartDashboard.putNumber("Gyro Rate: ", driveSubsystem.getGyroRate());
-		
-		SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
-		SmartDashboard.putNumber("Back Ultrasonic ", sensorSubsystem.getUltrasonicBackValue());
-		
-		SmartDashboard.putNumber("Front Left Motor ", driveSubsystem.getFrontLeftSpeed());
-		SmartDashboard.putNumber("Back Left Motor ", driveSubsystem.getBackLeftSpeed());
-		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
-		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
-		
-		SmartDashboard.putNumber("Actuator Position ", gearSubsystem.getAngle());
-		
-		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
-		
-		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
-		SmartDashboard.putNumber("Loading Speed ", loadingSubsystem.getLoadSpeed());
-		
-//		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
-//		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
-//		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-//		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
-//		
-		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
-		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
+		updateSmartDashboard();
 	}
 	
     /**
