@@ -23,6 +23,7 @@ public class DriveSubsystem extends Subsystem {
     RobotDrive robotDrive;
     ADXRS450_Gyro gyro;
     
+    //declare drive commands
     MecanumDriveCommand mecanumDrive;
     TankDriveCommand tankDrive;
     
@@ -37,26 +38,30 @@ public class DriveSubsystem extends Subsystem {
     	robotDrive.setSafetyEnabled(false);
 		gyro = new ADXRS450_Gyro();
 		
+		//set acceleration rate of voltage on motors
 		frontRight.setVoltageRampRate(24);
     	backRight.setVoltageRampRate(24);
     	frontLeft.setVoltageRampRate(24);
     	backLeft.setVoltageRampRate(24);
 		
-		frontRight.setInverted(true);
+		//Invert necessary motors
+    	frontRight.setInverted(true);
     	backRight.setInverted(true);
-    	frontLeft.setInverted(false);
-    	backLeft.setInverted(false);
-    	System.out.println("DriveSS Constructor ended");
+    	
     }
+    
+    //resets gyro angle
     public void resetGyro(){
     	gyro.reset();
     }
+    
     //initializes command for mecanum drive & tank drive
     public void commandInitializer(){
 		mecanumDrive = new MecanumDriveCommand();
 		tankDrive = new TankDriveCommand();		
     }
     
+    //strafes robot right
     public void strafeRight(double speed) {
     	if(speed > .1){
     		speed = .1;
@@ -68,27 +73,37 @@ public class DriveSubsystem extends Subsystem {
     	backLeft.set(-speed);
     	backRight.set(speed);
     }
+    
+    //strafes robot left
     public void strafeLeft(double speed) {
     	strafeRight(-speed);
     }
     
+    //calibrates gyro
     public void calibrateGyro() {
     	gyro.calibrate();
     }
+    
+    //returns gyro angle
     public double getGyroAngle(){
     	return gyro.getAngle();
     }
+    
+    //returns gyro rate
     public double getGyroRate(){
     	return gyro.getRate();
     }
+    
+    
     public void tankDrive(){ // tank drive
     	robotDrive.tankDrive(-Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getY());
     }
+    
     public void mecanumDrive(){ // mecanum drive
-    	/*frontRight.setInverted(true);
-    	backRight.setInverted(true);*/
-        robotDrive.mecanumDrive_Cartesian(-Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
+        robotDrive.mecanumDrive_Cartesian(Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
+    
+    //turns bot in place
     public void turn(double speed){
     	if(speed > .1){
     		speed = .1;
@@ -100,6 +115,8 @@ public class DriveSubsystem extends Subsystem {
     	backLeft.set(-speed);
     	backRight.set(speed);
     }
+    
+    //turn left at speed
     public void turnLeft(double speed){
     	if(speed > .1){
     		speed = .1;
@@ -111,6 +128,8 @@ public class DriveSubsystem extends Subsystem {
     	frontRight.set(speed);
     	backRight.set(speed);    	
     }
+    
+    //turn right at speed
     public void turnRight(double speed){
     	if(speed > .1){
     		speed = .1;
@@ -122,6 +141,8 @@ public class DriveSubsystem extends Subsystem {
     	frontRight.set(-speed);
     	backRight.set(-speed);
     }
+    
+    //sets all motors to one speed
     public void setAllMotors(double speed){
     	if(speed > .1){
     		speed = .1;
@@ -133,28 +154,44 @@ public class DriveSubsystem extends Subsystem {
     	backLeft.set(speed);
     	backRight.set(speed);
     }
+    
+    //sets default command to mecanum
     public void initDefaultCommand() {
        setDefaultCommand(mecanumDrive);
     }
+    
+    //allows driver to switch between mecanum and tank drive
     public void changeDefaultCommand() {
     	if(getDefaultCommand().equals(mecanumDrive)) setDefaultCommand(tankDrive);
     	else setDefaultCommand(mecanumDrive);
     }
+    
+    //returns current robotDrive object
     public RobotDrive getDrive() {
     	return robotDrive;
     }
+    
+    //sets all motors to power 0
     public void stop(){
     	robotDrive.drive(0, 0);
     }
+    
+    //returns speed of front left motor
     public double getFrontLeftSpeed() {
     	return frontLeft.getSpeed();
     }
+    
+    //returns speed of back left motor
     public double getBackLeftSpeed() {
     	return backLeft.getSpeed();
     }
+    
+    //returns speed of front right motor
     public double getFrontRightSpeed() {
     	return frontRight.getSpeed();
     }
+    
+    //returns speed of back right motor
     public double getBackRightSpeed() {
     	return backRight.getSpeed();
     }

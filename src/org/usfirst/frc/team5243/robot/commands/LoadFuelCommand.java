@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class LoadFuelCommand extends Command {
+	//declaration of variables/required subsystems
 	private LoadingClimbingSubsystem loadingClimbingSubsystem;
-    double starttime;
+    
 	public LoadFuelCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -19,36 +20,30 @@ public class LoadFuelCommand extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	starttime = System.currentTimeMillis();
+	protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-//    	if(elapsedTime() < 7000){
-    		loadingClimbingSubsystem.setLoadMotor(.5);
-    		loadingClimbingSubsystem.setLiftMotor(.6);
-//    	}else{
-//    		loadingSubsystem.setLiftMotor(1);
-//    		loadingSubsystem.setLoadMotor(0);
-//    	}
-    }
-//    private double elapsedTime(){
-//    	return Math.abs(starttime - System.currentTimeMillis());
-//    }
+   	//sets load and lift motors powered on
+	protected void execute() {
+    	loadingClimbingSubsystem.setLoadMotor(.5);
+    	loadingClimbingSubsystem.setLiftMotor(.6);
+	}
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        //return elapsedTime() > 10000;
     	return false;
     }
 
     // Called once after isFinished returns true
+    //turns off motors
     protected void end() {
-    	//loadingSubsystem.setLoadMotors(0);
+    	loadingClimbingSubsystem.setLoadMotors(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    //turns off motors
     protected void interrupted() {
     	loadingClimbingSubsystem.setLoadMotors(0);
     }

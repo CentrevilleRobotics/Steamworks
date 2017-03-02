@@ -7,27 +7,35 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Wait extends Command {
 	
-	private double seconds;
-	private double startTime;
+	private long seconds;
 
-    public Wait(double seconds) {
+    public Wait(long seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.seconds = seconds;
     }
 
     // Called just before this Command runs the first time
+    //multiplies seconds by 1000
     protected void initialize() {
-    	startTime = System.currentTimeMillis();
+    	seconds = seconds*1000;
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //dave would kill me if he saw this but he won't so it's all good
+    //waits for number of seconds specified
     protected void execute() {
+    	try {
+			Thread.sleep(seconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    //stops when wait has been completed
     protected boolean isFinished() {
-        return Math.abs(startTime - System.currentTimeMillis()) > seconds;
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -10,21 +10,21 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class MecanumDriveCommand extends Command {
-	DriveSubsystem drive;
+	DriveSubsystem driveSubsystem;
     public MecanumDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	requires(drive);
+    	driveSubsystem = Robot.driveSubsystem;
+    	requires(driveSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
-    // TODO change back to mecanum
+    //runs MecanumDrive in DriveSubsystem
     protected void execute() {
-    	drive.mecanumDrive();
+    	driveSubsystem.mecanumDrive();
     }
 
     // Make this return true when this Command no longer needs to run execute()

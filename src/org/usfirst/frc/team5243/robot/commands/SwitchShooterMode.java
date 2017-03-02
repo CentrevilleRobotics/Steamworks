@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SwitchShooterMode extends Command {
-	
+	//command is unused
     public SwitchShooterMode() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

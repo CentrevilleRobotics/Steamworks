@@ -8,42 +8,44 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class GearSubsystem extends Subsystem {   
-	
-	//Declares the actuator in a variable called gearDoor, as well as a boolean
+
+public class GearSubsystem extends Subsystem {
+    
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+	//initializing variables
 	Servo gearDoor;
 	public boolean open = false;
 	
-	//Constructor that initializes the gearDoor as a new servo from RobotMap
+	//constructor
 	public GearSubsystem(){
 		gearDoor = new Servo(RobotMap.gearDoorServo);
 	}
 	
-	//Method that sets the actuator to a certain angle
+	//sets angle of gear door actuator which behaves in code like a servo
 	public void setAngle(double angle){
 		gearDoor.setAngle(angle);
 	}
 	
-	//Method that gets the actuator's angle
+	//returns angle of gear door actuator
 	public double getAngle() {
 		return gearDoor.getAngle();
 	}
 	
-	//Method that sets the actuator angle to 180 degrees
+	//fully extends gear door actuator
 	public void openDoor(){
 		gearDoor.setAngle(180);
 	}
 	
-	//Method that sets the actuator angle to 45 degrees 
+	//fully retracts gear door actuator
 	public void closeDoor(){
 		gearDoor.setAngle(45);
 	}
 	
-	//Method that would always run if not empty
     public void initDefaultCommand() {
     }
     
-    //Method that returns the gearDoor
+    //returns gear actuator
     public Servo getServo() {
     	return this.gearDoor;
     }

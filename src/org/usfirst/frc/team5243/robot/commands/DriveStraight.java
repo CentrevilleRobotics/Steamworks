@@ -10,12 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveStraight extends Command {
+	//declaration of variables
 	DriveSubsystem driveSubsystem;
 	Ultrasonic ultrasonic;
 	boolean frontUltrasonic;
 	boolean drivingFrom;
 	double distance;
 
+	//constructor
 	public DriveStraight(boolean frontUltra, boolean drivingFrom, double distance) {
 		driveSubsystem = Robot.driveSubsystem;
 		frontUltrasonic = frontUltra;
@@ -32,11 +34,13 @@ public class DriveStraight extends Command {
 	}
 
 	// Called just before this Command runs the first time
+	//resets gyro to prevent command from working incorrectly
 	protected void initialize() {
 		driveSubsystem.resetGyro();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+	//continually checks if robot is off course as determined by the gyro angle
 	protected void execute() {
 		System.out.println("gyro " + driveSubsystem.getGyroAngle());
 		System.out.println("Ultrasonic " + ultrasonic.getRangeInches());
@@ -66,6 +70,7 @@ public class DriveStraight extends Command {
 		} 
 	}
 	// Make this return true when this Command no longer needs to run execute()
+	//finishes when ultrasonic value is at the distance
 	protected boolean isFinished() {
 		if (drivingFrom) {
 			return ultrasonic.getRangeInches() > distance;
@@ -75,6 +80,7 @@ public class DriveStraight extends Command {
 	}
 
 	// Called once after isFinished returns true
+	//turns off all motors
 	protected void end() {
 		driveSubsystem.setAllMotors(0);
 	}

@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 
 public class TankDriveCommand extends Command {
-	DriveSubsystem driving;
+	//declares subsystem dependencies
+	DriveSubsystem driveSubsystem;
     public TankDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	driving = Robot.driveSubsystem;
-    	requires(driving);
+    	driveSubsystem = Robot.driveSubsystem;
+    	requires(driveSubsystem);
 
     }
 
@@ -23,8 +24,9 @@ public class TankDriveCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //runs tankDrive in DriveSubsystem
     protected void execute() {
-    	driving.tankDrive();
+    	driveSubsystem.tankDrive();
     }
 
     // Make this return true when this Command no longer needs to run execute()

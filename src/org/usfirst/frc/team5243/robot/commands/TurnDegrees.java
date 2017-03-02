@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class TurnDegrees extends Command {
-
+	//declaration of subsystem dependencies and variables
 	DriveSubsystem driveSubsystem;
 	double startDegree;
 	double turnDegrees;
@@ -23,11 +23,13 @@ public class TurnDegrees extends Command {
     }
     
     // Called just before this Command runs the first time
+    //initializes start degrees to current gyro angle
     protected void initialize() {
     	startDegree = driveSubsystem.getGyroAngle();
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //turns until turnDegrees is reached
     protected void execute() {
     	if (turnDegrees < 0) {
     		driveSubsystem.turnLeft(.4);
@@ -38,13 +40,15 @@ public class TurnDegrees extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    //ends when turnDegrees has been reached
     protected boolean isFinished() {
         return Math.abs(driveSubsystem.getGyroAngle() - startDegree) >= Math.abs(turnDegrees);
     }
 
     // Called once after isFinished returns true
+    //turns off all motors
     protected void end() {
-    	driveSubsystem.turn(0);
+    	driveSubsystem.setAllMotors(0);
     }
 
     // Called when another command which requires one or more of the same

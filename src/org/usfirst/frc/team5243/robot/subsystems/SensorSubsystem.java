@@ -32,7 +32,7 @@ public class SensorSubsystem extends Subsystem {
 		return ultrasonicBack;
 	}
 	
-	//returns average of all distancee
+	//returns average distance over a certain time
 	public double getUltraSample(Ultrasonic ultra, int sampleCount){
 		double total = 0;
 		for(int i=0;i<sampleCount;i++){
@@ -43,7 +43,8 @@ public class SensorSubsystem extends Subsystem {
 	//Initializes ultrasonics by setting automatic mode 
 	//Automatic mode allows all sensors to go one at a time
 	public void robotInit() {
-
+		ultrasonicFront.setAutomaticMode(true);
+		ultrasonicBack.setAutomaticMode(true);
 	}
 
 	//Returns the range in inches from the front ultrasonic sensors

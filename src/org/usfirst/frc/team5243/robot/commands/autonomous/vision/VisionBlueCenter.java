@@ -32,18 +32,17 @@ public class VisionBlueCenter extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	System.out.println("BlueCenter auton running");
-    	addSequential(new DriveUntil(4, true));//TODO
-    	addSequential(new ToggleGearDoor());
-    	addSequential(new Wait(3));
-    	addSequential(new ToggleGearDoor());
-    	addSequential(new DriveStraight(true,false,80));
-    	addSequential(new TurnDegrees(45));
-    	addSequential(new StrafeCommand(false,false, 60));
-    	addSequential(new DriveUntil(3, true));
-    	//strafe until lined up with reflective tape
-    	addParallel(new ShootCommand(true));
-    	addSequential(new ShootCommand(false));    	
+    	addSequential(new DriveUntil(4, true)); //drive up to gear peg
+    	addSequential(new ToggleGearDoor()); //extend gear actuator
+    	addSequential(new Wait(3)); //wait 3 seconds
+    	addSequential(new ToggleGearDoor()); //retract gear actuator
+    	addSequential(new DriveStraight(true,false,80)); //TODO evaluate this command
+    	addSequential(new TurnDegrees(45)); //turn to face boiler
+    	addSequential(new StrafeCommand(false,false, 60)); //strafe until lined up with boiler
+    	addSequential(new DriveUntil(3, true)); //drive to boiler
+    	
+    	addParallel(new ShootCommand(true)); //shoot with leftShooter
+    	addSequential(new ShootCommand(false)); //shoot with rightShooter
 
     	
     	

@@ -12,7 +12,10 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  *
  */
 public class DriveUntil extends Command {
-
+	//unused command, vision related
+	//we really wanted this one to work
+	//if a future programmer is seeing this, get vision working this year
+	//-Evan
 	private double distanceToWall;
 	private SensorSubsystem sensorSubsystem;
 	private DriveSubsystem driveSubsystem;

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class StrafeCommand extends Command {
+	//declaration of variables and required subsystems
 	DriveSubsystem driveSubsystem;
 	SensorSubsystem sensorSubsystem;
 	boolean frontUltra;
@@ -33,6 +34,7 @@ public class StrafeCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //strafes robot left or right depending on strafeRight boolean passed in as parameter
     protected void execute() {
     	if (strafeRight) {
     		driveSubsystem.strafeRight(.75);
@@ -43,6 +45,7 @@ public class StrafeCommand extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    //TODO Phil, please replace this with what this check does
     protected boolean isFinished() {
     	if(frontUltra){
             return Math.abs(Robot.sensorSubsystem.getFrontUltra().getRangeInches() - distance) < 4;    		

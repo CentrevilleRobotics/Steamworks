@@ -9,21 +9,23 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ToggleGearDoor extends Command {
-
+	
+	//declares subsystem dependencies
 	private GearSubsystem gearSubsystem;
 
 	public ToggleGearDoor() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.gearSubsystem);
-		this.gearSubsystem = Robot.gearSubsystem;
+		gearSubsystem = Robot.gearSubsystem;
+		requires(gearSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 	}
-
+	
 	// Called repeatedly when this Command is scheduled to run
+	//toggles gear door actuator
 	protected void execute() {
 		gearSubsystem.toggleDoor();
 	}

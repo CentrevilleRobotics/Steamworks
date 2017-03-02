@@ -10,23 +10,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SolenoidSubsystem extends Subsystem {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	
-	//declares new Solenoid called greenLight
+    //declaration of light solenoid
 	Solenoid greenLight;
 	
-	//constructor for SolenoidSubsystem, initializes greenLight 
+	//constructor
 	public SolenoidSubsystem(){
 		greenLight = new Solenoid(RobotMap.solenoid);
 	}
 	
-	//turns on greenLight by setting it to true
+	//turns on green light
 	public void turnOn(){
 		greenLight.set(true);
 	}
 	
-	//turns off greenLight by setting it to false
+
+	//turns off green light
 	public void turnOff(){
 		greenLight.set(false);
 	}
@@ -36,9 +34,9 @@ public class SolenoidSubsystem extends Subsystem {
 		return greenLight;
 	}
 	
-	//sets greenLight to boolean solenoid
-	public void setSolenoid(boolean solenoid){
-		greenLight.set(solenoid);
+	//sets solenoid to on or off
+	public void setSolenoid(boolean on){
+		greenLight.set(on);
 	}
 	
 	//returns status of greenLight (on or off)

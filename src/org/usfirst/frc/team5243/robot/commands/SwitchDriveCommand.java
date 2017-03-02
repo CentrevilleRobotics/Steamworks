@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SwitchDriveCommand extends Command {
-	DriveSubsystem drive;
+	//declares subsystem dependencies
+	DriveSubsystem driveSubsystem;
     public SwitchDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	drive = Robot.driveSubsystem;
-    	requires(drive);
+    	driveSubsystem = Robot.driveSubsystem;
+    	requires(driveSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -23,8 +24,9 @@ public class SwitchDriveCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //switches drive command called in DriveSubsystem
     protected void execute() {
-    	drive.changeDefaultCommand();
+    	driveSubsystem.changeDefaultCommand();
     }
     
 

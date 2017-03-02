@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class VisionBlueHopper extends CommandGroup {
 
     public VisionBlueHopper() {
-    	System.out.println("BlueHopper auton running");
 
     	addSequential(new DriveStraight(false,false,120));
     	addSequential(new TurnDegrees(-60));

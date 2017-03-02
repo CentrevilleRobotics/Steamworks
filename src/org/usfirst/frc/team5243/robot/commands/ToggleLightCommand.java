@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ToggleLightCommand extends Command {
+	//declares subsystem dependencies
 	SolenoidSubsystem solenoidSubsystem;
 	private boolean isLit;
     public ToggleLightCommand() {
@@ -20,13 +21,15 @@ public class ToggleLightCommand extends Command {
     }
 
     // Called just before this Command runs the first time
+    //initializes isLit to current solenoid status
     protected void initialize() {
+    	isLit = solenoidSubsystem.getSolenoidStatus();
     }
 
     // Called repeatedly when this Command is scheduled to run
+    //toggles solenoid (green light)
     protected void execute() {
-    	if(isLit) solenoidSubsystem.setSolenoid(false);
-    	else solenoidSubsystem.setSolenoid(true);
+    	solenoidSubsystem.setSolenoid(!isLit);
     }
 
     // Make this return true when this Command no longer needs to run execute()
