@@ -34,6 +34,10 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	public final static int ultrasonicFront = 1;
 	public final static int ultrasonicBack = 2;
 	
+	//NOT CORRECT VALUES FOR RELAYS
+	public final static int lightFront = 0;
+	public final static int lightBack = 1;
+	
 	public final static int gearDoorServo = 1;
 	
 	public static int solenoid = 0;
