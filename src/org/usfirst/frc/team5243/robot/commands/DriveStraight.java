@@ -13,10 +13,10 @@ public class DriveStraight extends Command {
 	DriveSubsystem driveSubsystem;
 	Ultrasonic ultrasonic;
 	boolean frontUltrasonic;
-	boolean drivingTo;
+	boolean drivingFrom;
 	double distance;
 
-	public DriveStraight(boolean frontUltra, boolean drivingTo, double distance) {
+	public DriveStraight(boolean frontUltra, boolean drivingFrom, double distance) {
 		driveSubsystem = Robot.driveSubsystem;
 		frontUltrasonic = frontUltra;
 		if (frontUltra) {
@@ -24,7 +24,7 @@ public class DriveStraight extends Command {
 		} else {
 			ultrasonic = Robot.sensorSubsystem.getBackUltra();
 		}
-		this.drivingTo = drivingTo;
+		this.drivingFrom = drivingFrom;
 		this.distance = distance;
 
 		requires(driveSubsystem);
@@ -45,24 +45,21 @@ public class DriveStraight extends Command {
 				driveSubsystem.turnRight(.25);
 		}else{
 			if (frontUltrasonic) {
-				if (drivingTo) 
-					driveSubsystem.setAllMotors(.25);
-				else
-					driveSubsystem.setAllMotors(-.25);
-			} else {
-					if (drivingTo) {
-						driveSubsystem.setAllMotors(-.25);
+				if (drivingFrom) {
+					driveSubsystem.setAllMotors(-.75);
+				} else {
+					if (drivingFrom) {
+						driveSubsystem.setAllMotors(.75);
 					} else {
-						driveSubsystem.setAllMotors(.25);
+						driveSubsystem.setAllMotors(-.75);
 					}
 				}
 			} 
 		}
-
+	}
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (drivingTo) {
-			System.out.println("\t\t" + (ultrasonic.getRangeInches() > distance));
+		if (drivingFrom) {
 			return ultrasonic.getRangeInches() < distance;
 		} else {
 			return ultrasonic.getRangeInches() > distance;

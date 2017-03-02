@@ -10,13 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ToggleLightCommand extends Command {
 	SolenoidSubsystem solenoidSubsystem;
-	boolean isLit;
     public ToggleLightCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	solenoidSubsystem = Robot.solenoidSubsystem;
     	requires(solenoidSubsystem);
-    	isLit = solenoidSubsystem.getSolenoidStatus();
     }
 
     // Called just before this Command runs the first time

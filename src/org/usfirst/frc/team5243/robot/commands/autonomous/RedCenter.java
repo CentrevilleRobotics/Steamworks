@@ -32,7 +32,7 @@ public class RedCenter extends CommandGroup {
         // arm.
     	
     	System.out.println("RedCenter auton running");
-    	addSequential(new DriveStraight(true,true,13));
+    	addSequential(new DriveStraight(true,true,4));
     	addSequential(new Wait(3));
     	addSequential(new DriveStraight(true,false,36));
     	addSequential(new TurnDegrees(135));

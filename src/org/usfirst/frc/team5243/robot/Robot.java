@@ -1,5 +1,4 @@
 package org.usfirst.frc.team5243.robot;
-import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
@@ -47,8 +46,9 @@ public class Robot extends IterativeRobot {
 	public static LoadingClimbingSubsystem loadingSubsystem;
 	
 	Command autonomousCommand;
-
-	SendableChooser<Command> autoChooser;
+	SendableChooser<Boolean> useVision;
+	SendableChooser<String> redBlue;
+	SendableChooser<String> autonPosition;
 //	private boolean useVisionAutons = true;
 
 
@@ -88,23 +88,7 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		System.out.println("OI initialized");
 		
-		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("DriveStraight", new DriveStraight(true,true,10));
-		autoChooser.addObject("RedCenter", new RedCenter());
-		autoChooser.addObject("RedCenter", new RedBoiler());
-		autoChooser.addObject("RedCenter", new RedHopper());
-		autoChooser.addObject("RedCenter", new BlueCenter());
-		autoChooser.addObject("RedCenter", new BlueHopper());
-		autoChooser.addObject("RedCenter", new BlueBoiler());
-
-		autoChooser.addObject("VisionRedCenter", new VisionRedCenter());
-		autoChooser.addObject("VisionRedCenter", new VisionRedBoiler());
-		autoChooser.addObject("VisionRedCenter", new VisionRedHopper());
-		autoChooser.addObject("VisionCenter", new VisionBlueCenter());
-		autoChooser.addObject("VisionCenter", new VisionBlueHopper());
-		autoChooser.addObject("VisionCenter", new VisionBlueBoiler());
-	
-		
+		initAutonChoosers();
 		
 		System.out.println("Auton command chooser initialized");
 		updateSmartDashboard();
@@ -129,14 +113,29 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
 		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
 		
-		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getShooterSpeed());
-		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getShooterSpeed());
-		
-		SmartDashboard.putNumber("Left Agitator Speed ", leftShootingSubsystem.getAgitatorSpeed());
-		SmartDashboard.putNumber("Right Agitator Speed ", rightShootingSubsystem.getAgitatorSpeed());
+		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
+		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
 		
 	}
-
+	public void initAutonChoosers(){
+		useVision = new SendableChooser<>();
+		redBlue = new SendableChooser<>();
+		autonPosition = new SendableChooser<>();
+		
+		useVision.addDefault("No Vision", false);
+		useVision.addObject("Use Vision", true);
+		
+		redBlue.addDefault("Red Alliance", "Red alliance");
+		redBlue.addDefault("Blue Alliance" , "Blue alliance");
+		
+		autonPosition.addDefault("CenterPosition", "Center position");
+		autonPosition.addDefault("BoilerPosition", "Boiler position");
+		autonPosition.addDefault("HopperPosition", "Hopper position");
+		
+		SmartDashboard.putData("Autonomous Chooser", autonPosition);
+		SmartDashboard.putData("Vision Chooser", useVision);
+		SmartDashboard.putData("RedBlueChooser", redBlue);
+	}
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -152,7 +151,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousInit() {
-		/*gearSubsystem.closeDoor();
+		gearSubsystem.closeDoor();
 		if(useVision.getSelected()){
 			if(redBlue.getSelected().equals("Red alliance")){
 				if(autonPosition.getSelected().equals("Center position")){
@@ -189,9 +188,9 @@ public class Robot extends IterativeRobot {
 					autonomousCommand = new BlueHopper();
 				}
 			}
-		}*/
-		//System.out.println(autonomousCommand.getName());
-		/*if(autonomousCommand == null)*/ autonomousCommand = new RedCenter();
+		}
+		
+		if(autonomousCommand == null) autonomousCommand = new RedCenter();
         autonomousCommand.start();
     }
 	

@@ -21,12 +21,18 @@ public class SensorSubsystem extends Subsystem {
 		ultrasonicBack.setAutomaticMode(true);
 	
 	}
+	
+	//returns front ultrasonic sensor
 	public Ultrasonic getFrontUltra(){
 		return ultrasonicFront;
 	}
+	
+	//returns back ultrasonic sensor
 	public Ultrasonic getBackUltra(){
 		return ultrasonicBack;
 	}
+	
+	//returns average of all distancee
 	public double getUltraSample(Ultrasonic ultra, int sampleCount){
 		double total = 0;
 		for(int i=0;i<sampleCount;i++){

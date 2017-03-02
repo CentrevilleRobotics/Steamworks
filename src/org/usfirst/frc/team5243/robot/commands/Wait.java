@@ -13,7 +13,7 @@ public class Wait extends Command {
     public Wait(double seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.seconds = seconds * 1000;
+    	this.seconds = seconds;
     }
 
     // Called just before this Command runs the first time
