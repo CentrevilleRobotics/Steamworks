@@ -5,6 +5,7 @@ import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
+import org.usfirst.frc.team5243.robot.commands.SwitchShooterMode;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
