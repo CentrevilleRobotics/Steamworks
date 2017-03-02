@@ -35,7 +35,7 @@ public class BlueBoiler extends CommandGroup {
     	System.out.println("BlueBoiler auton running");
     	addSequential(new DriveStraight(false, false,120));
     	addSequential(new TurnDegrees(60));
-    	addSequential(new DriveStraight(true,true, 3)); //TODO
+    	addSequential(new DriveStraight(true,true, 8)); //TODO
     	addSequential(new ToggleGearDoor());
     	addSequential(new Wait(3));
     	addSequential(new ToggleGearDoor());

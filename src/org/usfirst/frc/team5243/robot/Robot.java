@@ -1,4 +1,5 @@
 package org.usfirst.frc.team5243.robot;
+import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
@@ -49,6 +50,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Boolean> useVision;
 	SendableChooser<String> redBlue;
 	SendableChooser<String> autonPosition;
+	SendableChooser<Command> autoChooser;
 //	private boolean useVisionAutons = true;
 
 
@@ -88,6 +90,9 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		System.out.println("OI initialized");
 		
+		autoChooser = new SendableChooser<Command>();
+		autoChooser.addDefault("Default", new RedBoiler());
+		autoChooser.addObject("First", new BlueBoiler());
 		initAutonChoosers();
 		
 		System.out.println("Auton command chooser initialized");
@@ -135,6 +140,22 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Autonomous Chooser", autonPosition);
 		SmartDashboard.putData("Vision Chooser", useVision);
 		SmartDashboard.putData("RedBlueChooser", redBlue);
+		
+		autoChooser.addDefault("DriveStraight", new DriveStraight(true,true,10));
+		autoChooser.addObject("RedCenter", new RedCenter());
+		autoChooser.addObject("RedCenter", new RedBoiler());
+		autoChooser.addObject("RedCenter", new RedHopper());
+		autoChooser.addObject("RedCenter", new BlueCenter());
+		autoChooser.addObject("RedCenter", new BlueHopper());
+		autoChooser.addObject("RedCenter", new BlueBoiler());
+
+		autoChooser.addObject("VisionRedCenter", new VisionRedCenter());
+		autoChooser.addObject("VisionRedCenter", new VisionRedBoiler());
+		autoChooser.addObject("VisionRedCenter", new VisionRedHopper());
+		autoChooser.addObject("VisionCenter", new VisionBlueCenter());
+		autoChooser.addObject("VisionCenter", new VisionBlueHopper());
+		autoChooser.addObject("VisionCenter", new VisionBlueBoiler());
+		
 	}
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -152,7 +173,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		gearSubsystem.closeDoor();
-		if(useVision.getSelected()){
+		/*if(useVision.getSelected()){
 			if(redBlue.getSelected().equals("Red alliance")){
 				if(autonPosition.getSelected().equals("Center position")){
 					autonomousCommand = new VisionRedCenter();
@@ -188,9 +209,9 @@ public class Robot extends IterativeRobot {
 					autonomousCommand = new BlueHopper();
 				}
 			}
-		}
+		}*/
 		
-		if(autonomousCommand == null) autonomousCommand = new RedCenter();
+		/*if(autonomousCommand == null)*/ autonomousCommand = new RedCenter();
         autonomousCommand.start();
     }
 	

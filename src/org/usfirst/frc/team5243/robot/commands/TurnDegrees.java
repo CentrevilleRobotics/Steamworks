@@ -30,10 +30,10 @@ public class TurnDegrees extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (turnDegrees < 0) {
-    		driveSubsystem.turn(.4);
+    		driveSubsystem.turnLeft(.4);
     	}
     	else if (turnDegrees > 0) {
-    		driveSubsystem.turn(-.4);
+    		driveSubsystem.turnRight(.4);
     	}
     }
 

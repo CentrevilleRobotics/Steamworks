@@ -38,6 +38,8 @@ public class DriveStraight extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		System.out.println("gyro " + driveSubsystem.getGyroAngle());
+		System.out.println("Ultrasonic " + ultrasonic.getRangeInches());
 		if(Math.abs(driveSubsystem.getGyroAngle())>3){
 			if(driveSubsystem.getGyroAngle()>3)
 				driveSubsystem.turnLeft(.25);
@@ -45,24 +47,30 @@ public class DriveStraight extends Command {
 				driveSubsystem.turnRight(.25);
 		}else{
 			if (frontUltrasonic) {
+				// front side
 				if (drivingFrom) {
 					driveSubsystem.setAllMotors(-.75);
-				} else {
-					if (drivingFrom) {
-						driveSubsystem.setAllMotors(.75);
-					} else {
-						driveSubsystem.setAllMotors(-.75);
-					}
 				}
-			} 
-		}
+				else{
+					driveSubsystem.setAllMotors(.75)
+				}
+			}
+			else {
+				// back side
+				if (drivingFrom) {
+					driveSubsystem.setAllMotors(.75);
+				} else {
+					driveSubsystem.setAllMotors(-.75);
+				}
+			}
+		} 
 	}
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (drivingFrom) {
-			return ultrasonic.getRangeInches() < distance;
-		} else {
 			return ultrasonic.getRangeInches() > distance;
+		} else {
+			return ultrasonic.getRangeInches() < distance;
 		}
 	}
 
