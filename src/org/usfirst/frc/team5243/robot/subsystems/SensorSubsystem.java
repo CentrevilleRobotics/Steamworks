@@ -1,5 +1,8 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 
+import org.usfirst.frc.team5243.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,6 +15,8 @@ public class SensorSubsystem extends Subsystem {
 	//Declares two ultrasonic variables called ultrasonicFront and ultrasonicBack
 	private Ultrasonic ultrasonicFront;
 	private Ultrasonic ultrasonicBack;
+	private Relay lightFront;
+	private Relay lightBack;
 	
 	//Sets ping channel to 0 and echo channel to 1 for both ultrasonics
 	public SensorSubsystem() {
@@ -19,9 +24,18 @@ public class SensorSubsystem extends Subsystem {
 		ultrasonicBack = new Ultrasonic(2, 3);
 		ultrasonicFront.setAutomaticMode(true);
 		ultrasonicBack.setAutomaticMode(true);
+		lightFront = new Relay(RobotMap.lightFront);
+		lightBack = new Relay(RobotMap.lightBack);
 	
 	}
 	
+	public Relay getFrontLight(){
+		return lightFront;
+	}
+	
+	public Relay getBackLight(){
+		return lightBack;
+	}
 	//returns front ultrasonic sensor
 	public Ultrasonic getFrontUltra(){
 		return ultrasonicFront;
