@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot.commands;
 
 import org.usfirst.frc.team5243.robot.Robot;
+import org.usfirst.frc.team5243.robot.RobotMap;
 import org.usfirst.frc.team5243.robot.subsystems.LoadingClimbingSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,8 +28,14 @@ public class LoadFuelCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
    	//sets load and lift motors powered on
 	protected void execute() {
-    	loadingClimbingSubsystem.setLoadMotor(.5);
-    	loadingClimbingSubsystem.setLiftMotor(.6);
+		if (RobotMap.Loading) {
+			loadingClimbingSubsystem.setLoadMotor(.5);
+	    	loadingClimbingSubsystem.setLiftMotor(.6);
+		}
+		else {
+			loadingClimbingSubsystem.setLoadMotor(0.0);
+			loadingClimbingSubsystem.setLiftMotor(0.0);
+		}
 	}
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

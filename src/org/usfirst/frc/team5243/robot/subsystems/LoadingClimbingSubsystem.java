@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5243.robot.subsystems;
 
 import org.usfirst.frc.team5243.robot.RobotMap;
+import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
 
 import com.ctre.CANTalon;
 
@@ -56,6 +57,7 @@ public class LoadingClimbingSubsystem extends Subsystem {
     
 	//Method that would always run if not empty
     public void initDefaultCommand() {
+    	setDefaultCommand(new LoadFuelCommand());
     }
    
 }

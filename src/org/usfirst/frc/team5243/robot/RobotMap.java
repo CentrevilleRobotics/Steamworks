@@ -7,7 +7,7 @@ package org.usfirst.frc.team5243.robot;
  */
 public class RobotMap {    // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
+    // public sta0`tic int leftMotor = 1;
     // public static int rightMotor = 2;
     
     // If you are using multiple modules, make sure to define both the port
@@ -17,18 +17,18 @@ public class RobotMap {    // For example to map the left and right motors, you 
 
 
 	public final static int FrontLeft = 1;
-	public final static int BackLeft = 2;
-	public static int BackRight  = 3;
-	public static int FrontRight = 4;
+	public final static int FrontRight = 2;
+	public final static int BackLeft = 3;
+	public final static int BackRight  = 4;
 
-	public static int leftStick = 0;
-	public static int rightStick = 1;
+	public final static int leftStick = 0;
+	public final static int rightStick = 1;
 	
-	public static int shooterLeft = 5;
-	public static int shooterRight = 6;
+	public final static int shooterLeft = 5;
+	public final static int shooterRight = 6;
 	
-	public static int liftMotor = 7;
-	public static int loadMotor = 8;
+	public final static int liftMotor = 7;
+	public final static int loadMotor = 8;
 	
 	
 	public final static int ultrasonicFront = 1;
@@ -38,9 +38,9 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	public final static int lightFront = 0;
 	public final static int lightBack = 1;
 	
-	public final static int gearDoorServo = 1;
+	public final static int gearSolenoid = 1;
 	
-	public static int solenoid = 0;
+	public final static int greenLight = 0;
 	
 	
 	public static boolean MecanumDrive = true;
@@ -48,5 +48,12 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	public final static double ShootingSpeed = .79;
 	
 	public static boolean ZAxisShooting = false;
+	
+	public static boolean Loading = false;
+	public final static int compressor = 0;
+	
+	public final static int solenoidPort1 = 0;
+	public final static int solenoidPort2 = 1;
+	
 
 }

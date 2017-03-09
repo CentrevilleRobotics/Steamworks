@@ -5,6 +5,7 @@ import org.usfirst.frc.team5243.robot.commands.LoadFuelCommand;
 import org.usfirst.frc.team5243.robot.commands.ShootCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
+import org.usfirst.frc.team5243.robot.commands.ToggleLoad;
 import org.usfirst.frc.team5243.robot.commands.SwitchShooterMode;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,6 +45,8 @@ public class OI {
 	Button toggleGearDoor;
 	
 	Button switchShooterMode;
+	
+	Button toggleLoad;
 	
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
@@ -86,9 +89,9 @@ public class OI {
 		SwitchDrive.whenPressed(new SwitchDriveCommand());
 		System.out.println("Switch Drive initialized");
 		//Initializes load variable
-		loadFuel = new JoystickButton(rightStick, 5);
-		loadFuel.whileHeld(new LoadFuelCommand());
-		System.out.println("Load fuel initialized");
+		/*loadFuel = new JoystickButton(rightStick, 5);// the command now runs by default, but uses the robotmap to run the motors
+		loadFuel.whileHeld(new LoadFuelCommand());   
+		System.out.println("Load fuel initialized");*/
 		climbButton = new JoystickButton(rightStick, 3);
 		System.out.println("Climbing button initialized");
 		climbButton.whileHeld(new ClimbCommand());
@@ -100,6 +103,10 @@ public class OI {
 		switchShooterMode = new JoystickButton(leftStick, 9);
 		switchShooterMode.whenPressed(new SwitchShooterMode());
 		System.out.println("Switch shooter mode initialized");
+		
+		toggleLoad = new JoystickButton(rightStick, 5);
+		toggleLoad.whenPressed(new ToggleLoad());
+		System.out.println("Toggle Load initialized");
 	}	
 	
 	//Getters for Joysticks

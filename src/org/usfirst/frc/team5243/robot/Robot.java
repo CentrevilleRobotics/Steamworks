@@ -3,6 +3,7 @@ import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
+import org.usfirst.frc.team5243.robot.commands.autonomous.DriveToBaseline;
 import org.usfirst.frc.team5243.robot.commands.autonomous.RedBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.RedCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.RedHopper;
@@ -107,7 +108,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
 		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
 		
-		SmartDashboard.putNumber("Actuator Position ", gearSubsystem.getAngle());
+		SmartDashboard.putBoolean("Actuator Position ", gearSubsystem.getSolenoidStatus());
 		
 		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
 		
@@ -172,7 +173,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousInit() {
-		gearSubsystem.closeDoor();
+		//gearSubsystem.closeDoor();
 		/*if(useVision.getSelected()){
 			if(redBlue.getSelected().equals("Red alliance")){
 				if(autonPosition.getSelected().equals("Center position")){
@@ -211,8 +212,9 @@ public class Robot extends IterativeRobot {
 			}
 		}*/
 		
-		/*if(autonomousCommand == null)*/ autonomousCommand = new RedCenter();
+		if(autonomousCommand == null) autonomousCommand = new DriveToBaseline();
         autonomousCommand.start();
+        
     }
 	
     /**
@@ -221,14 +223,14 @@ public class Robot extends IterativeRobot {
     
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-		System.out.println(sensorSubsystem.getUltrasonicFrontValue());
-		updateSmartDashboard();
+		//System.out.println(sensorSubsystem.getUltrasonicFrontValue());
+		//updateSmartDashboard();
         
     }
 
     public void teleopInit() {
-		
     	if (autonomousCommand != null) autonomousCommand.cancel();
+    	gearSubsystem.enableCompressor();
     }
 	/**
 	 * This function is called periodically during operator control

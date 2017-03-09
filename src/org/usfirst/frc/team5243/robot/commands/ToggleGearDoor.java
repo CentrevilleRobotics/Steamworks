@@ -27,7 +27,6 @@ public class ToggleGearDoor extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	//toggles gear door actuator
 	protected void execute() {
-		gearSubsystem.toggleDoor();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -37,6 +36,7 @@ public class ToggleGearDoor extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		gearSubsystem.toggleDoor();
 	}
 
 	// Called when another command which requires one or more of the same

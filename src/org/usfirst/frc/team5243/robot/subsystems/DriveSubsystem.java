@@ -63,11 +63,11 @@ public class DriveSubsystem extends Subsystem {
     
     //strafes robot right
     public void strafeRight(double speed) {
-    	if(speed > .1){
+    	/*if(speed > .1){
     		speed = .1;
     	}else if(speed < -.1){
     		speed = .1;
-    	}
+    	}*/
     	frontRight.set(-speed);
     	frontLeft.set(speed);
     	backLeft.set(-speed);
@@ -105,11 +105,11 @@ public class DriveSubsystem extends Subsystem {
     
     //turns bot in place
     public void turn(double speed){
-    	if(speed > .1){
+    	/*if(speed > .1){
     		speed = .1;
     	}else if(speed < -.1){
     		speed = -.1;
-    	}
+    	}*/
     	frontLeft.set(-speed);
     	frontRight.set(speed);
     	backLeft.set(-speed);
@@ -118,11 +118,11 @@ public class DriveSubsystem extends Subsystem {
     
     //turn left at speed
     public void turnLeft(double speed){
-    	if(speed > .1){
+    	/*if(speed > .1){
     		speed = .1;
     	}else if(speed < -.1){
     		speed = -.1;
-    	}
+    	}*/
     	frontLeft.set(-speed);
     	backLeft.set(-speed);
     	frontRight.set(speed);
@@ -131,11 +131,11 @@ public class DriveSubsystem extends Subsystem {
     
     //turn right at speed
     public void turnRight(double speed){
-    	if(speed > .1){
+    	/*if(speed > .1){
     		speed = .1;
     	}else if(speed < -.1){
     		speed = -.1;
-    	}
+    	}*/
     	frontLeft.set(speed);
     	backLeft.set(speed);
     	frontRight.set(-speed);
@@ -144,11 +144,11 @@ public class DriveSubsystem extends Subsystem {
     
     //sets all motors to one speed
     public void setAllMotors(double speed){
-    	if(speed > .1){
+    	/*if(speed > .1){
     		speed = .1;
     	}else if(speed < -.1){
     		speed = -.1;
-    	}
+    	}*/
     	frontLeft.set(speed);
     	frontRight.set(speed);
     	backLeft.set(speed);

@@ -15,7 +15,7 @@ public class SolenoidSubsystem extends Subsystem {
 	
 	//constructor
 	public SolenoidSubsystem(){
-		greenLight = new Solenoid(RobotMap.solenoid);
+		greenLight = new Solenoid(RobotMap.greenLight);
 	}
 	
 	//turns on green light

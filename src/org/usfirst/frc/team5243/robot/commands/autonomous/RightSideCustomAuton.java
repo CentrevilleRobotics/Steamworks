@@ -1,8 +1,7 @@
 package org.usfirst.frc.team5243.robot.commands.autonomous;
 
+import org.usfirst.frc.team5243.robot.commands.DriveSeconds;
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
-//import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
-//import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
 import org.usfirst.frc.team5243.robot.commands.Wait;
 
@@ -11,9 +10,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class RedBoiler extends CommandGroup {
+public class RightSideCustomAuton extends CommandGroup {
 
-    public RedBoiler() {
+    public RightSideCustomAuton() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -30,20 +29,12 @@ public class RedBoiler extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	System.out.println("RedBoiler auton running");
     	addSequential(new DriveStraight(true,false,120));
     	addSequential(new TurnDegrees(-60));
     	addSequential(new DriveStraight(true,true,4));
     	addSequential(new Wait(1));
     	addSequential(new DriveStraight(true,false,36));
-    	addSequential(new TurnDegrees(-15));
-    	addSequential(new TurnDegrees(-60));
-    	
-//TODO    	addParallel(new ShootLeftCommand());
-//TODO    	addSequential(new ShootRightCommand());
+    	addSequential(new TurnDegrees(60));
+    	addSequential(new DriveSeconds(1.5));
     }
 }
-
-
-
