@@ -2,7 +2,6 @@ package org.usfirst.frc.team5243.robot.commands.autonomous.vision;
 
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.DriveUntil;
-import org.usfirst.frc.team5243.robot.commands.ShootCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 //import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 //import org.usfirst.frc.team5243.robot.commands.ShootRightCommand;
@@ -44,9 +43,6 @@ public class VisionRedBoiler extends CommandGroup {
     	addSequential(new DriveStraight(true,false,12));
     	addSequential(new TurnDegrees(-15));
     	addSequential(new DriveUntil(3, false));
-    	    	
-    	addParallel(new ShootCommand(true));
-    	addSequential(new ShootCommand(false));
     	
     }
 }

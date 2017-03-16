@@ -1,12 +1,6 @@
 package org.usfirst.frc.team5243.robot;
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
-import org.usfirst.frc.team5243.robot.commands.autonomous.BlueBoiler;
-import org.usfirst.frc.team5243.robot.commands.autonomous.BlueCenter;
-import org.usfirst.frc.team5243.robot.commands.autonomous.BlueHopper;
 import org.usfirst.frc.team5243.robot.commands.autonomous.DriveToBaseline;
-import org.usfirst.frc.team5243.robot.commands.autonomous.RedBoiler;
-import org.usfirst.frc.team5243.robot.commands.autonomous.RedCenter;
-import org.usfirst.frc.team5243.robot.commands.autonomous.RedHopper;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueCenter;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueHopper;
@@ -15,12 +9,12 @@ import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionRedCenter
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionRedHopper;
 import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.LoadingClimbingSubsystem;
+import org.usfirst.frc.team5243.robot.subsystems.ClimbingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.ShootingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SolenoidSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.VisionSubsystem;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -42,10 +36,8 @@ public class Robot extends IterativeRobot {
 	public static SensorSubsystem sensorSubsystem;
 	public static GearSubsystem gearSubsystem;
 	public static SolenoidSubsystem solenoidSubsystem;
-	public static ShootingSubsystem rightShootingSubsystem;
-	public static ShootingSubsystem leftShootingSubsystem;
 	public static VisionSubsystem visionSubsystem;
-	public static LoadingClimbingSubsystem loadingSubsystem;
+	public static ClimbingSubsystem loadingSubsystem;
 	
 	Command autonomousCommand;
 	SendableChooser<Boolean> useVision;
@@ -77,27 +69,24 @@ public class Robot extends IterativeRobot {
 		System.out.println("solenoidSubsystem consructor");		
 		solenoidSubsystem = new SolenoidSubsystem();
 		
-		leftShootingSubsystem = new ShootingSubsystem(true);
-		rightShootingSubsystem = new ShootingSubsystem(false);
-		
 		try{
 			visionSubsystem = new VisionSubsystem();
 		}catch(Exception ex){
 			ex.printStackTrace(); 
 			//useVisionAutons = false;
 		}
-		loadingSubsystem = new LoadingClimbingSubsystem();
+		loadingSubsystem = new ClimbingSubsystem();
 		System.out.println("Subsystems initialized, starting oi.init()");
 		oi.init();
 		System.out.println("OI initialized");
 		
 		autoChooser = new SendableChooser<Command>();
-		autoChooser.addDefault("Default", new RedBoiler());
-		autoChooser.addObject("First", new BlueBoiler());
 		initAutonChoosers();
 		
 		System.out.println("Auton command chooser initialized");
 		updateSmartDashboard();
+		
+		CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
 	}
 	public void updateSmartDashboard(){
 		SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
@@ -108,20 +97,16 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
 		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
 		
-		SmartDashboard.putBoolean("Actuator Position ", gearSubsystem.getSolenoidStatus());
+		//SmartDashboard.putBoolean("Actuator Position ", gearSubsystem.getSolenoidStatus());
 		
 		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
 		
-		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getLiftSpeed());
+		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getClimbSpeed());
 		
 		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
 		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
 		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
-		
-		SmartDashboard.putNumber("Left Shooter Speed ", leftShootingSubsystem.getSpeed());
-		SmartDashboard.putNumber("Right Shooting Speed ", rightShootingSubsystem.getSpeed());
-		
+		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());	
 	}
 	public void initAutonChoosers(){
 		useVision = new SendableChooser<>();
@@ -143,12 +128,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("RedBlueChooser", redBlue);
 		
 		autoChooser.addDefault("DriveStraight", new DriveStraight(true,true,10));
-		autoChooser.addObject("RedCenter", new RedCenter());
-		autoChooser.addObject("RedCenter", new RedBoiler());
-		autoChooser.addObject("RedCenter", new RedHopper());
-		autoChooser.addObject("RedCenter", new BlueCenter());
-		autoChooser.addObject("RedCenter", new BlueHopper());
-		autoChooser.addObject("RedCenter", new BlueBoiler());
 
 		autoChooser.addObject("VisionRedCenter", new VisionRedCenter());
 		autoChooser.addObject("VisionRedCenter", new VisionRedBoiler());

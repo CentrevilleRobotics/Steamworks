@@ -2,7 +2,6 @@ package org.usfirst.frc.team5243.robot.commands.autonomous.vision;
 
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.DriveUntil;
-import org.usfirst.frc.team5243.robot.commands.ShootCommand;
 import org.usfirst.frc.team5243.robot.commands.StrafeCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
@@ -40,11 +39,7 @@ public class VisionBlueCenter extends CommandGroup {
     	addSequential(new TurnDegrees(45)); //turn to face boiler
     	addSequential(new StrafeCommand(false,false, 60)); //strafe until lined up with boiler
     	addSequential(new DriveUntil(3, true)); //drive to boiler
-    	
-    	addParallel(new ShootCommand(true)); //shoot with leftShooter
-    	addSequential(new ShootCommand(false)); //shoot with rightShooter
-
-    	
+   	
     	
     }
 }

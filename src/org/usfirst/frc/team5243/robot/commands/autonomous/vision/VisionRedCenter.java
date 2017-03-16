@@ -2,8 +2,6 @@ package org.usfirst.frc.team5243.robot.commands.autonomous.vision;
 
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.DriveUntil;
-import org.usfirst.frc.team5243.robot.commands.ShootCommand;
-//import org.usfirst.frc.team5243.robot.commands.ShootLeftCommand;
 import org.usfirst.frc.team5243.robot.commands.StrafeCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
 import org.usfirst.frc.team5243.robot.commands.TurnDegrees;
@@ -43,10 +41,7 @@ public class VisionRedCenter extends CommandGroup {
     	addSequential(new TurnDegrees(-45));
     	addSequential(new StrafeCommand(true,false, 60));
     	addSequential(new DriveUntil(3, false));
-    	
-    	
-    	addParallel(new ShootCommand(true));
-    	addSequential(new ShootCommand(false));    	
+    	  	
     }
 }
 
