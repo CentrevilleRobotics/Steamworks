@@ -3,6 +3,7 @@ package org.usfirst.frc.team5243.robot;
 import org.usfirst.frc.team5243.robot.commands.ClimbCommand;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
+import org.usfirst.frc.team5243.robot.commands.ToggleGearDoorTriggers;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -31,10 +32,13 @@ public class OI {
 	Button climbButton;
 	
 	//GearSubsystem
-	Button toggleGearDoor;
+	Button toggleGearDoorLeft;
 	
 	Button switchShooterMode;
 	
+	Button toggleGearDoorRight;
+	
+	Button activateGearDoor;
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
 	 commands the same as any other Button.
@@ -68,8 +72,12 @@ public class OI {
 		
 		climbButton.whileHeld(new ClimbCommand());
 		
-		toggleGearDoor = new JoystickButton(rightStick, 4);
-		toggleGearDoor.whenPressed(new ToggleGearDoor());
+		toggleGearDoorLeft = new JoystickButton(leftStick, 1);
+		toggleGearDoorLeft.whileHeld(new ToggleGearDoorTriggers());
+		
+		activateGearDoor = new JoystickButton(rightStick, 1);
+		activateGearDoor.whenPressed(new ToggleGearDoor());
+
 	}	
 	
 	//Getters for Joysticks

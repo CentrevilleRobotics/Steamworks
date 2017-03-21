@@ -30,21 +30,25 @@ public class GearSubsystem extends Subsystem {
 		//gearDoor.set(Value.kReverse);
 		//light.set(false);
 	}
-
-	public void setDoorBack() {
+	
+	public void extendPiston(){
+		gearDoor.set(Value.kForward);
+	}
+	
+	public void retractPiston() {
 		gearDoor.set(Value.kReverse);
 	}
 	
 	//sets angle of gear door actuator which behaves in code like a servo
 	public void toggleDoor(){
-		if(gearDoor.get().equals(Value.kForward)){
-			gearDoor.set(Value.kReverse);
-			light.set(false);
-		}
-		else {
-			gearDoor.set(Value.kForward);
-			light.set(true);
-		}
+			if(gearDoor.get().equals(Value.kForward)){
+				gearDoor.set(Value.kReverse);
+				light.set(false);
+			}
+			else {
+				gearDoor.set(Value.kForward);
+				light.set(true);
+			}
 	}
 	public void enableCompressor(){
 		airCompressor.start();

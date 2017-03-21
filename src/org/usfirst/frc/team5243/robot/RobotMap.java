@@ -48,5 +48,6 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	
 	public final static int light = 2;
 	
+	public static boolean leftTriggerPressed = false;
 
 }

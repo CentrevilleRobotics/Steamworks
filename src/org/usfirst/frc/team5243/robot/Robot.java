@@ -86,7 +86,7 @@ public class Robot extends IterativeRobot {
 		System.out.println("Auton command chooser initialized");
 		updateSmartDashboard();
 		
-		CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
+		//CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
 	}
 	public void updateSmartDashboard(){
 		SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
@@ -96,8 +96,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Back Left Motor ", driveSubsystem.getBackLeftSpeed());
 		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
 		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
-		
-		//SmartDashboard.putBoolean("Actuator Position ", gearSubsystem.getSolenoidStatus());
 		
 		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
 		
@@ -190,7 +188,6 @@ public class Robot extends IterativeRobot {
 				}
 			}
 		}*/
-		
 		if(autonomousCommand == null) autonomousCommand = new DriveToBaseline();
         autonomousCommand.start();
         
