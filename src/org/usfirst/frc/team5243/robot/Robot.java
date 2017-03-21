@@ -11,7 +11,6 @@ import org.usfirst.frc.team5243.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.GearSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.ClimbingSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.SensorSubsystem;
-import org.usfirst.frc.team5243.robot.subsystems.SolenoidSubsystem;
 import org.usfirst.frc.team5243.robot.subsystems.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -35,7 +34,6 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSubsystem;
 	public static SensorSubsystem sensorSubsystem;
 	public static GearSubsystem gearSubsystem;
-	public static SolenoidSubsystem solenoidSubsystem;
 	public static VisionSubsystem visionSubsystem;
 	public static ClimbingSubsystem loadingSubsystem;
 	
@@ -55,19 +53,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		System.out.println("DriveSS constructor");
 		driveSubsystem = new DriveSubsystem();
-		System.out.println("DriveSS gyro calibration");
 		driveSubsystem.calibrateGyro();
-		System.out.println("DriveSS Mecanum and Tank drive init");
 		driveSubsystem.commandInitializer();
 
-		System.out.println("sensorSubsystem constructor");
 		sensorSubsystem = new SensorSubsystem();
-		System.out.println("gearSubsystem constructor");
 		gearSubsystem = new GearSubsystem();
-		System.out.println("solenoidSubsystem consructor");		
-		solenoidSubsystem = new SolenoidSubsystem();
 		
 		try{
 			visionSubsystem = new VisionSubsystem();
@@ -76,16 +67,12 @@ public class Robot extends IterativeRobot {
 			//useVisionAutons = false;
 		}
 		loadingSubsystem = new ClimbingSubsystem();
-		System.out.println("Subsystems initialized, starting oi.init()");
 		oi.init();
-		System.out.println("OI initialized");
 		
 		autoChooser = new SendableChooser<Command>();
 		initAutonChoosers();
 		
-		System.out.println("Auton command chooser initialized");
 		updateSmartDashboard();
-		
 		//CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
 	}
 	public void updateSmartDashboard(){
@@ -97,7 +84,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
 		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
 		
-		SmartDashboard.putBoolean("Solenoid(Light) Status ", solenoidSubsystem.getSolenoidStatus());
 		
 		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getClimbSpeed());
 		
@@ -207,6 +193,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
     	if (autonomousCommand != null) autonomousCommand.cancel();
     	gearSubsystem.enableCompressor();
+    	gearSubsystem.retractPiston();
     }
 	/**
 	 * This function is called periodically during operator control

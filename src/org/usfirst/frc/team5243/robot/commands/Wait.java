@@ -21,7 +21,6 @@ public class Wait extends Command {
     	requires(Robot.gearSubsystem);
     	requires(Robot.loadingSubsystem);
     	requires(Robot.sensorSubsystem);
-    	requires(Robot.solenoidSubsystem);
     	requires(Robot.visionSubsystem);
     }
 

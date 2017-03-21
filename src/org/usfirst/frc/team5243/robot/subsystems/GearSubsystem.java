@@ -32,11 +32,15 @@ public class GearSubsystem extends Subsystem {
 	}
 	
 	public void extendPiston(){
-		gearDoor.set(Value.kForward);
+		gearDoor.set(Value.kReverse);
+		RobotMap.gearDoorExtended=true;
+		light.set(true);
 	}
 	
 	public void retractPiston() {
-		gearDoor.set(Value.kReverse);
+		gearDoor.set(Value.kForward);
+		RobotMap.gearDoorExtended=false;
+		light.set(false);
 	}
 	
 	//sets angle of gear door actuator which behaves in code like a servo

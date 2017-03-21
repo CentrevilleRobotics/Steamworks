@@ -100,7 +100,7 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void mecanumDrive(){ // mecanum drive
-        robotDrive.mecanumDrive_Cartesian(Robot.oi.getLeftStick().getY(),Robot.oi.getLeftStick().getX(),Robot.oi.getRightStick().getX(),gyro.getAngle());
+        robotDrive.mecanumDrive_Cartesian(Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
     
     //turns bot in place
