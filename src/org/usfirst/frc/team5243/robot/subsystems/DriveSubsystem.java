@@ -195,4 +195,31 @@ public class DriveSubsystem extends Subsystem {
     public double getBackRightSpeed() {
     	return backRight.getSpeed();
     }
+    
+    public void improvedStraight(double speed) {
+    	//This is equivalent to the code below in the same method.
+    	setRight(getGyroAngle() < 0 ? speed + .1 * Math.abs(getGyroAngle()) : speed);
+    	setLeft(getGyroAngle() > 0 ? speed + .05 * Math.abs(getGyroAngle()) : speed);
+    	
+    	/*if(getGyroAngle() < 0) {
+    		setRight(speed + .13 * Math.abs(getGyroAngle()));
+    		setLeft(speed);
+    	} else if(getGyroAngle() > 0) {
+    		setRight(speed);
+    		setLeft(speed + .13 * Math.abs(getGyroAngle()));
+    	} else {
+    		setAllMotors(speed);
+    	}*/
+    }
+    
+    public void setRight(double speed){
+    	frontRight.set(speed);
+    	backRight.set(speed);
+    }
+    
+    public void setLeft(double speed){
+    	frontLeft.set(speed);
+    	backLeft.set(speed);
+    }
 }
+

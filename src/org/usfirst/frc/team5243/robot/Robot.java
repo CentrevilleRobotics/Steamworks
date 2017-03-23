@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5243.robot;
 import org.usfirst.frc.team5243.robot.commands.DriveStraight;
+import org.usfirst.frc.team5243.robot.commands.autonomous.CenterAuton;
 import org.usfirst.frc.team5243.robot.commands.autonomous.DriveToBaseline;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueBoiler;
 import org.usfirst.frc.team5243.robot.commands.autonomous.vision.VisionBlueCenter;
@@ -84,6 +85,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Front Right Motor ", driveSubsystem.getFrontRightSpeed());
 		SmartDashboard.putNumber("Back Right Motor ", driveSubsystem.getBackRightSpeed());
 		
+		SmartDashboard.putNumber("Gyro angle ", driveSubsystem.getGyroAngle());
 		
 		SmartDashboard.putNumber("Lift/Climb Speed ", loadingSubsystem.getClimbSpeed());
 		
@@ -174,9 +176,10 @@ public class Robot extends IterativeRobot {
 				}
 			}
 		}*/
-		if(autonomousCommand == null) autonomousCommand = new DriveToBaseline();
+		autonomousCommand = new CenterAuton();
         autonomousCommand.start();
         
+        driveSubsystem.resetGyro();
     }
 	
     /**

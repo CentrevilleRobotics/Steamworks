@@ -36,7 +36,7 @@ public class DriveStraight extends Command {
 	// Called just before this Command runs the first time
 	//resets gyro to prevent command from working incorrectly
 	protected void initialize() {
-		driveSubsystem.resetGyro();
+		//driveSubsystem.resetGyro();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -44,30 +44,24 @@ public class DriveStraight extends Command {
 	protected void execute() {
 		System.out.println("gyro " + driveSubsystem.getGyroAngle());
 		System.out.println("Ultrasonic " + ultrasonic.getRangeInches());
-		if(Math.abs(driveSubsystem.getGyroAngle())>3){
-			if(driveSubsystem.getGyroAngle()>3)
-				driveSubsystem.turnLeft(.25);
-			else
-				driveSubsystem.turnRight(.25);
-		}else{
-			if (frontUltrasonic) {
-				// front side
-				if (drivingFrom) {
-					driveSubsystem.setAllMotors(-.75);
-				}
-				else{
-					driveSubsystem.setAllMotors(.75);
-				}
+		driveSubsystem.improvedStraight(frontUltrasonic != drivingFrom ? .25 : -.25); // see logic below to see it is the same thing
+		/*if (frontUltrasonic) {
+			// front side
+			if (drivingFrom) {
+				driveSubsystem.improvedStraight(-.25);
 			}
-			else {
-				// back side
-				if (drivingFrom) {
-					driveSubsystem.setAllMotors(.75);
-				} else {
-					driveSubsystem.setAllMotors(-.75);
-				}
+			else{
+				driveSubsystem.improvedStraight(.25);
 			}
-		} 
+		}
+		else {
+			// back side
+			if (drivingFrom) {
+				driveSubsystem.improvedStraight(.25);
+			} else {
+				driveSubsystem.improvedStraight(-.25);
+			}
+		}*/
 	}
 	// Make this return true when this Command no longer needs to run execute()
 	//finishes when ultrasonic value is at the distance
@@ -82,7 +76,7 @@ public class DriveStraight extends Command {
 	// Called once after isFinished returns true
 	//turns off all motors
 	protected void end() {
-		driveSubsystem.setAllMotors(0);
+		driveSubsystem.improvedStraight(0);
 	}
 
 	// Called when another command which requires one or more of the same

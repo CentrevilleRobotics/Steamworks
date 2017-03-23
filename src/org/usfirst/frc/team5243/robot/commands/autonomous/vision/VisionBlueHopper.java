@@ -18,9 +18,9 @@ public class VisionBlueHopper extends CommandGroup {
     	addSequential(new DriveStraight(false,false,120));
     	addSequential(new TurnDegrees(-60));
     	addSequential(new DriveUntil(4, true));
-    	addSequential(new ToggleGearDoor());
+    	addSequential(new ToggleGearDoor(true));
     	addSequential(new Wait(3));
-    	addSequential(new ToggleGearDoor());
+    	addSequential(new ToggleGearDoor(true));
 
     	addSequential(new DriveStraight(true, false, 36));
     	addSequential(new TurnDegrees(60));

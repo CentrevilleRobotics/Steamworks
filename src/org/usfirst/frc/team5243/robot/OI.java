@@ -73,7 +73,7 @@ public class OI {
 		climbButton.whileHeld(new ClimbCommand());
 		
 		toggleGearDoorLeft = new JoystickButton(leftStick, 1);
-		toggleGearDoorLeft.whenPressed(new ToggleGearDoor());
+		toggleGearDoorLeft.whenPressed(new ToggleGearDoor(false));
 		
 	}	
 	

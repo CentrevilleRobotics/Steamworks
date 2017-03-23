@@ -34,9 +34,9 @@ public class VisionBlueBoiler extends CommandGroup {
     	addSequential(new DriveStraight(false, false,120)); //drives to wall until it is 120 inches away
     	addSequential(new TurnDegrees(60)); //turns right 60 degrees to face gear peg
     	addSequential(new DriveUntil(3, true)); //drive until 3 inches away from peg using camera
-    	addSequential(new ToggleGearDoor()); //extend gear actuator
+    	addSequential(new ToggleGearDoor(true)); //extend gear actuator
     	addSequential(new Wait(3)); //wait 3 seconds
-    	addSequential(new ToggleGearDoor()); //retract gear actuator
+    	addSequential(new ToggleGearDoor(true)); //retract gear actuator
     	addSequential(new DriveStraight(true,false,12)); //drive back away from gear peg
     	addSequential(new TurnDegrees(-15)); //turn to face boiler
     	addSequential(new DriveUntil(3, false)); //drive to boiler

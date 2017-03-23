@@ -20,8 +20,8 @@ public class SensorSubsystem extends Subsystem {
 	
 	//Sets ping channel to 0 and echo channel to 1 for both ultrasonics
 	public SensorSubsystem() {
-		ultrasonicFront = new Ultrasonic(0, 1);
-		ultrasonicBack = new Ultrasonic(2, 3);
+		ultrasonicFront = new Ultrasonic(2, 3);
+		ultrasonicBack = new Ultrasonic(0, 1);
 		ultrasonicFront.setAutomaticMode(true);
 		ultrasonicBack.setAutomaticMode(true);
 		lightFront = new Relay(RobotMap.lightFront);
@@ -64,13 +64,13 @@ public class SensorSubsystem extends Subsystem {
 	//Returns the range in inches from the front ultrasonic sensors
 	public double getUltrasonicFrontValue() {
 		//return getUltraSample(ultrasonicFront,10);
-		return ultrasonicFront.getRangeInches();
+		return getUltraSample(ultrasonicFront,5);
 	}
 
 	//Returns the range in inches from the back ultrasonic sensors
 	public double getUltrasonicBackValue() {
 		//return getUltraSample(ultrasonicBack,5);
-		return ultrasonicBack.getRangeInches();
+		return getUltraSample(ultrasonicBack,5);	
 	}
 
 	public void initDefaultCommand() {

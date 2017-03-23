@@ -14,10 +14,11 @@ public class ToggleGearDoor extends Command {
 	
 	//declares subsystem dependencies
 	private GearSubsystem gearSubsystem;
-
-	public ToggleGearDoor() {
+	private boolean auton;
+	public ToggleGearDoor(boolean autonomous) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		auton=autonomous;
 		gearSubsystem = Robot.gearSubsystem;
 		requires(gearSubsystem);
 	}
@@ -33,7 +34,7 @@ public class ToggleGearDoor extends Command {
 		if(RobotMap.gearDoorExtended)
 			gearSubsystem.retractPiston();
 		else
-			if(Robot.oi.getRightStick().getTrigger())
+			if(Robot.oi.getRightStick().getTrigger() || auton)
 				gearSubsystem.extendPiston();
 		
 	}

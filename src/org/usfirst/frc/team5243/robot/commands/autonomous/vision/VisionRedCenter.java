@@ -34,9 +34,9 @@ public class VisionRedCenter extends CommandGroup {
     	
     	System.out.println("RedCenter auton running");
     	addSequential(new DriveUntil(4, true));
-    	addSequential(new ToggleGearDoor());
+    	addSequential(new ToggleGearDoor(true));
     	addSequential(new Wait(3));
-    	addSequential(new ToggleGearDoor());
+    	addSequential(new ToggleGearDoor(true));
     	addSequential(new DriveStraight(true,false,36));
     	addSequential(new TurnDegrees(-45));
     	addSequential(new StrafeCommand(true,false, 60));
