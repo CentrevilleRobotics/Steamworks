@@ -7,6 +7,7 @@ import org.usfirst.frc.team5243.robot.commands.TankDriveCommand;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -21,7 +22,7 @@ public class DriveSubsystem extends Subsystem {
     CANTalon frontRight;
     CANTalon backRight;
     RobotDrive robotDrive;
-    ADXRS450_Gyro gyro;
+    AnalogGyro gyro;
     
     //declare drive commands
     MecanumDriveCommand mecanumDrive;
@@ -36,7 +37,7 @@ public class DriveSubsystem extends Subsystem {
     	backRight = new CANTalon(RobotMap.BackRight);
     	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
     	robotDrive.setSafetyEnabled(false);
-		gyro = new ADXRS450_Gyro();
+		gyro = new AnalogGyro(RobotMap.gyro);
 		
 		//set acceleration rate of voltage on motors
 		frontRight.setVoltageRampRate(24);
@@ -100,7 +101,7 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void mecanumDrive(){ // mecanum drive
-        robotDrive.mecanumDrive_Cartesian(Robot.oi.getLeftStick().getX(),Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
+        robotDrive.mecanumDrive_Cartesian(Robot.oi.getLeftStick().getX(),-Robot.oi.getLeftStick().getY(),Robot.oi.getRightStick().getX(),gyro.getAngle());
     }
     
     //turns bot in place

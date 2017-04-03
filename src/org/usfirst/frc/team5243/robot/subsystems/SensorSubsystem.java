@@ -64,13 +64,15 @@ public class SensorSubsystem extends Subsystem {
 	//Returns the range in inches from the front ultrasonic sensors
 	public double getUltrasonicFrontValue() {
 		//return getUltraSample(ultrasonicFront,10);
-		return getUltraSample(ultrasonicFront,5);
+		//return getUltraSample(ultrasonicFront,5);
+		return ultrasonicFront.getRangeInches();
 	}
 
 	//Returns the range in inches from the back ultrasonic sensors
 	public double getUltrasonicBackValue() {
 		//return getUltraSample(ultrasonicBack,5);
-		return getUltraSample(ultrasonicBack,5);	
+		return ultrasonicBack.getRangeInches();
+		
 	}
 
 	public void initDefaultCommand() {

@@ -27,6 +27,6 @@ public class DriveToBaseline extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	System.out.println("DriveToBaseline running");
-    	addSequential(new DriveSeconds(4));
+    	addSequential(new DriveSeconds(5));
     }
 }

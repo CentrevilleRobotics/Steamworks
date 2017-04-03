@@ -24,7 +24,7 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	public final static int leftStick = 0;
 	public final static int rightStick = 1;
 	
-	public final static int liftMotor = 7;
+	public final static int liftMotor = 5;
 	
 	public final static int ultrasonicFront = 1;
 	public final static int ultrasonicBack = 2;
@@ -37,6 +37,7 @@ public class RobotMap {    // For example to map the left and right motors, you 
 	
 	public final static int greenLight = 3;
 	
+	public final static int gyro = 0;
 	
 	public static boolean MecanumDrive = true;
 	

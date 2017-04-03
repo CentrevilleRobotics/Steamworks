@@ -25,7 +25,8 @@ public class ClimbCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     //sets climb motor to power 1
     protected void execute() {
-    	loadSubsystem.setClimbMotor(1);
+    	System.out.println("Climbing");
+    	loadSubsystem.setClimbMotor(-.5*Robot.oi.getRightStick().getThrottle() + .5);
     }
 
     // Make this return true when this Command no longer needs to run execute()

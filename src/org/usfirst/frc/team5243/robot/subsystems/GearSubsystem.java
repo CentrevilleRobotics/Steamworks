@@ -53,6 +53,7 @@ public class GearSubsystem extends Subsystem {
 				gearDoor.set(Value.kForward);
 				light.set(true);
 			}
+			RobotMap.gearDoorExtended = !RobotMap.gearDoorExtended;
 	}
 	public void enableCompressor(){
 		airCompressor.start();

@@ -44,24 +44,23 @@ public class DriveStraight extends Command {
 	protected void execute() {
 		System.out.println("gyro " + driveSubsystem.getGyroAngle());
 		System.out.println("Ultrasonic " + ultrasonic.getRangeInches());
-		driveSubsystem.improvedStraight(frontUltrasonic != drivingFrom ? .25 : -.25); // see logic below to see it is the same thing
-		/*if (frontUltrasonic) {
+		if (frontUltrasonic) {
 			// front side
 			if (drivingFrom) {
-				driveSubsystem.improvedStraight(-.25);
+				driveSubsystem.improvedStraight(.3);
 			}
 			else{
-				driveSubsystem.improvedStraight(.25);
+				driveSubsystem.improvedStraight(-.3);
 			}
 		}
 		else {
 			// back side
 			if (drivingFrom) {
-				driveSubsystem.improvedStraight(.25);
+				driveSubsystem.improvedStraight(-.3);
 			} else {
-				driveSubsystem.improvedStraight(-.25);
+				driveSubsystem.improvedStraight(.3);
 			}
-		}*/
+		}
 	}
 	// Make this return true when this Command no longer needs to run execute()
 	//finishes when ultrasonic value is at the distance
