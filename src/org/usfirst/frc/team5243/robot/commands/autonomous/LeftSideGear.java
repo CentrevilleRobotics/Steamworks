@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LeftSideGear extends CommandGroup {
     public LeftSideGear() {
     	addSequential(new DriveStraight(true,false,120));
-    	addSequential(new TurnDegrees(60));    
+    	addSequential(new TurnDegrees(60));
     	addSequential(new CenterAuton());
     }
 }

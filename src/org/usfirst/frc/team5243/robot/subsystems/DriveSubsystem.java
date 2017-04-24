@@ -6,9 +6,13 @@ import org.usfirst.frc.team5243.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.TankDriveCommand;
 
 import com.ctre.CANTalon;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,11 +22,11 @@ public class DriveSubsystem extends Subsystem {
 
 	//declares motors (CANTalons), gyro, 
 	CANTalon frontLeft;
-    CANTalon backLeft;
-    CANTalon frontRight;
-    CANTalon backRight;
+	CANTalon backLeft;
+	CANTalon frontRight;
+	CANTalon backRight;
     RobotDrive robotDrive;
-    AnalogGyro gyro;
+    AHRS gyro;
     
     //declare drive commands
     MecanumDriveCommand mecanumDrive;
@@ -37,13 +41,12 @@ public class DriveSubsystem extends Subsystem {
     	backRight = new CANTalon(RobotMap.BackRight);
     	robotDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
     	robotDrive.setSafetyEnabled(false);
-		gyro = new AnalogGyro(RobotMap.gyro);
-		
+		gyro = new AHRS(SPI.Port.kMXP);
 		//set acceleration rate of voltage on motors
-		frontRight.setVoltageRampRate(24);
-    	backRight.setVoltageRampRate(24);
-    	frontLeft.setVoltageRampRate(24);
-    	backLeft.setVoltageRampRate(24);
+		//frontRight.setVoltageRampRate(24);
+    	//backRight.setVoltageRampRate(24);
+    	//frontLeft.setVoltageRampRate(24);
+    	//backLeft.setVoltageRampRate(24);
 		
 		//Invert necessary motors
     	frontRight.setInverted(true);
@@ -80,14 +83,10 @@ public class DriveSubsystem extends Subsystem {
     	strafeRight(-speed);
     }
     
-    //calibrates gyro
-    public void calibrateGyro() {
-    	gyro.calibrate();
-    }
     
     //returns gyro angle
     public double getGyroAngle(){
-    	return gyro.getAngle();
+    	return gyro.getYaw();
     }
     
     //returns gyro rate
@@ -202,6 +201,7 @@ public class DriveSubsystem extends Subsystem {
     	setRight(getGyroAngle() < 0 ? speed + .1 * Math.abs(getGyroAngle()) : speed);
     	setLeft(getGyroAngle() > 0 ? speed + .05 * Math.abs(getGyroAngle()) : speed);
     	
+    	System.out.println("Front Left Speed: " + getFrontLeftSpeed() + "  Gyro Angle: " + .1 * getGyroAngle()) ;
     	/*if(getGyroAngle() < 0) {
     		setRight(speed + .13 * Math.abs(getGyroAngle()));
     		setLeft(speed);
@@ -223,4 +223,3 @@ public class DriveSubsystem extends Subsystem {
     	backLeft.set(speed);
     }
 }
-

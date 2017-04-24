@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SensorSubsystem extends Subsystem {
 
-	//Declares two ultrasonic variables called ultrasonicFront and ultrasonicBack
+	// Declares two ultrasonic variables called ultrasonicFront and
+	// ultrasonicBack
 	private Ultrasonic ultrasonicFront;
 	private Ultrasonic ultrasonicBack;
 	private Relay lightFront;
 	private Relay lightBack;
-	
-	//Sets ping channel to 0 and echo channel to 1 for both ultrasonics
+
+	// Sets ping channel to 0 and echo channel to 1 for both ultrasonics
 	public SensorSubsystem() {
 		ultrasonicFront = new Ultrasonic(2, 3);
 		ultrasonicBack = new Ultrasonic(0, 1);
@@ -26,53 +27,61 @@ public class SensorSubsystem extends Subsystem {
 		ultrasonicBack.setAutomaticMode(true);
 		lightFront = new Relay(RobotMap.lightFront);
 		lightBack = new Relay(RobotMap.lightBack);
-	
+
 	}
-	
-	public Relay getFrontLight(){
+
+	public Relay getFrontLight() {
 		return lightFront;
 	}
-	
-	public Relay getBackLight(){
+
+	public Relay getBackLight() {
 		return lightBack;
 	}
-	//returns front ultrasonic sensor
-	public Ultrasonic getFrontUltra(){
+
+	// returns front ultrasonic sensor
+	public Ultrasonic getFrontUltra() {
 		return ultrasonicFront;
 	}
-	
-	//returns back ultrasonic sensor
-	public Ultrasonic getBackUltra(){
+
+	// returns back ultrasonic sensor
+	public Ultrasonic getBackUltra() {
 		return ultrasonicBack;
 	}
-	
-	//returns average distance over a certain time
-	public double getUltraSample(Ultrasonic ultra, int sampleCount){
+
+	// returns average distance over a certain time
+	public double getUltraSample(Ultrasonic ultra, int sampleCount) {
 		double total = 0;
-		for(int i=0;i<sampleCount;i++){
+		for (int i = 0; i < sampleCount; i++) {
 			total += ultra.getRangeInches();
 		}
-		return total/sampleCount;
+		return total / sampleCount;
 	}
-	//Initializes ultrasonics by setting automatic mode 
-	//Automatic mode allows all sensors to go one at a time
+
+	// Initializes ultrasonics by setting automatic mode
+	// Automatic mode allows all sensors to go one at a time
 	public void robotInit() {
 		ultrasonicFront.setAutomaticMode(true);
 		ultrasonicBack.setAutomaticMode(true);
 	}
 
-	//Returns the range in inches from the front ultrasonic sensors
+	// Returns the range in inches from the front ultrasonic sensors
 	public double getUltrasonicFrontValue() {
-		//return getUltraSample(ultrasonicFront,10);
-		//return getUltraSample(ultrasonicFront,5);
-		return ultrasonicFront.getRangeInches();
+		// return getUltraSample(ultrasonicFront,10);
+		// return getUltraSample(ultrasonicFront,5);
+		return getRange(ultrasonicFront);
 	}
 
-	//Returns the range in inches from the back ultrasonic sensors
+	private double getRange(Ultrasonic u) {
+		double range = u.getRangeInches();
+		if (range > 480)
+			return getRange(u);
+		return range;
+	}
+
+	// Returns the range in inches from the back ultrasonic sensors
 	public double getUltrasonicBackValue() {
-		//return getUltraSample(ultrasonicBack,5);
-		return ultrasonicBack.getRangeInches();
-		
+		// return getUltraSample(ultrasonicBack,5);
+		return getRange(ultrasonicBack);
 	}
 
 	public void initDefaultCommand() {

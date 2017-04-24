@@ -23,8 +23,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.horse.dashboard.smart.NodeActions;
 import com.horse.dashboard.smart.SmartDashboard;
+import javafx.application.Application;
+import javafx.scene.control.Button;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -59,7 +60,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
-		driveSubsystem.calibrateGyro();
 		driveSubsystem.commandInitializer();
 
 		sensorSubsystem = new SensorSubsystem();
@@ -74,55 +74,49 @@ public class Robot extends IterativeRobot {
 		loadingSubsystem = new ClimbingSubsystem();
 		oi.init();
 		
-		SmartDashboard.main((String[])(null));
+		//Application.launch(SmartDashboard.class);
 		
-		
-		initSmartDashboardValues();
-		initSmartDashboardValuePositions();
+		try {
+			//SmartDashboard.main((String[])(null));
+			initSmartDashboardValues();
+		} catch(Throwable t) {
+			t.printStackTrace();
+		}
 		
 		autoChooser = new SendableChooser<Command>();
 		initAutonChoosers();
 		
-		updateSmartDashboard();
-		CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
+		//updateSmartDashboard();
+		//CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
 	}
 	
 	public void initSmartDashboardValues() {
-		NodeActions.smartDashboard.put("Front Ultrasonic", 0);
-		NodeActions.smartDashboard.put("Back Ultrasonic", 0);
+		SmartDashboard.createLabelUpdateLoop("Front Ultrasonic", sensorSubsystem::getUltrasonicFrontValue, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Back Ultrasonic", sensorSubsystem::getUltrasonicBackValue, Integer.MIN_VALUE, 0.1d);
 		
-		NodeActions.smartDashboard.put("Front Left Motor", 0);
-		NodeActions.smartDashboard.put("Back Left Motor", 0);
-		NodeActions.smartDashboard.put("Front Right Motor", 0);
-		NodeActions.smartDashboard.put("Back Right Motor", 0);
+		SmartDashboard.createLabelUpdateLoop("Front Left Motor", driveSubsystem::getFrontLeftSpeed, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Back Left Motor", driveSubsystem::getBackLeftSpeed, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Front Right Motor", driveSubsystem::getFrontRightSpeed, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Back Right Motor", driveSubsystem::getBackRightSpeed, Integer.MIN_VALUE, 0.1d);
 		
-		NodeActions.smartDashboard.put("Gyro angle", 0);
+		SmartDashboard.createLabelUpdateLoop("Gyro Angle", driveSubsystem::getGyroAngle, Integer.MIN_VALUE, 0.1d);
 		
-		NodeActions.smartDashboard.put("Lift/Climb Speed", 0);
+		SmartDashboard.createLabelUpdateLoop("Left/Climb Speed", loadingSubsystem::getClimbSpeed, Integer.MIN_VALUE, 0.1d);
 		
-		NodeActions.smartDashboard.put("Front Offset X", 0);
-		NodeActions.smartDashboard.put("Front Offset Y", 0);
-		NodeActions.smartDashboard.put("Rear Offset X", 0);
-		NodeActions.smartDashboard.put("Rear Offset Y", 0);
-	}
-	
-	public void initSmartDashboardValuePositions() {
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Front Ultrasonic", 0,  0);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Back Ultrasonic", 0, 30);
+		SmartDashboard.createLabelUpdateLoop("Front Offset X", visionSubsystem::getFrontOffsetX, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Front Offset Y", visionSubsystem::getFrontOffsetY, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Rear Offset X", visionSubsystem::getRearOffsetX, Integer.MIN_VALUE, 0.1d);
+		SmartDashboard.createLabelUpdateLoop("Rear Offset Y", visionSubsystem::getRearOffsetY, Integer.MIN_VALUE, 0.1d);
 		
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Front Left Motor", 0, 60);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Back Left Motor", 0, 90);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Front Right Motor", 0, 120);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Back Right Motor", 0, 150);
+		Button button = new Button("Drive Straight");
+		button.setOnAction(a -> {
+			new DriveStraight(true, false, 10).start();
+		});
 		
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Gyro angle", 200, 0);
+		button.setLayoutX(200);
+		button.setLayoutY(200);
 		
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Lift/Climb Speed", 200, 30);
-		
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Front Offset X", 200, 60);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Front Offset Y", 200, 90);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Rear Offset X", 200, 120);
-		NodeActions.smartDashboard.changeLabelPositionBasedOnTextValue("Rear Offset Y", 200, 150);
+		SmartDashboard.getValuesTabPane().getChildren().add(button);
 	}
 	
 	public void updateSmartDashboard(){
@@ -143,22 +137,22 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
 		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());*/	
 		
-		NodeActions.smartDashboard.put("Front Ultrasonic", sensorSubsystem.getUltrasonicFrontValue());
-		NodeActions.smartDashboard.put("Back Ultrasonic", sensorSubsystem.getUltrasonicBackValue());
+		/*SmartDashboard.put("Front Ultrasonic", sensorSubsystem.getUltrasonicFrontValue());
+		SmartDashboard.put("Back Ultrasonic", sensorSubsystem.getUltrasonicBackValue());
 		
-		NodeActions.smartDashboard.put("Front Left Motor", driveSubsystem.getFrontLeftSpeed());
-		NodeActions.smartDashboard.put("Back Left Motor", driveSubsystem.getBackLeftSpeed());
-		NodeActions.smartDashboard.put("Front Right Motor", driveSubsystem.getFrontRightSpeed());
-		NodeActions.smartDashboard.put("Back Right Motor", driveSubsystem.getBackRightSpeed());
+		SmartDashboard.put("Front Left Motor", driveSubsystem.getFrontLeftSpeed());
+		SmartDashboard.put("Back Left Motor", driveSubsystem.getBackLeftSpeed());
+		SmartDashboard.put("Front Right Motor", driveSubsystem.getFrontRightSpeed());
+		SmartDashboard.put("Back Right Motor", driveSubsystem.getBackRightSpeed());
 		
-		NodeActions.smartDashboard.put("Gyro angle", driveSubsystem.getGyroAngle());
+		SmartDashboard.put("Gyro angle", driveSubsystem.getGyroAngle());
 		
-		NodeActions.smartDashboard.put("Lift/Climb Speed", loadingSubsystem.getClimbSpeed());
+		SmartDashboard.put("Lift/Climb Speed", loadingSubsystem.getClimbSpeed());
 		
-		NodeActions.smartDashboard.put("Front Offset X", visionSubsystem.getFrontOffsetX());
-		NodeActions.smartDashboard.put("Front Offset Y", visionSubsystem.getFrontOffsetY());
-		NodeActions.smartDashboard.put("Rear Offset X", visionSubsystem.getRearOffsetX());
-		NodeActions.smartDashboard.put("Rear Offset Y", visionSubsystem.getRearOffsetY());
+		SmartDashboard.put("Front Offset X", visionSubsystem.getFrontOffsetX());
+		SmartDashboard.put("Front Offset Y", visionSubsystem.getFrontOffsetY());
+		SmartDashboard.put("Rear Offset X", visionSubsystem.getRearOffsetX());
+		SmartDashboard.put("Rear Offset Y", visionSubsystem.getRearOffsetY());*/
 	}
 	
 	public void initAutonChoosers(){
@@ -246,7 +240,8 @@ public class Robot extends IterativeRobot {
         driveSubsystem.resetGyro();
 		autonomousCommand = new CenterAuton();
         autonomousCommand.start();
-        
+		initSmartDashboardValues();
+
     }
 	
     /**
@@ -257,7 +252,6 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
 		//System.out.println(sensorSubsystem.getUltrasonicFrontValue());
 		updateSmartDashboard();
-		        
     }
 
     public void teleopInit() {

@@ -1,9 +1,9 @@
 package org.usfirst.frc.team5243.robot;
 
 import org.usfirst.frc.team5243.robot.commands.ClimbCommand;
+import org.usfirst.frc.team5243.robot.commands.DriveStraight;
 import org.usfirst.frc.team5243.robot.commands.SwitchDriveCommand;
 import org.usfirst.frc.team5243.robot.commands.ToggleGearDoor;
-import org.usfirst.frc.team5243.robot.commands.ToggleGearDoorTriggers;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -39,6 +39,9 @@ public class OI {
 	Button toggleGearDoorRight;
 	
 	Button activateGearDoor;
+	
+	Button driveStraight;
+	
 	 /*There are a few additional built in buttons you can use. Additionally,
 	 by subclassing Button you can create custom triggers and bind those to
 	 commands the same as any other Button.
@@ -75,6 +78,8 @@ public class OI {
 		toggleGearDoorLeft = new JoystickButton(leftStick, 1);
 		toggleGearDoorLeft.whenPressed(new ToggleGearDoor(false));
 		
+		driveStraight = new JoystickButton(leftStick, 4);
+		driveStraight.whenPressed(new DriveStraight(true, false, 10));
 	}	
 	
 	//Getters for Joysticks

@@ -42,8 +42,7 @@ public class DriveStraight extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	//continually checks if robot is off course as determined by the gyro angle
 	protected void execute() {
-		System.out.println("gyro " + driveSubsystem.getGyroAngle());
-		System.out.println("Ultrasonic " + ultrasonic.getRangeInches());
+		System.out.println("We're driving at an exponential turning speed");
 		if (frontUltrasonic) {
 			// front side
 			if (drivingFrom) {

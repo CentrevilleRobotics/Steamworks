@@ -31,11 +31,13 @@ public class TurnDegrees extends Command {
     // Called repeatedly when this Command is scheduled to run
     //turns until turnDegrees is reached
     protected void execute() {
+    	System.out.println("TURN DOWN");
+    	double speed = (((Math.abs(driveSubsystem.getGyroAngle() - startDegree)) % 360) / 400) + .1;
     	if (turnDegrees < 0) {
-    		driveSubsystem.turnLeft(.4);
+    		driveSubsystem.turnLeft(speed);
     	}
     	else if (turnDegrees > 0) {
-    		driveSubsystem.turnRight(.4);
+    		driveSubsystem.turnRight(speed);
     	}
     }
 
