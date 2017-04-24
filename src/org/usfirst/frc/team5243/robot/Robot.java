@@ -21,9 +21,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.horse.dashboard.smart.SmartDashboard;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 
@@ -78,7 +77,7 @@ public class Robot extends IterativeRobot {
 		
 		try {
 			//SmartDashboard.main((String[])(null));
-			initSmartDashboardValues();
+			//initSmartDashboardValues();
 		} catch(Throwable t) {
 			t.printStackTrace();
 		}
@@ -86,12 +85,12 @@ public class Robot extends IterativeRobot {
 		autoChooser = new SendableChooser<Command>();
 		initAutonChoosers();
 		
-		//updateSmartDashboard();
+		updateSmartDashboard();
 		//CameraServer.getInstance().startAutomaticCapture("cam0", 0); // May cause problems
 	}
 	
 	public void initSmartDashboardValues() {
-		SmartDashboard.createLabelUpdateLoop("Front Ultrasonic", sensorSubsystem::getUltrasonicFrontValue, Integer.MIN_VALUE, 0.1d);
+	/*	SmartDashboard.createLabelUpdateLoop("Front Ultrasonic", sensorSubsystem::getUltrasonicFrontValue, Integer.MIN_VALUE, 0.1d);
 		SmartDashboard.createLabelUpdateLoop("Back Ultrasonic", sensorSubsystem::getUltrasonicBackValue, Integer.MIN_VALUE, 0.1d);
 		
 		SmartDashboard.createLabelUpdateLoop("Front Left Motor", driveSubsystem::getFrontLeftSpeed, Integer.MIN_VALUE, 0.1d);
@@ -117,10 +116,10 @@ public class Robot extends IterativeRobot {
 		button.setLayoutY(200);
 		
 		SmartDashboard.getValuesTabPane().getChildren().add(button);
-	}
+	*/}
 	
 	public void updateSmartDashboard(){
-		/*SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
+		SmartDashboard.putNumber("Front Ultrasonic ", sensorSubsystem.getUltrasonicFrontValue());
 		SmartDashboard.putNumber("Back Ultrasonic ", sensorSubsystem.getUltrasonicBackValue());
 		
 		SmartDashboard.putNumber("Front Left Motor ", driveSubsystem.getFrontLeftSpeed());
@@ -135,7 +134,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Front Offset X ", visionSubsystem.getFrontOffsetX());
 		SmartDashboard.putNumber("Front Offset Y ", visionSubsystem.getFrontOffsetY());
 		SmartDashboard.putNumber("Rear Offset X ", visionSubsystem.getRearOffsetX());
-		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());*/	
+		SmartDashboard.putNumber("Rear Offset Y ", visionSubsystem.getRearOffsetY());
 		
 		/*SmartDashboard.put("Front Ultrasonic", sensorSubsystem.getUltrasonicFrontValue());
 		SmartDashboard.put("Back Ultrasonic", sensorSubsystem.getUltrasonicBackValue());
